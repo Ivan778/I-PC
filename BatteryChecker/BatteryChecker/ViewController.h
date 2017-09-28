@@ -12,6 +12,7 @@
 
 @property (weak) IBOutlet NSTextField *powerSourceTypeLabel;
 @property (weak) IBOutlet NSTextField *timeLeftLabel;
+@property (weak) IBOutlet NSTextField *chargingLevelLabel;
 
 @end
 
