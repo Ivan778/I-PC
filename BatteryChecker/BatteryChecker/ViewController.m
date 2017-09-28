@@ -19,7 +19,7 @@
         [_timeLeftLabel setStringValue:@"∞"];
     } else {
         if (timeRemaining == kIOPSTimeRemainingUnknown) {
-            [_timeLeftLabel setStringValue:@"Идёт подсчёт оставшегося времени работы"];
+            [_timeLeftLabel setStringValue:@"Считаю..."];
         } else {
             double time = (double)(timeRemaining) / 60 / 60;
             int hours = (int)time;
@@ -40,7 +40,7 @@
     [_powerSourceTypeLabel setStringValue:powerSourceType];
 }
 
--(int)getConsoleOutput: (char*)command {
+-(NSMutableString*)getConsoleOutput: (char*)command {
     FILE *fp;
     char path[1035];
     
@@ -53,49 +53,33 @@
     
     // Читаем вывод команды
     while (fgets(path, sizeof(path)-1, fp) != NULL) {
-        printf("%s", path);
+        //printf("%s", path);
     }
     
     // Закрываем файл
     pclose(fp);
     
-    int i, j;
-    for (i = 0; path[i] != '\n'; i++) {
-        if (path[i] == '=') {
-            break;
+    NSMutableString *ret;
+    char number[3];
+    
+    for (int i = 19, j = 0; path[i] != '%'; i++) {
+        if (path[i] >= '0' && path[i] <= '9') {
+            number[j] = path[i];
+            j++;
         }
     }
     
-    i += 2;
-
-    char number[4];
-    for (j = 0; path[i] != '\n'; i++, j++) {
-        number[j] = path[i];
-    }
-    
-    j--;
-    
-    int k = 10, ret = 0;
-    
-    i = 0;
-    while (i <= j) {
-        ret = k * ret + (number[i] - '0');
-        i++;
-    }
+    ret = [NSMutableString stringWithUTF8String:number];
     
     return ret;
 }
 
 // Вывести процент заряда
 - (void)setBatteryLevelLabel {
-    int currentLevel = [self getConsoleOutput:"ioreg -w0 -l | grep CurrentCapacity"];
-    int maxLevel = [self getConsoleOutput:"ioreg -w0 -l | grep MaxCapacity"];
+    NSMutableString *level = [self getConsoleOutput:"pmset -g batt"];
+    [level insertString:@" %" atIndex:level.length];
     
-    int level = (int)(((double)currentLevel / (double)maxLevel) * 100);
-    
-    NSString *info = [NSString stringWithFormat:@"%d %%", level];
-    [_chargingLevelLabel setStringValue:info];
-    
+    [_chargingLevelLabel setStringValue:level];
 }
 
 - (void)viewDidLoad {
