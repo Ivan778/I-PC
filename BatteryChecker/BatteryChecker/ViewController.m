@@ -11,6 +11,8 @@
 
 @implementation ViewController
 
+{ BatteryStatus *status; }
+
 // Вывести оставшееся время работы от аккумулятора
 - (void)setTimeLeftLabel {
     CFTimeInterval timeRemaining = IOPSGetTimeRemainingEstimate();
@@ -33,12 +35,21 @@
 
 // Вывести тип подключения в Label
 - (void)setPowerSourceTypeLabel {
-    CFStringRef info;
+    NSString *info = status.getPowerSourceType;
     
-    info = IOPSGetProvidingPowerSourceType(IOPSCopyPowerSourcesInfo());
-    NSString *powerSourceType = (__bridge NSString *) info;
-    [_powerSourceTypeLabel setStringValue:powerSourceType];
+    if (info != nil) {
+        [_powerSourceTypeLabel setStringValue:info];
+    }
 }
+
+// Будет измменять время до затемнения экрана при работе от батареи
+- (IBAction)changedValueSlider:(id)sender {
+    NSMutableString *command = [@"sudo pmset -b displaysleep " mutableCopy];
+    [command appendString:[NSString stringWithFormat:@"%i", [sender intValue]]];
+    
+    [_TimeTillDecreaseBrightness setStringValue:[NSString stringWithFormat:@"%i мин", [sender intValue]]];
+}
+
 
 -(NSMutableString*)getConsoleOutput: (char*)command {
     FILE *fp;
@@ -52,9 +63,7 @@
     }
     
     // Читаем вывод команды
-    while (fgets(path, sizeof(path)-1, fp) != NULL) {
-        //printf("%s", path);
-    }
+    while (fgets(path, sizeof(path)-1, fp) != NULL);
     
     // Закрываем файл
     pclose(fp);
@@ -80,17 +89,30 @@
     [level insertString:@" %" atIndex:level.length];
     
     [_chargingLevelLabel setStringValue:level];
+    
+    int chargingLevel = (int)[level integerValue];
+    
+    [_BatteryLevelIndicatorCell setMinValue:0.0];
+    [_BatteryLevelIndicatorCell setMaxValue:100.0];
+    [_BatteryLevelIndicatorCell setWarningValue:20.0];
+    [_BatteryLevelIndicatorCell setCriticalValue:5.0];
+    
+    [_BatteryLevelIndicatorCell setIntValue:chargingLevel];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
+    status = [[BatteryStatus alloc] init];
+    
     [self setTimeLeftLabel];
     [self setPowerSourceTypeLabel];
     [self setBatteryLevelLabel];
     
     [self initializePowerSourceChanges];
+    
+    [_TimeTillDecreaseBrightness setStringValue:@"3 мин"];
 }
 
 void PowerSourcesHaveChanged(void *context) {

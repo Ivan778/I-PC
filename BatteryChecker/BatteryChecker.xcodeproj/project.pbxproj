@@ -12,6 +12,7 @@
 		2C78EF9D1F7ADDE2007E1754 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C78EF9C1F7ADDE2007E1754 /* ViewController.m */; };
 		2C78EF9F1F7ADDE2007E1754 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C78EF9E1F7ADDE2007E1754 /* Assets.xcassets */; };
 		2C78EFA21F7ADDE2007E1754 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C78EFA01F7ADDE2007E1754 /* Main.storyboard */; };
+		2CB8E5901F7D879600D4D9DC /* BatteryStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB8E58F1F7D879600D4D9DC /* BatteryStatus.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,8 @@
 		2C78EF9E1F7ADDE2007E1754 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C78EFA11F7ADDE2007E1754 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2C78EFA31F7ADDE2007E1754 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2CB8E58E1F7D879600D4D9DC /* BatteryStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatteryStatus.h; sourceTree = "<group>"; };
+		2CB8E58F1F7D879600D4D9DC /* BatteryStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BatteryStatus.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,10 +59,9 @@
 		2C78EF941F7ADDE2007E1754 /* BatteryChecker */ = {
 			isa = PBXGroup;
 			children = (
-				2C78EF951F7ADDE2007E1754 /* AppDelegate.h */,
-				2C78EF961F7ADDE2007E1754 /* AppDelegate.m */,
-				2C78EF9B1F7ADDE2007E1754 /* ViewController.h */,
-				2C78EF9C1F7ADDE2007E1754 /* ViewController.m */,
+				2CB8E5931F7D87F100D4D9DC /* ViewController */,
+				2CB8E5921F7D87E500D4D9DC /* Delegate */,
+				2CB8E5911F7D87D000D4D9DC /* BatteryStatus */,
 				2C78EF9E1F7ADDE2007E1754 /* Assets.xcassets */,
 				2C78EFA01F7ADDE2007E1754 /* Main.storyboard */,
 				2C78EFA31F7ADDE2007E1754 /* Info.plist */,
@@ -74,6 +76,33 @@
 				2C78EF991F7ADDE2007E1754 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2CB8E5911F7D87D000D4D9DC /* BatteryStatus */ = {
+			isa = PBXGroup;
+			children = (
+				2CB8E58E1F7D879600D4D9DC /* BatteryStatus.h */,
+				2CB8E58F1F7D879600D4D9DC /* BatteryStatus.m */,
+			);
+			name = BatteryStatus;
+			sourceTree = "<group>";
+		};
+		2CB8E5921F7D87E500D4D9DC /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				2C78EF951F7ADDE2007E1754 /* AppDelegate.h */,
+				2C78EF961F7ADDE2007E1754 /* AppDelegate.m */,
+			);
+			name = Delegate;
+			sourceTree = "<group>";
+		};
+		2CB8E5931F7D87F100D4D9DC /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2C78EF9B1F7ADDE2007E1754 /* ViewController.h */,
+				2C78EF9C1F7ADDE2007E1754 /* ViewController.m */,
+			);
+			name = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,6 +176,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CB8E5901F7D879600D4D9DC /* BatteryStatus.m in Sources */,
 				2C78EF9D1F7ADDE2007E1754 /* ViewController.m in Sources */,
 				2C78EF9A1F7ADDE2007E1754 /* main.m in Sources */,
 				2C78EF971F7ADDE2007E1754 /* AppDelegate.m in Sources */,

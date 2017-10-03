@@ -84,9 +84,9 @@
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+                        <rect key="contentRect" x="196" y="240" width="473" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                     </window>
                     <connections>
@@ -102,11 +102,11 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="410" height="209"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tVy-ve-B2B">
-                                <rect key="frame" x="18" y="232" width="139" height="18"/>
+                                <rect key="frame" x="18" y="136" width="139" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Тип подключения:" id="9lw-Tk-3A2">
                                     <font key="font" metaFont="system" size="14"/>
@@ -115,7 +115,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cyu-bL-kJf">
-                                <rect key="frame" x="18" y="206" width="139" height="18"/>
+                                <rect key="frame" x="18" y="110" width="139" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Уровень заряда:" id="Yb0-1d-wBJ">
                                     <font key="font" metaFont="system" size="14"/>
@@ -124,7 +124,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MUs-qK-Aai">
-                                <rect key="frame" x="18" y="180" width="189" height="18"/>
+                                <rect key="frame" x="18" y="84" width="189" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Оставшееся время работы:" id="eHw-40-RPk">
                                     <font key="font" metaFont="system" size="14"/>
@@ -133,7 +133,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JPJ-e6-XnF">
-                                <rect key="frame" x="139" y="206" width="139" height="18"/>
+                                <rect key="frame" x="139" y="110" width="139" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="-/-" id="6SE-jF-bBX">
                                     <font key="font" metaFont="system" size="14"/>
@@ -142,7 +142,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mql-gj-6PR">
-                                <rect key="frame" x="211" y="180" width="251" height="18"/>
+                                <rect key="frame" x="211" y="84" width="131" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="-/-" id="QHD-M8-94r">
                                     <font key="font" metaFont="system" size="14"/>
@@ -151,9 +151,40 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JNi-8J-aiQ">
-                                <rect key="frame" x="151" y="232" width="147" height="18"/>
+                                <rect key="frame" x="151" y="136" width="147" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="-/-" id="RNd-qr-Pjv">
+                                    <font key="font" metaFont="system" size="14"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <levelIndicator verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LyV-eP-q29">
+                                <rect key="frame" x="20" y="173" width="370" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <levelIndicatorCell key="cell" alignment="left" doubleValue="2" warningValue="2" criticalValue="2" levelIndicatorStyle="continuousCapacity" id="Lqf-yA-lww"/>
+                            </levelIndicator>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="atD-Tj-kXt">
+                                <rect key="frame" x="18" y="15" width="374" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="20" doubleValue="3.1111111111111112" tickMarkPosition="above" numberOfTickMarks="19" allowsTickMarkValuesOnly="YES" sliderType="linear" id="6sc-DE-3eb"/>
+                                <connections>
+                                    <action selector="changedValueSlider:" target="XfG-lQ-9wD" id="UZt-H8-rN4"/>
+                                </connections>
+                            </slider>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lF6-7w-Iyv">
+                                <rect key="frame" x="18" y="58" width="225" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Выберите время до затемнения:" id="ePL-Qw-PgY">
+                                    <font key="font" metaFont="system" size="14"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NlY-65-C3A">
+                                <rect key="frame" x="247" y="58" width="131" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="-/-" id="6WZ-rz-nou">
                                     <font key="font" metaFont="system" size="14"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -162,6 +193,9 @@
                         </subviews>
                     </view>
                     <connections>
+                        <outlet property="BatteryLevelIndicatorCell" destination="LyV-eP-q29" id="au1-ur-vhr"/>
+                        <outlet property="SelectTillDecreaseBrightnessSlider" destination="atD-Tj-kXt" id="KZg-IH-VZx"/>
+                        <outlet property="TimeTillDecreaseBrightness" destination="NlY-65-C3A" id="whd-kU-l1j"/>
                         <outlet property="chargingLevelLabel" destination="JPJ-e6-XnF" id="Umc-W5-2qk"/>
                         <outlet property="powerSourceTypeLabel" destination="JNi-8J-aiQ" id="c9N-jd-89j"/>
                         <outlet property="timeLeftLabel" destination="Mql-gj-6PR" id="KMt-JV-Aok"/>
@@ -169,7 +203,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="75" y="654.5"/>
         </scene>
     </scenes>
 </document>

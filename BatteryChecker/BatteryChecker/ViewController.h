@@ -7,12 +7,16 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#include "BatteryStatus.h"
 
 @interface ViewController : NSViewController
 
 @property (weak) IBOutlet NSTextField *powerSourceTypeLabel;
 @property (weak) IBOutlet NSTextField *timeLeftLabel;
 @property (weak) IBOutlet NSTextField *chargingLevelLabel;
+@property (weak) IBOutlet NSLevelIndicator *BatteryLevelIndicatorCell;
+@property (weak) IBOutlet NSTextField *TimeTillDecreaseBrightness;
+@property (weak) IBOutlet NSSlider *SelectTillDecreaseBrightnessSlider;
 
 @end
 
