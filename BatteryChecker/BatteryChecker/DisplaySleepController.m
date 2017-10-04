@@ -44,6 +44,8 @@
     // Запоминаем её
     [[NSUserDefaults standardUserDefaults] setInteger:displaySleep forKey:@"defaultDisplaySleep"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    NSLog(@"Hello %d", displaySleep);
 }
 
 - (void) resetDisplaySleep {
@@ -56,6 +58,8 @@
     
     // Выполняем команду
     system([command cStringUsingEncoding:NSUTF8StringEncoding]);
+    
+    NSLog(@"Bye %d", defaultSystemSleep);
 }
 
 @end
