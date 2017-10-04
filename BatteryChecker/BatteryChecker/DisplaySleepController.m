@@ -14,21 +14,41 @@
 - (void)rememberDisplaySleep {
     // Получаем задержку до затемнения экрана
     FILE *fp;
-    char path[1035];
+    char path[120];
     
     // Команда для чтения
-    fp = popen("pmset -g | grep displaysleep", "r");
+    fp = popen("pmset -g custom | grep displaysleep", "r");
     if (fp == NULL) {
         printf("Failed to run command\n" );
         exit(1);
     }
     
     // Читаем вывод команды
-    while (fgets(path, sizeof(path)-1, fp) != NULL);
+    while (fgets(path, sizeof(path)-1, fp) != NULL) {
+        int displaySleep;
+        char number[3];
+        
+        for (int i = 13, j = 0; path[i] != '\n'; i++) {
+            if (path[i] >= '0' && path[i] <= '9') {
+                number[j] = path[i];
+                j++;
+            }
+        }
+        
+        displaySleep = (int)[[NSMutableString stringWithUTF8String:number] integerValue];
+        
+        // Запоминаем её
+        [[NSUserDefaults standardUserDefaults] setInteger:displaySleep forKey:@"defaultDisplaySleep"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        NSLog(@"Hello %d", displaySleep);
+        break;
+    }
     
     // Закрываем файл
     pclose(fp);
     
+    /*
     int displaySleep;
     char number[3];
     
@@ -44,8 +64,7 @@
     // Запоминаем её
     [[NSUserDefaults standardUserDefaults] setInteger:displaySleep forKey:@"defaultDisplaySleep"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    NSLog(@"Hello %d", displaySleep);
+    */
 }
 
 - (void) resetDisplaySleep {
