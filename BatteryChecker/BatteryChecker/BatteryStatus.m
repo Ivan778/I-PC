@@ -33,7 +33,9 @@
     }
     
     // Читаем вывод команды
-    while (fgets(path, sizeof(path)-1, fp) != NULL);
+    while (fgets(path, sizeof(path)-1, fp) != NULL) {
+        printf("%s", path);
+    }
     
     // Закрываем файл
     pclose(fp);
@@ -41,8 +43,13 @@
     NSMutableString *level;
     char number[3];
     
-    for (int i = 19, j = 0; path[i] != '%'; i++) {
-        if (path[i] >= '0' && path[i] <= '9') {
+    bool flag = false;
+    
+    for (int i = 0, j = 0; path[i] != '%'; i++) {
+        if (path[i] == '\t') {
+            flag = true;
+        }
+        if (path[i] >= '0' && path[i] <= '9' && flag == true) {
             number[j] = path[i];
             j++;
         }

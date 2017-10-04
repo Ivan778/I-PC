@@ -25,8 +25,11 @@
 // Вывести процент заряда
 - (void)setBatteryLevelLabel {
     // Создаём строку для вывода процентов
-    NSMutableString *level = [status getBatteryLevel];
-    [level insertString:@" %" atIndex:level.length];
+    NSString *output = [status getBatteryLevel];
+    NSMutableString *level = [[NSMutableString alloc] init];
+    [level appendString:output];
+    
+    [level appendString:@" %"];
     
     // Отображаем строку на экран
     [_chargingLevelLabel setStringValue:level];
