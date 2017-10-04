@@ -7,30 +7,34 @@
 //
 
 #import "ViewController.h"
+#import "DisplaySleepController.h"
 #import <IOKit/ps/IOPowerSources.h>
 
 @implementation ViewController
 
-{ BatteryStatus *status; }
+{
+    BatteryStatus *status;
+    DisplaySleepController *displaySleepController;
+}
 
 // Вывести оставшееся время работы от аккумулятора
 - (void)setTimeLeftLabel {
-    CFTimeInterval timeRemaining = IOPSGetTimeRemainingEstimate();
+    [_timeLeftLabel setStringValue:[status getTimeLeft]];
+}
+
+// Вывести процент заряда
+- (void)setBatteryLevelLabel {
+    // Создаём строку для вывода процентов
+    NSMutableString *level = [status getBatteryLevel];
+    [level insertString:@" %" atIndex:level.length];
     
-    if (timeRemaining == kIOPSTimeRemainingUnlimited) {
-        [_timeLeftLabel setStringValue:@"∞"];
-    } else {
-        if (timeRemaining == kIOPSTimeRemainingUnknown) {
-            [_timeLeftLabel setStringValue:@"Считаю..."];
-        } else {
-            double time = (double)(timeRemaining) / 60 / 60;
-            int hours = (int)time;
-            int minutes = ((double)time - (int)time) * 60;
-            
-            NSString *info = [NSString stringWithFormat:@"%d:%d", hours, minutes];
-            [_timeLeftLabel setStringValue:info];
-        }
-    }
+    // Отображаем строку на экран
+    [_chargingLevelLabel setStringValue:level];
+    
+    // Получаем заряд батареи в int
+    int chargingLevel = (int)[level integerValue];
+    // Устанавливаем значение индикаторной полоски
+    [_BatteryLevelIndicatorCell setIntValue:chargingLevel];
 }
 
 // Вывести тип подключения в Label
@@ -42,85 +46,7 @@
     }
 }
 
-// Будет измменять время до затемнения экрана при работе от батареи
-- (IBAction)changedValueSlider:(id)sender {
-    NSMutableString *command = [@"sudo pmset -b displaysleep " mutableCopy];
-    [command appendString:[NSString stringWithFormat:@"%i", [sender intValue]]];
-    
-    [_TimeTillDecreaseBrightness setStringValue:[NSString stringWithFormat:@"%i мин", [sender intValue]]];
-}
-
-
--(NSMutableString*)getConsoleOutput: (char*)command {
-    FILE *fp;
-    char path[1035];
-    
-    // Команда для чтения
-    fp = popen(command, "r");
-    if (fp == NULL) {
-        printf("Failed to run command\n" );
-        exit(1);
-    }
-    
-    // Читаем вывод команды
-    while (fgets(path, sizeof(path)-1, fp) != NULL);
-    
-    // Закрываем файл
-    pclose(fp);
-    
-    NSMutableString *ret;
-    char number[3];
-    
-    for (int i = 19, j = 0; path[i] != '%'; i++) {
-        if (path[i] >= '0' && path[i] <= '9') {
-            number[j] = path[i];
-            j++;
-        }
-    }
-    
-    ret = [NSMutableString stringWithUTF8String:number];
-    
-    return ret;
-}
-
-// Вывести процент заряда
-- (void)setBatteryLevelLabel {
-    NSMutableString *level = [self getConsoleOutput:"pmset -g batt"];
-    [level insertString:@" %" atIndex:level.length];
-    
-    [_chargingLevelLabel setStringValue:level];
-    
-    int chargingLevel = (int)[level integerValue];
-    
-    [_BatteryLevelIndicatorCell setMinValue:0.0];
-    [_BatteryLevelIndicatorCell setMaxValue:100.0];
-    [_BatteryLevelIndicatorCell setWarningValue:20.0];
-    [_BatteryLevelIndicatorCell setCriticalValue:5.0];
-    
-    [_BatteryLevelIndicatorCell setIntValue:chargingLevel];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    // Do any additional setup after loading the view.
-    status = [[BatteryStatus alloc] init];
-    
-    [self setTimeLeftLabel];
-    [self setPowerSourceTypeLabel];
-    [self setBatteryLevelLabel];
-    
-    [self initializePowerSourceChanges];
-    
-    [_TimeTillDecreaseBrightness setStringValue:@"3 мин"];
-}
-
-void PowerSourcesHaveChanged(void *context) {
-    [(__bridge ViewController*)context setTimeLeftLabel];
-    [(__bridge ViewController*)context setPowerSourceTypeLabel];
-    [(__bridge ViewController*)context setBatteryLevelLabel];
-}
-
+// Настройка Listener для батареи
 -(void)initializePowerSourceChanges {
     CFRunLoopSourceRef CFrls;
     
@@ -130,6 +56,41 @@ void PowerSourcesHaveChanged(void *context) {
         CFRelease(CFrls);
     }
     
+}
+
+// Прописываем здесь, методы которые будем вызывать
+void PowerSourcesHaveChanged(void *context) {
+    [(__bridge ViewController*)context setTimeLeftLabel];
+    [(__bridge ViewController*)context setPowerSourceTypeLabel];
+    [(__bridge ViewController*)context setBatteryLevelLabel];
+}
+
+// Будет измменять время до затемнения экрана при работе от батареи
+- (IBAction)changedValueSlider:(id)sender {
+    NSMutableString *command = [@"sudo pmset -b displaysleep " mutableCopy];
+    [command appendString:[NSString stringWithFormat:@"%i", [sender intValue]]];
+    
+    [_TimeTillDecreaseBrightness setStringValue:[NSString stringWithFormat:@"%i мин", [sender intValue]]];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    // Инициализируем объект типа BatteryStatus, который выдаёт нам информацию о батарее
+    status = [[BatteryStatus alloc] init];
+    // Инициализируем объект типа DisplaySleepController
+    displaySleepController = [[DisplaySleepController alloc] init];
+    // Записываем текущую системную задержку
+    [displaySleepController rememberDisplaySleep];
+    
+    // Выводим стартовые значения параметров батареи
+    [self setTimeLeftLabel];
+    [self setPowerSourceTypeLabel];
+    [self setBatteryLevelLabel];
+    [_TimeTillDecreaseBrightness setStringValue:@"3 мин"];
+    
+    // Устанавливаем Listener для батареи
+    [self initializePowerSourceChanges];
 }
 
 @end

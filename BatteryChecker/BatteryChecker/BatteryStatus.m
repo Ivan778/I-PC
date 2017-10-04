@@ -51,7 +51,6 @@
     }
     
     level = [NSMutableString stringWithUTF8String:number];
-    [level insertString:@" %" atIndex:level.length];
     
     return level;
 }
