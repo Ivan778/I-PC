@@ -167,22 +167,22 @@
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="atD-Tj-kXt">
                                 <rect key="frame" x="18" y="15" width="374" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="20" doubleValue="3.1111111111111112" tickMarkPosition="above" numberOfTickMarks="19" allowsTickMarkValuesOnly="YES" sliderType="linear" id="6sc-DE-3eb"/>
+                                <sliderCell key="cell" enabled="NO" state="on" alignment="left" minValue="1" maxValue="20" doubleValue="3.1111111111111112" tickMarkPosition="above" numberOfTickMarks="19" allowsTickMarkValuesOnly="YES" sliderType="linear" id="6sc-DE-3eb"/>
                                 <connections>
                                     <action selector="changedValueSlider:" target="XfG-lQ-9wD" id="UZt-H8-rN4"/>
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lF6-7w-Iyv">
-                                <rect key="frame" x="18" y="58" width="225" height="18"/>
+                                <rect key="frame" x="18" y="58" width="156" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Выберите время до затемнения:" id="ePL-Qw-PgY">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Время до затемнения:" id="ePL-Qw-PgY">
                                     <font key="font" metaFont="system" size="14"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NlY-65-C3A">
-                                <rect key="frame" x="247" y="58" width="131" height="18"/>
+                                <rect key="frame" x="178" y="58" width="131" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="-/-" id="6WZ-rz-nou">
                                     <font key="font" metaFont="system" size="14"/>

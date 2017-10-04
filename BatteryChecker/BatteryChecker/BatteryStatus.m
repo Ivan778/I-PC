@@ -33,9 +33,7 @@
     }
     
     // Читаем вывод команды
-    while (fgets(path, sizeof(path)-1, fp) != NULL) {
-        //printf("%s", path);
-    }
+    while (fgets(path, sizeof(path)-1, fp) != NULL);
     
     // Закрываем файл
     pclose(fp);

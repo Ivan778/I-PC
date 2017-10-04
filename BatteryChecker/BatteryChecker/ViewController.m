@@ -35,6 +35,7 @@
     int chargingLevel = (int)[level integerValue];
     // Устанавливаем значение индикаторной полоски
     [_BatteryLevelIndicatorCell setIntValue:chargingLevel];
+
 }
 
 // Вывести тип подключения в Label
@@ -43,6 +44,35 @@
     
     if (info != nil) {
         [_powerSourceTypeLabel setStringValue:info];
+        // Если питание от батареи
+        if ([info compare:@"Battery Power"] == NSOrderedSame) {
+            // Не даём возможность изменить задержку до затемнения экрана
+            [_SelectTillDecreaseBrightnessSlider setEnabled:false];
+        } else {
+            // При питании от батареи изменить время до затемнения можно
+            [_SelectTillDecreaseBrightnessSlider setEnabled:true];
+        }
+    }
+    
+    // Если питание было от сети и стало от батареи
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"PowerSupplyType"] == 1 && [info compare:@"Battery Power"] == NSOrderedSame) {
+        // Устанавливаем новое предыдущее значение
+        [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"PowerSupplyType"];
+        
+        // Формируем команду для отправки в Терминал
+        NSMutableString *command = [@"sudo pmset -b displaysleep " mutableCopy];
+        [command appendString:[NSString stringWithFormat:@"%i", [_SelectTillDecreaseBrightnessSlider intValue]]];
+        
+        // Показываем время, которое мы выставили в настройки
+        [_TimeTillDecreaseBrightness setStringValue:[NSString stringWithFormat:@"%i мин", [_SelectTillDecreaseBrightnessSlider intValue]]];
+        
+        // Отправили команду в Терминал
+        system([command cStringUsingEncoding:NSUTF8StringEncoding]);
+    }
+    // Если питание было от батареи и стало от сети
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"PowerSupplyType"] == 0 && [info compare:@"AC Power"] == NSOrderedSame) {
+        // Устанавливаем новое предыдущее значение
+        [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"PowerSupplyType"];
     }
 }
 
@@ -65,11 +95,9 @@ void PowerSourcesHaveChanged(void *context) {
     [(__bridge ViewController*)context setBatteryLevelLabel];
 }
 
-// Будет измменять время до затемнения экрана при работе от батареи
+// Будет изменять время до затемнения экрана при работе от батареи (сам метод не изменяет занчение, оно изменится в том случае, если работа будет не от батареи)
 - (IBAction)changedValueSlider:(id)sender {
-    NSMutableString *command = [@"sudo pmset -b displaysleep " mutableCopy];
-    [command appendString:[NSString stringWithFormat:@"%i", [sender intValue]]];
-    
+    // Показываем время, которое мы выставили в настройки
     [_TimeTillDecreaseBrightness setStringValue:[NSString stringWithFormat:@"%i мин", [sender intValue]]];
 }
 
@@ -78,6 +106,15 @@ void PowerSourcesHaveChanged(void *context) {
     
     // Инициализируем объект типа BatteryStatus, который выдаёт нам информацию о батарее
     status = [[BatteryStatus alloc] init];
+    
+    if ([[status getPowerSourceType] compare:@"Battery Power"] == NSOrderedSame) {
+        // 0 - признак питания от батареи при запуске приложения
+        [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"PowerSupplyType"];
+    } else {
+        // 1 - признак питания от сети при запуске приложения
+        [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"PowerSupplyType"];
+    }
+    
     // Инициализируем объект типа DisplaySleepController
     displaySleepController = [[DisplaySleepController alloc] init];
     // Записываем текущую системную задержку
