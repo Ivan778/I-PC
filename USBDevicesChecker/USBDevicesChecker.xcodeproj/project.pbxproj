@@ -56,10 +56,8 @@
 		2CD839B21F860C2D00C075CE /* USBDevicesChecker */ = {
 			isa = PBXGroup;
 			children = (
-				2CD839B31F860C2D00C075CE /* AppDelegate.h */,
-				2CD839B41F860C2D00C075CE /* AppDelegate.m */,
-				2CD839B91F860C2D00C075CE /* ViewController.h */,
-				2CD839BA1F860C2D00C075CE /* ViewController.m */,
+				2CD839C81F860F9E00C075CE /* ViewController */,
+				2CD839C71F860F9000C075CE /* AppDelegate */,
 				2CD839BC1F860C2D00C075CE /* Assets.xcassets */,
 				2CD839BE1F860C2D00C075CE /* Main.storyboard */,
 				2CD839C11F860C2D00C075CE /* Info.plist */,
@@ -74,6 +72,24 @@
 				2CD839B71F860C2D00C075CE /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2CD839C71F860F9000C075CE /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				2CD839B31F860C2D00C075CE /* AppDelegate.h */,
+				2CD839B41F860C2D00C075CE /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		2CD839C81F860F9E00C075CE /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2CD839B91F860C2D00C075CE /* ViewController.h */,
+				2CD839BA1F860C2D00C075CE /* ViewController.m */,
+			);
+			name = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
