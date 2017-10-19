@@ -205,6 +205,16 @@
     return volumes;
 }
 
+- (NSString*) getDiskFullCapacity: (NSMutableArray*)description {
+    for (int i = 0; i < [description count]; i++) {
+        if ([description[i] containsString:@"Capacity"] == YES) {
+            return [description[i] substringFromIndex:10];
+        }
+    }
+    
+    return @"Неизвестно";
+}
+
 - (NSView*)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     NSTableCellView *cellView = [tableView makeViewWithIdentifier:@"DeviceCell" owner:self];
     
@@ -276,7 +286,8 @@
         NSLog(@"%@", [self giveDiskPath:devices[i]]);
     }
     
-    NSMutableArray *volumes = [self getDiskVolumes:devices[1]];
+    NSMutableArray *volumes = [self getDiskVolumes:devices[0]];
+    NSString *fullCapacity = [self getDiskFullCapacity:devices[0]];
     
     /*
     if ([du count] > 0) {

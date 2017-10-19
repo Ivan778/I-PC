@@ -18,7 +18,6 @@
     BOOL isItDisk;
     NSString *ejectPath;
     NSString *fullCapacity;
-    NSString *freeSpace;
     
     NSMutableArray *volumes;
 }
@@ -28,7 +27,6 @@
 - (void) setDeviceEjectPath: (NSString*)path;
 
 - (void) setDeviceFullCapacity: (NSString*)capacity;
-- (void) setDeviceFreeSpace: (NSString*)freeSpace;
 
 - (void) addVolumeInfo: (DiskVolume*)volume;
 

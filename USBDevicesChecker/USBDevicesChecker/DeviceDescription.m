@@ -26,10 +26,6 @@
     fullCapacity = capacity;
 }
 
-- (void) setDeviceFreeSpace: (NSString*)fS {
-    freeSpace = fS;
-}
-
 - (void) addVolumeInfo: (DiskVolume*)volume {
     [volumes addObject:volume];
 }

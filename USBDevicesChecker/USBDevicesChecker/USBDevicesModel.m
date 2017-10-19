@@ -200,6 +200,16 @@
     return volumes;
 }
 
+- (NSString*) getDiskFullCapacity: (NSMutableArray*)description {
+    for (int i = 0; i < [description count]; i++) {
+        if ([description[i] containsString:@"Capacity"] == YES) {
+            return [description[i] substringFromIndex:10];
+        }
+    }
+    
+    return @"Неизвестно";
+}
+
 - (NSMutableArray*) getDevicesInfo {
     // Массив для хранения информации об устройствах
     NSMutableArray *devicesInfo = [[NSMutableArray alloc] init];
