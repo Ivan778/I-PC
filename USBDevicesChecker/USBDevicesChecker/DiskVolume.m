@@ -33,4 +33,16 @@
     return freeSpace;
 }
 
+- (void) setName: (NSString*)nameS {
+    name = nameS;
+}
+
+- (void) setCapacity: (NSString*)capacityS {
+    capacity = capacityS;
+}
+
+- (void) setFreeSpace: (NSString*)freeSpaceS {
+    freeSpace = freeSpaceS;
+}
+
 @end

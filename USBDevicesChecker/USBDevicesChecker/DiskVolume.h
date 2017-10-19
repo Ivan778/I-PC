@@ -18,10 +18,14 @@
     NSString *freeSpace;
 }
 
-- (id) init: (NSString*)name : (NSString*)capacity : (NSString*) freeSpace;
+- (id) init: (NSString*)nameS : (NSString*)capacityS : (NSString*)freeSpaceS;
 
 - (NSString*) getName;
 - (NSString*) getCapacity;
 - (NSString*) getFreeSpace;
+
+- (void) setName: (NSString*)nameS;
+- (void) setCapacity: (NSString*)capacityS;
+- (void) setFreeSpace: (NSString*)freeSpaceS;
 
 @end

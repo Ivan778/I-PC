@@ -10,4 +10,32 @@
 
 @implementation DeviceDescription
 
+- (void) setDeviceName: (NSString*)name {
+    deviceName = name;
+}
+
+- (void) setDeviceType: (BOOL)type {
+    isItDisk = type;
+}
+
+- (void) setDeviceEjectPath: (NSString*)path {
+    ejectPath = path;
+}
+
+- (void) setDeviceFullCapacity: (NSString*)capacity {
+    fullCapacity = capacity;
+}
+
+- (void) setDeviceFreeSpace: (NSString*)fS {
+    freeSpace = fS;
+}
+
+- (void) addVolumeInfo: (DiskVolume*)volume {
+    [volumes addObject:volume];
+}
+
+//---------------------------------------------------------
+
+
+
 @end

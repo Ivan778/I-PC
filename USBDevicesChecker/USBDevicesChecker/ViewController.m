@@ -16,12 +16,18 @@
 /*:(NSTimer*)theTimer*/
 
 - (NSMutableString*) removeSpacesInTheBeginning:(NSMutableString*)str {
+    int i = 0;
     while (true) {
         if ([str characterAtIndex:0] == ' ') {
             [str deleteCharactersInRange:NSMakeRange(0, 1)];
+            i++;
         } else {
             break;
         }
+    }
+    
+    if (i == 12) {
+        [str insertString:@"getMyVolumeBaby" atIndex:0];
     }
     
     return str;
@@ -32,7 +38,7 @@
     char path[1035];
     
     // Команда для чтения
-    fp = popen("system_profiler SPUSBDataType", "r");
+    fp = popen("system_profiler SPUSBDataType -detailLevel full", "r");
     if (fp == NULL) {
         printf("Failed to run command\n" );
         exit(1);
@@ -173,6 +179,32 @@
     return returnValue;
 }
 
+- (NSMutableArray*) getDiskVolumes: (NSMutableArray*)description {
+    NSMutableArray *volumes = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < [description count]; i++) {
+        if ([description[i] containsString:@"getMyVolumeBaby"] == YES) {
+            DiskVolume *volume = [[DiskVolume alloc] init];
+            
+            [description[i] deleteCharactersInRange:NSMakeRange([description[i] length] - 2, 1)];
+            
+            [volume setName:[description[i] substringFromIndex:15]];
+            [volume setCapacity:[description[i + 1] substringFromIndex:10]];
+            if ([description[i + 2] containsString:@"Available"] == YES) {
+                [volume setFreeSpace:[description[i + 2] substringFromIndex:11]];
+            } else {
+                [volume setFreeSpace:@"Неизвестно"];
+            }
+            
+            [volumes addObject:volume];
+            
+            i += 3;
+        }
+    }
+    
+    return volumes;
+}
+
 - (NSView*)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     NSTableCellView *cellView = [tableView makeViewWithIdentifier:@"DeviceCell" owner:self];
     
@@ -218,9 +250,9 @@
     //NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
     NSMutableArray *sp = [self systemProfiler];
     NSMutableArray *io = [self ioreg];
-    NSMutableArray *du = [self diskutil];
+    //NSMutableArray *du = [self diskutil];
     
-    
+    /*
     for (int i = 0; i < [du count]; i++) {
         NSLog(@"%@", du[i]);
     }
@@ -230,6 +262,7 @@
     for (int i = 0; i < [io count]; i++) {
         NSLog(@"%@", io[i]);
     }
+     */
     
     // Создание NSMutableArray с описанием устройств, подключённых к USB-портам
     NSMutableArray *devices = [[NSMutableArray alloc] init];
@@ -242,6 +275,8 @@
     for (int i = 0; i < [devices count]; i++) {
         NSLog(@"%@", [self giveDiskPath:devices[i]]);
     }
+    
+    NSMutableArray *volumes = [self getDiskVolumes:devices[1]];
     
     /*
     if ([du count] > 0) {
@@ -257,11 +292,6 @@
         NSLog(@"%@", s);
     }
      */
-    
-    DiskVolume *d = [[DiskVolume alloc] init:@"qwe" :@"rty" :@"uio"];
-    
-    
-    
 }
 
 

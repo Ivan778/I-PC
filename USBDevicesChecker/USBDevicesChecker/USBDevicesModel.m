@@ -11,12 +11,18 @@
 @implementation USBDevicesModel
 
 - (NSMutableString*) removeSpacesInTheBeginning:(NSMutableString*)str {
+    int i = 0;
     while (true) {
         if ([str characterAtIndex:0] == ' ') {
             [str deleteCharactersInRange:NSMakeRange(0, 1)];
+            i++;
         } else {
             break;
         }
+    }
+    
+    if (i == 12) {
+        [str insertString:@"getMyVolumeBaby" atIndex:0];
     }
     
     return str;
@@ -168,23 +174,47 @@
     return returnValue;
 }
 
+- (NSMutableArray*) getDiskVolumes: (NSMutableArray*)description {
+    NSMutableArray *volumes = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < [description count]; i++) {
+        if ([description[i] containsString:@"getMyVolumeBaby"] == YES) {
+            DiskVolume *volume = [[DiskVolume alloc] init];
+            
+            [description[i] deleteCharactersInRange:NSMakeRange([description[i] length] - 2, 1)];
+            
+            [volume setName:[description[i] substringFromIndex:15]];
+            [volume setCapacity:[description[i + 1] substringFromIndex:10]];
+            if ([description[i + 2] containsString:@"Available"] == YES) {
+                [volume setFreeSpace:[description[i + 2] substringFromIndex:11]];
+            } else {
+                [volume setFreeSpace:@"Неизвестно"];
+            }
+            
+            [volumes addObject:volume];
+            
+            i += 3;
+        }
+    }
+    
+    return volumes;
+}
+
 - (NSMutableArray*) getDevicesInfo {
     // Массив для хранения информации об устройствах
     NSMutableArray *devicesInfo = [[NSMutableArray alloc] init];
     
     NSMutableArray *sp = [self systemProfiler];
     NSMutableArray *io = [self ioreg];
-    NSMutableArray *du = [self diskutil];
-    
-    
-    for (int i = 0; i < [du count]; i++) {
-        NSLog(@"%@", du[i]);
-    }
     
     // Вывести список подключённых устройств
     NSLog(@"Список подключённых устройств:");
     for (int i = 0; i < [io count]; i++) {
-        NSLog(@"%@", io[i]);
+        DeviceDescription *device = [[DeviceDescription alloc] init];
+        
+        [device setDeviceName:io[i]];
+        
+        
     }
     
     // Создание NSMutableArray с описанием устройств, подключённых к USB-портам

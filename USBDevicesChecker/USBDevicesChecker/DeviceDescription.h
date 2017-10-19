@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DiskVolume.h"
 
 @interface DeviceDescription : NSObject
 
@@ -29,6 +30,6 @@
 - (void) setDeviceFullCapacity: (NSString*)capacity;
 - (void) setDeviceFreeSpace: (NSString*)freeSpace;
 
-- (void) addVolumeInfo: (NSMutableDictionary*)volume;
+- (void) addVolumeInfo: (DiskVolume*)volume;
 
 @end

@@ -22,6 +22,7 @@
 - (NSMutableArray*) getDeviceDescription: (NSMutableArray*)array: (NSMutableString*)name;
 - (NSMutableString*) rightStringName: (NSMutableString*)str;
 - (NSMutableString*) giveDiskPath: (NSMutableArray*)description;
+- (NSMutableArray*) getDiskVolumes: (NSMutableArray*)description;
 
 - (NSMutableArray*) getDevicesInfo;
 
