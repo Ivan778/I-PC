@@ -1,19 +1,14 @@
 //
-//  ViewController.m
+//  USBDevicesModel.m
 //  USBDevicesChecker
 //
-//  Created by Иван on 05.10.17.
+//  Created by Иван on 19.10.17.
 //  Copyright © 2017 IvanCode. All rights reserved.
 //
 
-#import "ViewController.h"
-#import <IOKit/IOKitLib.h>
-#import <IOKit/usb/IOUSBLib.h>
-#include <IOKit/serial/IOSerialKeys.h>
+#import "USBDevicesModel.h"
 
-@implementation ViewController
-
-/*:(NSTimer*)theTimer*/
+@implementation USBDevicesModel
 
 - (NSMutableString*) removeSpacesInTheBeginning:(NSMutableString*)str {
     while (true) {
@@ -169,92 +164,8 @@
             return returnValue;
         }
     }
-        
+    
     return returnValue;
 }
-
-- (NSView*)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    NSTableCellView *cellView = [tableView makeViewWithIdentifier:@"DeviceCell" owner:self];
-    
-    if ([tableColumn.identifier isEqualToString:@"DeviceCell"]) {
-        cellView = [tableView makeViewWithIdentifier:@"Device" owner:self];
-        [[cellView textField] setStringValue:@"Hello1"];
-        NSLog(@"%ld", (long)row);
-    } else if ([tableColumn.identifier isEqualToString:@"DeviceTypeCell"]) {
-        cellView = [tableView makeViewWithIdentifier:@"Type" owner:self];
-        [[cellView textField] setStringValue:@"Hello2"];
-        NSLog(@"%ld", (long)row);
-    }
-        
-    return cellView;
-}
-
-- (void)tableViewSelectionDidChange:(NSNotification *)notification {
-    NSInteger row = [notification.object selectedRow];
-    if (row == 0) {
-        [_EjectDeviceButton setEnabled:false];
-    }
-    if (row == 1) {
-        [_EjectDeviceButton setEnabled:true];
-    }
-}
-
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    return 2;
-}
-
-- (IBAction)clickedEjectButton:(id)sender {
-    NSLog(@"Клац)");
-}
-
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    // Настройка таблицы
-    [self.tableView setDelegate:self];
-    [self.tableView setDataSource:self];
-    
-    //NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
-    NSMutableArray *sp = [self systemProfiler];
-    NSMutableArray *io = [self ioreg];
-    NSMutableArray *du = [self diskutil];
-    
-    
-    for (int i = 0; i < [du count]; i++) {
-        NSLog(@"%@", du[i]);
-    }
-    
-    // Вывести список подключённых устройств
-    for (int i = 0; i < [io count]; i++) {
-        NSLog(@"%@", io[i]);
-    }
-    
-    NSMutableArray *devices = [[NSMutableArray alloc] init];
-    for (int i = 0; i < [io count]; i++) {
-        [devices addObject:[self getDeviceDescription:sp :io[i]]];
-    }
-    
-    
-    for (int i = 0; i < [devices count]; i++) {
-        NSLog(@"%@", [self giveDiskPath:devices[i]]);
-    }
-    
-    
-    
-    //NSRange range = [du[1] rangeOfString:@"NAME"];
-    
-    
-    /*
-    int i = (int)range.location;
-    for (; i < [du[3] length]; i++) {
-        if ([du[3] characterAtIndex:i] == ' ') break;
-    }
-    NSString *s = [du[3] substringWithRange:NSMakeRange(range.location, i - range.location)];
-    NSLog(@"%@", s);
-    */
-}
-
-
 
 @end

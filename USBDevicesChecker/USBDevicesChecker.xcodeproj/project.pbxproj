@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C211D141F988C7400DC22BF /* USBDevicesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C211D131F988C7400DC22BF /* USBDevicesModel.m */; };
 		2CD839B51F860C2D00C075CE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD839B41F860C2D00C075CE /* AppDelegate.m */; };
 		2CD839B81F860C2D00C075CE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD839B71F860C2D00C075CE /* main.m */; };
 		2CD839BB1F860C2D00C075CE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD839BA1F860C2D00C075CE /* ViewController.m */; };
@@ -15,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C211D121F988C7400DC22BF /* USBDevicesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USBDevicesModel.h; sourceTree = "<group>"; };
+		2C211D131F988C7400DC22BF /* USBDevicesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USBDevicesModel.m; sourceTree = "<group>"; };
 		2CD839B01F860C2D00C075CE /* USBDevicesChecker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = USBDevicesChecker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CD839B31F860C2D00C075CE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2CD839B41F860C2D00C075CE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -37,6 +40,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C211D111F988C4900DC22BF /* USBDevicesModel */ = {
+			isa = PBXGroup;
+			children = (
+				2C211D121F988C7400DC22BF /* USBDevicesModel.h */,
+				2C211D131F988C7400DC22BF /* USBDevicesModel.m */,
+			);
+			name = USBDevicesModel;
+			sourceTree = "<group>";
+		};
 		2CD839A71F860C2D00C075CE = {
 			isa = PBXGroup;
 			children = (
@@ -56,6 +68,7 @@
 		2CD839B21F860C2D00C075CE /* USBDevicesChecker */ = {
 			isa = PBXGroup;
 			children = (
+				2C211D111F988C4900DC22BF /* USBDevicesModel */,
 				2CD839C81F860F9E00C075CE /* ViewController */,
 				2CD839C71F860F9000C075CE /* AppDelegate */,
 				2CD839BC1F860C2D00C075CE /* Assets.xcassets */,
@@ -165,6 +178,7 @@
 			files = (
 				2CD839BB1F860C2D00C075CE /* ViewController.m in Sources */,
 				2CD839B81F860C2D00C075CE /* main.m in Sources */,
+				2C211D141F988C7400DC22BF /* USBDevicesModel.m in Sources */,
 				2CD839B51F860C2D00C075CE /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,6 +329,7 @@
 				2CD839C61F860C2D00C075CE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
