@@ -174,27 +174,39 @@
 }
 
 - (NSView*)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    NSTableCellView *cellView = [tableView makeViewWithIdentifier:@"DeviceCellID" owner:self];
+    NSTableCellView *cellView = [tableView makeViewWithIdentifier:@"DeviceCell" owner:self];
     
-    if ([tableColumn.identifier isEqualToString:@"DeviceC"]) {
-        cellView = [tableView makeViewWithIdentifier:@"DeviceCellID" owner:self];
+    if ([tableColumn.identifier isEqualToString:@"DeviceCell"]) {
+        cellView = [tableView makeViewWithIdentifier:@"Device" owner:self];
         [[cellView textField] setStringValue:@"Hello1"];
-    } else if ([tableColumn.identifier isEqualToString:@"TypeC"]) {
-        cellView = [tableView makeViewWithIdentifier:@"TypeCellID" owner:self];
+        NSLog(@"%ld", (long)row);
+    } else if ([tableColumn.identifier isEqualToString:@"DeviceTypeCell"]) {
+        cellView = [tableView makeViewWithIdentifier:@"Type" owner:self];
         [[cellView textField] setStringValue:@"Hello2"];
-    } else if ([tableColumn.identifier isEqualToString:@"EjectC"]) {
-        cellView = [tableView makeViewWithIdentifier:@"EjectCellID" owner:self];
-        
-        NSButton *button = [cellView viewWithTag:1000];
-        [button setStringValue:@"Hello"];
+        NSLog(@"%ld", (long)row);
     }
-    
+        
     return cellView;
+}
+
+- (void)tableViewSelectionDidChange:(NSNotification *)notification {
+    NSInteger row = [notification.object selectedRow];
+    if (row == 0) {
+        [_EjectDeviceButton setEnabled:false];
+    }
+    if (row == 1) {
+        [_EjectDeviceButton setEnabled:true];
+    }
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     return 2;
 }
+
+- (IBAction)clickedEjectButton:(id)sender {
+    NSLog(@"Клац)");
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];

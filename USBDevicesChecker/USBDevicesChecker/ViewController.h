@@ -11,6 +11,7 @@
 @interface ViewController : NSViewController<NSTableViewDelegate, NSTableViewDataSource>
 
 @property (nonatomic, strong) IBOutlet NSTableView *tableView;
+@property (weak) IBOutlet NSButton *EjectDeviceButton;
 
 @end
 
