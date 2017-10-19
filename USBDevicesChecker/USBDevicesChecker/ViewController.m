@@ -114,6 +114,7 @@
     return devices;
 }
 
+// Возвращает полное описание устройства
 - (NSMutableArray*) getDeviceDescription: (NSMutableArray*)array: (NSMutableString*)name {
     NSMutableArray *description = [[NSMutableArray alloc] init];
     
@@ -172,18 +173,47 @@
     return returnValue;
 }
 
+- (NSView*)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    NSTableCellView *cellView = [tableView makeViewWithIdentifier:@"DeviceCellID" owner:self];
+    
+    if ([tableColumn.identifier isEqualToString:@"DeviceC"]) {
+        cellView = [tableView makeViewWithIdentifier:@"DeviceCellID" owner:self];
+        [[cellView textField] setStringValue:@"Hello1"];
+    } else if ([tableColumn.identifier isEqualToString:@"TypeC"]) {
+        cellView = [tableView makeViewWithIdentifier:@"TypeCellID" owner:self];
+        [[cellView textField] setStringValue:@"Hello2"];
+    } else if ([tableColumn.identifier isEqualToString:@"EjectC"]) {
+        cellView = [tableView makeViewWithIdentifier:@"EjectCellID" owner:self];
+        
+        NSButton *button = [cellView viewWithTag:1000];
+        [button setStringValue:@"Hello"];
+    }
+    
+    return cellView;
+}
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    return 2;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // Настройка таблицы
+    [self.tableView setDelegate:self];
+    [self.tableView setDataSource:self];
     
     //NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
     NSMutableArray *sp = [self systemProfiler];
     NSMutableArray *io = [self ioreg];
     NSMutableArray *du = [self diskutil];
     
+    
     for (int i = 0; i < [du count]; i++) {
         NSLog(@"%@", du[i]);
     }
     
+    // Вывести список подключённых устройств
     for (int i = 0; i < [io count]; i++) {
         NSLog(@"%@", io[i]);
     }
@@ -193,22 +223,26 @@
         [devices addObject:[self getDeviceDescription:sp :io[i]]];
     }
     
-    NSLog(@"%@", [self giveDiskPath:devices[0]]);
+    
+    for (int i = 0; i < [devices count]; i++) {
+        NSLog(@"%@", [self giveDiskPath:devices[i]]);
+    }
+    
+    
+    
+    //NSRange range = [du[1] rangeOfString:@"NAME"];
+    
     
     /*
-    NSRange range = [du[1] rangeOfString:@"NAME"];
-    NSLog(@"%lu", (unsigned long)range.location);
-    
     int i = (int)range.location;
     for (; i < [du[3] length]; i++) {
         if ([du[3] characterAtIndex:i] == ' ') break;
     }
-    
     NSString *s = [du[3] substringWithRange:NSMakeRange(range.location, i - range.location)];
-    
     NSLog(@"%@", s);
-     */
-    
+    */
 }
+
+
 
 @end

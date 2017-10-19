@@ -8,9 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface ViewController : NSViewController
+@interface ViewController : NSViewController<NSTableViewDelegate, NSTableViewDataSource>
 
-@property (weak) IBOutlet NSScrollView *tableViewOutlet;
+@property (nonatomic, strong) IBOutlet NSTableView *tableView;
 
 @end
 
