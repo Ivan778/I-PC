@@ -152,7 +152,7 @@
 // Возвращает путь для демонтажа диска
 - (NSMutableString*) giveDiskPath: (NSMutableArray*)description {
     NSMutableString *returnValue = [[NSMutableString alloc] init];
-    [returnValue setString:@"NOPE"];
+    [returnValue setString:@"Нет"];
     
     for (int i = 0; i < [description count]; i++) {
         if ([description[i] containsString:@"BSD Name"] == YES) {
@@ -166,6 +166,40 @@
     }
     
     return returnValue;
+}
+
+- (NSMutableArray*) getDevicesInfo {
+    // Массив для хранения информации об устройствах
+    NSMutableArray *devicesInfo = [[NSMutableArray alloc] init];
+    
+    NSMutableArray *sp = [self systemProfiler];
+    NSMutableArray *io = [self ioreg];
+    NSMutableArray *du = [self diskutil];
+    
+    
+    for (int i = 0; i < [du count]; i++) {
+        NSLog(@"%@", du[i]);
+    }
+    
+    // Вывести список подключённых устройств
+    NSLog(@"Список подключённых устройств:");
+    for (int i = 0; i < [io count]; i++) {
+        NSLog(@"%@", io[i]);
+    }
+    
+    // Создание NSMutableArray с описанием устройств, подключённых к USB-портам
+    NSMutableArray *devices = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [io count]; i++) {
+        [devices addObject:[self getDeviceDescription:sp :io[i]]];
+    }
+    
+    // Вывести тип устройства
+    NSLog(@"Тип устройств:");
+    for (int i = 0; i < [devices count]; i++) {
+        NSLog(@"%@", [self giveDiskPath:devices[i]]);
+    }
+    
+    return devicesInfo;
 }
 
 @end

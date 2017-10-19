@@ -157,7 +157,7 @@
 // Возвращает путь для демонтажа диска
 - (NSMutableString*) giveDiskPath: (NSMutableArray*)description {
     NSMutableString *returnValue = [[NSMutableString alloc] init];
-    [returnValue setString:@"NOPE"];
+    [returnValue setString:@"Нет"];
     
     for (int i = 0; i < [description count]; i++) {
         if ([description[i] containsString:@"BSD Name"] == YES) {
@@ -179,11 +179,11 @@
     if ([tableColumn.identifier isEqualToString:@"DeviceCell"]) {
         cellView = [tableView makeViewWithIdentifier:@"Device" owner:self];
         [[cellView textField] setStringValue:@"Hello1"];
-        NSLog(@"%ld", (long)row);
+        //NSLog(@"%ld", (long)row);
     } else if ([tableColumn.identifier isEqualToString:@"DeviceTypeCell"]) {
         cellView = [tableView makeViewWithIdentifier:@"Type" owner:self];
         [[cellView textField] setStringValue:@"Hello2"];
-        NSLog(@"%ld", (long)row);
+        //NSLog(@"%ld", (long)row);
     }
         
     return cellView;
@@ -226,33 +226,42 @@
     }
     
     // Вывести список подключённых устройств
+    NSLog(@"Список подключённых устройств:");
     for (int i = 0; i < [io count]; i++) {
         NSLog(@"%@", io[i]);
     }
     
+    // Создание NSMutableArray с описанием устройств, подключённых к USB-портам
     NSMutableArray *devices = [[NSMutableArray alloc] init];
     for (int i = 0; i < [io count]; i++) {
         [devices addObject:[self getDeviceDescription:sp :io[i]]];
     }
     
-    
+    // Вывести тип устройства
+    NSLog(@"Тип устройств:");
     for (int i = 0; i < [devices count]; i++) {
         NSLog(@"%@", [self giveDiskPath:devices[i]]);
     }
     
-    
-    
-    //NSRange range = [du[1] rangeOfString:@"NAME"];
-    
-    
     /*
-    int i = (int)range.location;
-    for (; i < [du[3] length]; i++) {
-        if ([du[3] characterAtIndex:i] == ' ') break;
+    if ([du count] > 0) {
+        NSRange range = [du[1] rangeOfString:@"NAME"];
+        
+        
+        
+        int i = (int)range.location;
+        for (; i < [du[3] length]; i++) {
+            if ([du[3] characterAtIndex:i] == ' ') break;
+        }
+        NSString *s = [du[3] substringWithRange:NSMakeRange(range.location, i - range.location)];
+        NSLog(@"%@", s);
     }
-    NSString *s = [du[3] substringWithRange:NSMakeRange(range.location, i - range.location)];
-    NSLog(@"%@", s);
-    */
+     */
+    
+    DiskVolume *d = [[DiskVolume alloc] init:@"qwe" :@"rty" :@"uio"];
+    
+    
+    
 }
 
 
