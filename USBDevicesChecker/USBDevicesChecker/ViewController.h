@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "DiskVolume.h"
+#import "USBDevicesModel.h"
 
 @interface ViewController : NSViewController<NSTableViewDelegate, NSTableViewDataSource>
 

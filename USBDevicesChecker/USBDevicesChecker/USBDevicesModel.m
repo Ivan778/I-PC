@@ -217,26 +217,22 @@
     NSMutableArray *sp = [self systemProfiler];
     NSMutableArray *io = [self ioreg];
     
-    // Вывести список подключённых устройств
-    NSLog(@"Список подключённых устройств:");
     for (int i = 0; i < [io count]; i++) {
         DeviceDescription *device = [[DeviceDescription alloc] init];
+        NSMutableArray *description = [self getDeviceDescription:sp :io[i]];
         
         [device setDeviceName:io[i]];
+        NSMutableString *diskPath = [self giveDiskPath:description];
+        if ([diskPath compare:@"Нет"] == NSOrderedSame) {
+            [device setDeviceType:NO];
+        } else {
+            [device setDeviceType:YES];
+            [device setDeviceEjectPath:diskPath];
+            [device setDeviceFullCapacity:[self getDiskFullCapacity:description]];
+            [device setVolumeInfo:[self getDiskVolumes:description]];
+        }
         
-        
-    }
-    
-    // Создание NSMutableArray с описанием устройств, подключённых к USB-портам
-    NSMutableArray *devices = [[NSMutableArray alloc] init];
-    for (int i = 0; i < [io count]; i++) {
-        [devices addObject:[self getDeviceDescription:sp :io[i]]];
-    }
-    
-    // Вывести тип устройства
-    NSLog(@"Тип устройств:");
-    for (int i = 0; i < [devices count]; i++) {
-        NSLog(@"%@", [self giveDiskPath:devices[i]]);
+        [devicesInfo addObject:device];
     }
     
     return devicesInfo;

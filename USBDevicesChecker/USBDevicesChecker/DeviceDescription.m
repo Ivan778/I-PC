@@ -26,8 +26,8 @@
     fullCapacity = capacity;
 }
 
-- (void) addVolumeInfo: (DiskVolume*)volume {
-    [volumes addObject:volume];
+- (void) setVolumeInfo: (NSMutableArray*)volumesS {
+    volumes = volumesS;
 }
 
 //---------------------------------------------------------

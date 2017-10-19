@@ -28,6 +28,6 @@
 
 - (void) setDeviceFullCapacity: (NSString*)capacity;
 
-- (void) addVolumeInfo: (DiskVolume*)volume;
+- (void) setVolumeInfo: (NSMutableArray*)volumeS;
 
 @end
