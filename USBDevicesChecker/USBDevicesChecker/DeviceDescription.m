@@ -14,6 +14,10 @@
     deviceName = [name substringToIndex:[name length] - 2];
 }
 
+- (void) setDeviceSerialNumber: (NSString*)serialNumberS {
+    serialNumber = serialNumberS;
+}
+
 - (void) setDeviceType: (BOOL)type {
     isItDisk = type;
 }
@@ -42,6 +46,10 @@
 
 - (NSString*) getDeviceEjectPath {
     return ejectPath;
+}
+
+- (NSString*) getDeviceSerialNumber {
+    return serialNumber;
 }
 
 @end

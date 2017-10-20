@@ -14,6 +14,7 @@
 {
 @private
     NSString *deviceName;
+    NSString *serialNumber;
     
     BOOL isItDisk;
     NSString *ejectPath;
@@ -23,6 +24,7 @@
 }
 
 - (void) setDeviceName: (NSString*)name;
+- (void) setDeviceSerialNumber: (NSString*)serialNumberS;
 - (void) setDeviceType: (BOOL)type;
 - (void) setDeviceEjectPath: (NSString*)path;
 - (void) setDeviceFullCapacity: (NSString*)capacity;
@@ -33,5 +35,6 @@
 - (NSString*) getDeviceEjectPath;
 - (NSString*) getDeviceFullCapacity;
 - (NSMutableArray*) getVolumeInfo;
+- (NSString*) getDeviceSerialNumber;
 
 @end

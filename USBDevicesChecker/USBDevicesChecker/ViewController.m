@@ -20,6 +20,8 @@
 }
 
 /*:(NSTimer*)theTimer*/
+
+// Заносит данные в таблицу
 - (NSView*)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     NSTableCellView *cellView = [tableView makeViewWithIdentifier:@"DeviceCell" owner:self];
     
@@ -41,6 +43,7 @@
     return cellView;
 }
 
+// Отслеживает выбранные строки в таблице
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
     NSInteger row = [notification.object selectedRow];
     
@@ -64,30 +67,43 @@
 
 - (IBAction)clickedEjectButton:(id)sender {
     NSInteger row = [_tableView selectedRow];
-    NSMutableString *command = [[NSMutableString alloc] init];
-    
-    [command setString:@"diskutil unmountDisk "];
-    [command insertString:[devices[row] getDeviceEjectPath] atIndex:[command length]];
-    NSLog(@"%@", command);
-    
-    [devices removeObjectAtIndex:row];
-    system([command cStringUsingEncoding:NSASCIIStringEncoding]);
-    [_tableView reloadData];
-    
-    [_EjectDeviceButton setEnabled:false];
+    if (row >= 0) {
+        NSMutableString *command = [[NSMutableString alloc] init];
+        
+        [command setString:@"diskutil unmountDisk "];
+        [command insertString:[devices[row] getDeviceEjectPath] atIndex:[command length]];
+        NSLog(@"%@", command);
+        
+        [devices removeObjectAtIndex:row];
+        system([command cStringUsingEncoding:NSASCIIStringEncoding]);
+        [_tableView reloadData];
+        
+        [_EjectDeviceButton setEnabled:false];
+    }
 }
 
+- (void)updateData:(NSTimer*)theTimer {
+    USBDevicesModel *m = [[USBDevicesModel alloc] init];
+    NSMutableArray *d = [model getDevicesInfo];
+    
+    if ([d count] != [devices count]) {
+        model = m;
+        devices = d;
+        [_tableView reloadData];
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    model = [[USBDevicesModel alloc] init];
+    devices = [model getDevicesInfo];
     
     // Настройка таблицы
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     
-    model = [[USBDevicesModel alloc] init];
-    devices = [model getDevicesInfo];
-    [_tableView reloadData];
+    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(updateData:) userInfo:nil repeats:YES];
 }
 
 

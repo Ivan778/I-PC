@@ -210,6 +210,16 @@
     return @"Неизвестно";
 }
 
+- (NSString*) getDeviceSerialNumber: (NSMutableArray*)description {
+    for (int i = 0; i < [description count]; i++) {
+        if ([description[i] containsString:@"Serial Number:"] == YES) {
+            return [description[i] substringFromIndex:15];
+        }
+    }
+    
+    return @"Неизвестно";
+}
+
 - (NSMutableArray*) getDevicesInfo {
     // Массив для хранения информации об устройствах
     NSMutableArray *devicesInfo = [[NSMutableArray alloc] init];
@@ -222,6 +232,7 @@
         NSMutableArray *description = [self getDeviceDescription:sp :io[i]];
         
         [device setDeviceName:io[i]];
+        [device setDeviceSerialNumber:[self getDeviceSerialNumber:description]];
         NSMutableString *diskPath = [self giveDiskPath:description];
         if ([diskPath compare:@"Нет"] == NSOrderedSame) {
             [device setDeviceType:NO];

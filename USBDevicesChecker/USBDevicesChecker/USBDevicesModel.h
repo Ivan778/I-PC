@@ -24,6 +24,7 @@
 - (NSMutableString*) giveDiskPath: (NSMutableArray*)description;
 - (NSMutableArray*) getDiskVolumes: (NSMutableArray*)description;
 - (NSString*) getDiskFullCapacity: (NSMutableArray*)description;
+- (NSString*) getDeviceSerialNumber: (NSMutableArray*)description;
 
 - (NSMutableArray*) getDevicesInfo;
 
