@@ -43,12 +43,19 @@
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
     NSInteger row = [notification.object selectedRow];
-    if (row == 0) {
+    
+    if (row >= 0) {
+        if ([devices[row] getDeviceType] == YES) {
+            [_EjectDeviceButton setEnabled:true];
+        } else {
+            [_EjectDeviceButton setEnabled:false];
+        }
+    }
+    
+    if (row < 0) {
         [_EjectDeviceButton setEnabled:false];
     }
-    if (row == 1) {
-        [_EjectDeviceButton setEnabled:true];
-    }
+    
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
@@ -56,22 +63,31 @@
 }
 
 - (IBAction)clickedEjectButton:(id)sender {
-    NSLog(@"Клац)");
+    NSInteger row = [_tableView selectedRow];
+    NSMutableString *command = [[NSMutableString alloc] init];
+    
+    [command setString:@"diskutil unmountDisk "];
+    [command insertString:[devices[row] getDeviceEjectPath] atIndex:[command length]];
+    NSLog(@"%@", command);
+    
+    [devices removeObjectAtIndex:row];
+    system([command cStringUsingEncoding:NSASCIIStringEncoding]);
+    [_tableView reloadData];
+    
+    [_EjectDeviceButton setEnabled:false];
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    model = [[USBDevicesModel alloc] init];
-    devices = [model getDevicesInfo];
-    
     // Настройка таблицы
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     
-    //model = [[USBDevicesModel alloc] init];
-    //devices = [model getDevicesInfo];
+    model = [[USBDevicesModel alloc] init];
+    devices = [model getDevicesInfo];
+    [_tableView reloadData];
 }
 
 
