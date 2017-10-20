@@ -84,26 +84,38 @@
 
 - (void)updateData:(NSTimer*)theTimer {
     USBDevicesModel *m = [[USBDevicesModel alloc] init];
-    NSMutableArray *d = [model getDevicesInfo];
+    NSMutableArray *d = [m getDevicesInfo];
     
     if ([d count] != [devices count]) {
-        model = m;
-        devices = d;
+        [NSThread sleepForTimeInterval:5];
+        USBDevicesModel *m1 = [[USBDevicesModel alloc] init];
+        NSMutableArray *d1 = [m1 getDevicesInfo];
+        
+        model = m1;
+        devices = d1;
         [_tableView reloadData];
     }
+}
+
+-(void) volumesChanged: (NSNotification*) notification
+{
+    NSLog(@"dostuff");
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    model = [[USBDevicesModel alloc] init];
-    devices = [model getDevicesInfo];
+    //model = [[USBDevicesModel alloc] init];
+    //devices = [model getDevicesInfo];
     
     // Настройка таблицы
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     
-    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(updateData:) userInfo:nil repeats:YES];
+    //[NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(updateData:) userInfo:nil repeats:YES];
+    
+    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector: @selector(volumesChanged:) name:NSWorkspaceDidMountNotification object: nil];
+    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector: @selector(volumesChanged:) name:NSWorkspaceDidUnmountNotification object:nil];
 }
 
 
