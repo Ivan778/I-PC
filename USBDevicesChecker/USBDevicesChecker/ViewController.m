@@ -36,6 +36,12 @@
         
         if ([devices[row] getDeviceType] == YES) {
             [[cellView textField] setStringValue:[devices[row] getDeviceEjectPath]];
+        } else {
+            if ([devices[row] getWasItEjected] == YES) {
+                [[cellView textField] setStringValue:[devices[row] getDeviceEjectPath]];
+            } else {
+                [[cellView textField] setStringValue:@"⊗"];
+            }
         }
         
     } else if ([tableColumn.identifier isEqualToString:@"DeviceSizeCell"]) {
@@ -45,13 +51,17 @@
         if ([devices[row] getDeviceType] == YES) {
             [[cellView textField] setStringValue:[devices[row] getDeviceFullCapacity]];
         } else {
-            [[cellView textField] setStringValue:@"⊗"];
+            if ([devices[row] getWasItEjected] == YES) {
+                [[cellView textField] setStringValue:[devices[row] getDeviceFullCapacity]];
+            } else {
+                [[cellView textField] setStringValue:@"⊗"];
+            }
         }
         
     } else if ([tableColumn.identifier isEqualToString:@"DeviceEjectCell"]) {
         
         cellView = [tableView makeViewWithIdentifier:@"Eject" owner:self];
-        [[cellView textField] setStringValue:@"⊗"];
+        [[cellView textField] setStringValue:[devices[row] getEjectStatus]];
         
     }
         
@@ -64,9 +74,11 @@
     
     if (row >= 0) {
         if ([devices[row] getDeviceType] == YES) {
-            [_EjectDeviceButton setEnabled:true];
-        } else {
-            [_EjectDeviceButton setEnabled:false];
+            if ([devices[row] getWasItEjected] == NO) {
+                [_EjectDeviceButton setEnabled:true];
+            } else {
+                [_EjectDeviceButton setEnabled:false];
+            }
         }
     }
     
@@ -86,41 +98,88 @@
         NSMutableString *command = [[NSMutableString alloc] init];
         
         [command setString:@"diskutil unmountDisk "];
-        [command insertString:[devices[row] getDeviceEjectPath] atIndex:[command length]];
+        [command insertString: [devices[row] getDeviceEjectPath] atIndex: [command length]];
         
-        //[devices removeObjectAtIndex:row];
-        //system([command cStringUsingEncoding:NSASCIIStringEncoding]);
-        //[_tableView reloadData];
+        system([command cStringUsingEncoding: NSASCIIStringEncoding]);
+        
+        [devices[row] setEjectStatus: @"√"];
+        [devices[row] setWasItEjected:YES];
         
         // Get row at specified index
-        NSTableCellView *selectedRow = [_tableView viewAtColumn:3 row:row makeIfNecessary:YES];
+        NSTableCellView *selectedRow = [_tableView viewAtColumn:3 row:row makeIfNecessary: YES];
         
         // Get row's text field
         NSTextField *selectedRowTextField = [selectedRow textField];
+        [selectedRowTextField setStringValue: @"√"];
         
-        NSLog(@"%@", selectedRowTextField.stringValue);
-        
-        //[_EjectDeviceButton setEnabled:false];
+        [_EjectDeviceButton setEnabled: false];
     }
 }
 
 - (void)updateData:(NSTimer*)theTimer {
     USBDevicesModel *m = [[USBDevicesModel alloc] init];
-    NSMutableArray *d = [m getDevicesInfoShort];
+    NSMutableArray *d = [m getDevicesInfo];
+    
+    model = m;
     
     if ([d count] != [devices count]) {
-        model = m;
-        devices = d;
+        
+        if ([d count] > [devices count]) {
+            for (int i = 0; i < [d count]; i++) {
+                
+                BOOL flag = NO;
+                for (int j = 0; j < [devices count]; j++) {
+                    if ([[devices[j] getDeviceSerialNumber] compare:[d[i] getDeviceSerialNumber]] == NSOrderedSame) {
+                        flag = YES;
+                    }
+                }
+                
+                if (flag == NO) {
+                    [devices addObject:d[i]];
+                }
+            }
+        } else {
+            for (int i = 0; i < [devices count]; i++) {
+                
+                BOOL flag = NO;
+                for (int j = 0; j < [d count]; j++) {
+                    if ([[devices[i] getDeviceSerialNumber] compare:[d[j] getDeviceSerialNumber]] == NSOrderedSame) {
+                        flag = YES;
+                    }
+                }
+                
+                if (flag == NO) {
+                    [devices removeObjectAtIndex:i];
+                }
+            }
+        }
+        
         [_tableView reloadData];
     }
 }
 
 -(void) volumesChanged: (NSNotification*) notification {
-    USBDevicesModel *m1 = [[USBDevicesModel alloc] init];
-    NSMutableArray *d1 = [m1 getDevicesInfo];
+    USBDevicesModel *m = [[USBDevicesModel alloc] init];
+    NSMutableArray *d = [m getDevicesInfo];
     
-    model = m1;
-    devices = d1;
+    model = m;
+    
+    for (int i = 0; i < [d count]; i++) {
+        
+        for (int j = 0; j < [devices count]; j++) {
+            
+            if ([[devices[j] getDeviceSerialNumber] compare:[d[i] getDeviceSerialNumber]] == NSOrderedSame) {
+                [d[i] setEjectStatus:[devices[j] getEjectStatus]];
+                [d[i] setWasItEjected:[devices[j] getWasItEjected]];
+                devices[j] = d[i];
+            }
+            
+        }
+        
+    }
+    
+    //devices = d;
+    
     [_tableView reloadData];
 }
 
@@ -136,8 +195,7 @@
     
     [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(updateData:) userInfo:nil repeats:YES];
     
-    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector: @selector(volumesChanged:) name:NSWorkspaceDidMountNotification object: nil];
-    //[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector: @selector(volumesChanged:) name:NSWorkspaceDidUnmountNotification object:nil];
+    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self selector: @selector(volumesChanged:) name: NSWorkspaceDidMountNotification object: nil];
 }
 
 

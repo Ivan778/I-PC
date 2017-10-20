@@ -122,7 +122,7 @@
     [name insertString:@":" atIndex:[name length] - 1];
     
     int i;
-    for (i = 0; [array count]; i++) {
+    for (i = 0; i < [array count]; i++) {
         if ([name compare:array[i]] == NSOrderedSame) {
             break;
         }
@@ -232,12 +232,16 @@
         NSMutableArray *description = [self getDeviceDescription:sp :io[i]];
         
         [device setDeviceName:io[i]];
+        [device setEjectStatus:@"⊗"];
         [device setDeviceSerialNumber:[self getDeviceSerialNumber:description]];
+        
         NSMutableString *diskPath = [self giveDiskPath:description];
         if ([diskPath compare:@"Нет"] == NSOrderedSame) {
             [device setDeviceType:NO];
+            [device setWasItEjected:NO];
         } else {
             [device setDeviceType:YES];
+            [device setWasItEjected:NO];
             [device setDeviceEjectPath:diskPath];
             [device setDeviceFullCapacity:[self getDiskFullCapacity:description]];
             [device setVolumeInfo:[self getDiskVolumes:description]];
@@ -262,6 +266,7 @@
         
         [device setDeviceName:io[i]];
         [device setDeviceSerialNumber:[self getDeviceSerialNumber:description]];
+        [device setEjectStatus:@"⊗"];
         
         NSMutableString *diskPath = [self giveDiskPath:description];
         [device setDeviceType:NO];

@@ -34,6 +34,14 @@
     volumes = volumesS;
 }
 
+- (void) setEjectStatus: (NSString*)status {
+    ejectStatus = status;
+}
+
+- (void) setWasItEjected: (BOOL)answer {
+    wasItEjected = answer;
+}
+
 //---------------------------------------------------------
 
 - (NSString*) getDeviceName {
@@ -58,6 +66,14 @@
 
 - (NSMutableArray*) getVolumeInfo {
     return volumes;
+}
+
+- (NSString*) getEjectStatus {
+    return ejectStatus;
+}
+
+- (BOOL) getWasItEjected {
+    return wasItEjected;
 }
 
 @end
