@@ -8,11 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 #import "USBDevicesModel.h"
+#import "VolumeSheetViewController.h"
 
 @interface ViewController : NSViewController<NSTableViewDelegate, NSTableViewDataSource>
 
 @property (nonatomic, strong) IBOutlet NSTableView *tableView;
 @property (weak) IBOutlet NSButton *EjectDeviceButton;
+@property (weak) IBOutlet NSButton *moreInfoButton;
 
 @end
 

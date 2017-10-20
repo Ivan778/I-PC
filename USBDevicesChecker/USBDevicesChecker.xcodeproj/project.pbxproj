@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2C211D141F988C7400DC22BF /* USBDevicesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C211D131F988C7400DC22BF /* USBDevicesModel.m */; };
+		2C8954A61F9A789000014DCB /* VolumeSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8954A41F9A789000014DCB /* VolumeSheetViewController.m */; };
 		2CB2D7CE1F989BC2003582D8 /* DeviceDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB2D7CD1F989BC2003582D8 /* DeviceDescription.m */; };
 		2CB2D7D11F98F989003582D8 /* DiskVolume.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB2D7D01F98F989003582D8 /* DiskVolume.m */; };
 		2CD839B51F860C2D00C075CE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD839B41F860C2D00C075CE /* AppDelegate.m */; };
@@ -20,6 +21,8 @@
 /* Begin PBXFileReference section */
 		2C211D121F988C7400DC22BF /* USBDevicesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USBDevicesModel.h; sourceTree = "<group>"; };
 		2C211D131F988C7400DC22BF /* USBDevicesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USBDevicesModel.m; sourceTree = "<group>"; };
+		2C8954A31F9A789000014DCB /* VolumeSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VolumeSheetViewController.h; sourceTree = "<group>"; };
+		2C8954A41F9A789000014DCB /* VolumeSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VolumeSheetViewController.m; sourceTree = "<group>"; };
 		2CB2D7CC1F989BC2003582D8 /* DeviceDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceDescription.h; sourceTree = "<group>"; };
 		2CB2D7CD1F989BC2003582D8 /* DeviceDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceDescription.m; sourceTree = "<group>"; };
 		2CB2D7CF1F98F989003582D8 /* DiskVolume.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiskVolume.h; sourceTree = "<group>"; };
@@ -53,6 +56,15 @@
 				2C211D131F988C7400DC22BF /* USBDevicesModel.m */,
 			);
 			name = USBDevicesModel;
+			sourceTree = "<group>";
+		};
+		2C8954A21F9A784000014DCB /* VolumeSheetViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2C8954A31F9A789000014DCB /* VolumeSheetViewController.h */,
+				2C8954A41F9A789000014DCB /* VolumeSheetViewController.m */,
+			);
+			name = VolumeSheetViewController;
 			sourceTree = "<group>";
 		};
 		2CB2D7CB1F989BA8003582D8 /* DeviceDescription */ = {
@@ -92,6 +104,7 @@
 		2CD839B21F860C2D00C075CE /* USBDevicesChecker */ = {
 			isa = PBXGroup;
 			children = (
+				2C8954A21F9A784000014DCB /* VolumeSheetViewController */,
 				2CB2D7D21F98F98E003582D8 /* DiskVolume */,
 				2CB2D7CB1F989BA8003582D8 /* DeviceDescription */,
 				2C211D111F988C4900DC22BF /* USBDevicesModel */,
@@ -206,6 +219,7 @@
 				2CD839B81F860C2D00C075CE /* main.m in Sources */,
 				2CB2D7D11F98F989003582D8 /* DiskVolume.m in Sources */,
 				2CB2D7CE1F989BC2003582D8 /* DeviceDescription.m in Sources */,
+				2C8954A61F9A789000014DCB /* VolumeSheetViewController.m in Sources */,
 				2C211D141F988C7400DC22BF /* USBDevicesModel.m in Sources */,
 				2CD839B51F860C2D00C075CE /* AppDelegate.m in Sources */,
 			);

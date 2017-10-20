@@ -76,14 +76,17 @@
         if ([devices[row] getDeviceType] == YES) {
             if ([devices[row] getWasItEjected] == NO) {
                 [_EjectDeviceButton setEnabled:true];
+                [_moreInfoButton setEnabled:true];
             } else {
                 [_EjectDeviceButton setEnabled:false];
+                [_moreInfoButton setEnabled:false];
             }
         }
     }
     
     if (row < 0) {
         [_EjectDeviceButton setEnabled:false];
+        [_moreInfoButton setEnabled:false];
     }
     
 }
@@ -198,6 +201,12 @@
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self selector: @selector(volumesChanged:) name: NSWorkspaceDidMountNotification object: nil];
 }
 
+- (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] compare:@"DiskVolumeInfo"] == NSOrderedSame) {
+        VolumeSheetViewController *vc = [segue destinationController];
+        vc.volumes = [devices[[_tableView selectedRow]] getVolumeInfo];
+    }
+}
 
 
 @end
