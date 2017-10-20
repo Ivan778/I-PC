@@ -27,5 +27,6 @@
 - (NSString*) getDeviceSerialNumber: (NSMutableArray*)description;
 
 - (NSMutableArray*) getDevicesInfo;
+- (NSMutableArray*) getDevicesInfoShort;
 
 @end

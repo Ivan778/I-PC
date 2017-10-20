@@ -52,4 +52,12 @@
     return serialNumber;
 }
 
+- (NSString*) getDeviceFullCapacity {
+    return fullCapacity;
+}
+
+- (NSMutableArray*) getVolumeInfo {
+    return volumes;
+}
+
 @end

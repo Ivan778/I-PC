@@ -38,6 +38,21 @@
             [[cellView textField] setStringValue:[devices[row] getDeviceEjectPath]];
         }
         
+    } else if ([tableColumn.identifier isEqualToString:@"DeviceSizeCell"]) {
+        
+        cellView = [tableView makeViewWithIdentifier:@"Size" owner:self];
+        
+        if ([devices[row] getDeviceType] == YES) {
+            [[cellView textField] setStringValue:[devices[row] getDeviceFullCapacity]];
+        } else {
+            [[cellView textField] setStringValue:@"⊗"];
+        }
+        
+    } else if ([tableColumn.identifier isEqualToString:@"DeviceEjectCell"]) {
+        
+        cellView = [tableView makeViewWithIdentifier:@"Eject" owner:self];
+        [[cellView textField] setStringValue:@"⊗"];
+        
     }
         
     return cellView;
@@ -72,50 +87,57 @@
         
         [command setString:@"diskutil unmountDisk "];
         [command insertString:[devices[row] getDeviceEjectPath] atIndex:[command length]];
-        NSLog(@"%@", command);
         
-        [devices removeObjectAtIndex:row];
-        system([command cStringUsingEncoding:NSASCIIStringEncoding]);
-        [_tableView reloadData];
+        //[devices removeObjectAtIndex:row];
+        //system([command cStringUsingEncoding:NSASCIIStringEncoding]);
+        //[_tableView reloadData];
         
-        [_EjectDeviceButton setEnabled:false];
+        // Get row at specified index
+        NSTableCellView *selectedRow = [_tableView viewAtColumn:3 row:row makeIfNecessary:YES];
+        
+        // Get row's text field
+        NSTextField *selectedRowTextField = [selectedRow textField];
+        
+        NSLog(@"%@", selectedRowTextField.stringValue);
+        
+        //[_EjectDeviceButton setEnabled:false];
     }
 }
 
 - (void)updateData:(NSTimer*)theTimer {
     USBDevicesModel *m = [[USBDevicesModel alloc] init];
-    NSMutableArray *d = [m getDevicesInfo];
+    NSMutableArray *d = [m getDevicesInfoShort];
     
     if ([d count] != [devices count]) {
-        [NSThread sleepForTimeInterval:5];
-        USBDevicesModel *m1 = [[USBDevicesModel alloc] init];
-        NSMutableArray *d1 = [m1 getDevicesInfo];
-        
-        model = m1;
-        devices = d1;
+        model = m;
+        devices = d;
         [_tableView reloadData];
     }
 }
 
--(void) volumesChanged: (NSNotification*) notification
-{
-    NSLog(@"dostuff");
+-(void) volumesChanged: (NSNotification*) notification {
+    USBDevicesModel *m1 = [[USBDevicesModel alloc] init];
+    NSMutableArray *d1 = [m1 getDevicesInfo];
+    
+    model = m1;
+    devices = d1;
+    [_tableView reloadData];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //model = [[USBDevicesModel alloc] init];
-    //devices = [model getDevicesInfo];
+    model = [[USBDevicesModel alloc] init];
+    devices = [model getDevicesInfo];
     
     // Настройка таблицы
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     
-    //[NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(updateData:) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(updateData:) userInfo:nil repeats:YES];
     
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector: @selector(volumesChanged:) name:NSWorkspaceDidMountNotification object: nil];
-    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector: @selector(volumesChanged:) name:NSWorkspaceDidUnmountNotification object:nil];
+    //[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector: @selector(volumesChanged:) name:NSWorkspaceDidUnmountNotification object:nil];
 }
 
 

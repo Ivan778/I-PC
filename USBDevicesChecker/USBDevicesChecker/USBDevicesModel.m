@@ -249,4 +249,29 @@
     return devicesInfo;
 }
 
+- (NSMutableArray*) getDevicesInfoShort {
+    // Массив для хранения информации об устройствах
+    NSMutableArray *devicesInfo = [[NSMutableArray alloc] init];
+    
+    NSMutableArray *sp = [self systemProfiler];
+    NSMutableArray *io = [self ioreg];
+    
+    for (int i = 0; i < [io count]; i++) {
+        DeviceDescription *device = [[DeviceDescription alloc] init];
+        NSMutableArray *description = [self getDeviceDescription:sp :io[i]];
+        
+        [device setDeviceName:io[i]];
+        [device setDeviceSerialNumber:[self getDeviceSerialNumber:description]];
+        
+        NSMutableString *diskPath = [self giveDiskPath:description];
+        [device setDeviceType:NO];
+        [device setDeviceEjectPath:@"-//-"];
+        [device setDeviceFullCapacity:@"-//-"];
+        
+        [devicesInfo addObject:device];
+    }
+    
+    return devicesInfo;
+}
+
 @end
