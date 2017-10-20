@@ -13,18 +13,29 @@
 
 @implementation ViewController
 
+{
+    USBDevicesModel *model;
+    NSMutableArray *devices;
+    
+}
+
 /*:(NSTimer*)theTimer*/
 - (NSView*)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     NSTableCellView *cellView = [tableView makeViewWithIdentifier:@"DeviceCell" owner:self];
     
     if ([tableColumn.identifier isEqualToString:@"DeviceCell"]) {
+        
         cellView = [tableView makeViewWithIdentifier:@"Device" owner:self];
-        [[cellView textField] setStringValue:@"Hello1"];
-        //NSLog(@"%ld", (long)row);
+        [[cellView textField] setStringValue:[devices[row] getDeviceName]];
+        
     } else if ([tableColumn.identifier isEqualToString:@"DeviceTypeCell"]) {
+        
         cellView = [tableView makeViewWithIdentifier:@"Type" owner:self];
-        [[cellView textField] setStringValue:@"Hello2"];
-        //NSLog(@"%ld", (long)row);
+        
+        if ([devices[row] getDeviceType] == YES) {
+            [[cellView textField] setStringValue:[devices[row] getDeviceEjectPath]];
+        }
+        
     }
         
     return cellView;
@@ -41,7 +52,7 @@
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    return 2;
+    return [devices count];
 }
 
 - (IBAction)clickedEjectButton:(id)sender {
@@ -52,14 +63,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    model = [[USBDevicesModel alloc] init];
+    devices = [model getDevicesInfo];
+    
     // Настройка таблицы
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     
-    USBDevicesModel *model = [[USBDevicesModel alloc] init];
-    NSMutableArray *devices = [model getDevicesInfo];
-    
-    
+    //model = [[USBDevicesModel alloc] init];
+    //devices = [model getDevicesInfo];
 }
 
 

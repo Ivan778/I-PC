@@ -11,7 +11,7 @@
 @implementation DeviceDescription
 
 - (void) setDeviceName: (NSString*)name {
-    deviceName = name;
+    deviceName = [name substringToIndex:[name length] - 2];
 }
 
 - (void) setDeviceType: (BOOL)type {
@@ -32,6 +32,16 @@
 
 //---------------------------------------------------------
 
+- (NSString*) getDeviceName {
+    return deviceName;
+}
 
+- (BOOL) getDeviceType {
+    return isItDisk;
+}
+
+- (NSString*) getDeviceEjectPath {
+    return ejectPath;
+}
 
 @end

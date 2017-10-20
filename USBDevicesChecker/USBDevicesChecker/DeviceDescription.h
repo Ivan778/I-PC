@@ -25,9 +25,13 @@
 - (void) setDeviceName: (NSString*)name;
 - (void) setDeviceType: (BOOL)type;
 - (void) setDeviceEjectPath: (NSString*)path;
-
 - (void) setDeviceFullCapacity: (NSString*)capacity;
-
 - (void) setVolumeInfo: (NSMutableArray*)volumeS;
+
+- (NSString*) getDeviceName;
+- (BOOL) getDeviceType;
+- (NSString*) getDeviceEjectPath;
+- (NSString*) getDeviceFullCapacity;
+- (NSMutableArray*) getVolumeInfo;
 
 @end
