@@ -81,6 +81,9 @@
                 [_EjectDeviceButton setEnabled:false];
                 [_moreInfoButton setEnabled:false];
             }
+        } else {
+            [_EjectDeviceButton setEnabled:false];
+            [_moreInfoButton setEnabled:false];
         }
     }
     
