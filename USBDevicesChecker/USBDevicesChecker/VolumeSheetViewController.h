@@ -9,8 +9,9 @@
 #import <Cocoa/Cocoa.h>
 #import "DiskVolume.h"
 
-@interface VolumeSheetViewController : NSViewController
+@interface VolumeSheetViewController : NSViewController<NSTableViewDelegate, NSTableViewDataSource>
 
 @property (nonatomic, assign) NSMutableArray *volumes;
+@property (nonatomic, strong) IBOutlet NSTableView *tableView;
 
 @end
