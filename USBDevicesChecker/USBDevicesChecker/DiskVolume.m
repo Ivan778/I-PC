@@ -33,6 +33,10 @@
     return freeSpace;
 }
 
+- (NSString*) getUsedSpace {
+    return usedSpace;
+}
+
 - (void) setName: (NSString*)nameS {
     name = nameS;
 }
@@ -43,6 +47,10 @@
 
 - (void) setFreeSpace: (NSString*)freeSpaceS {
     freeSpace = freeSpaceS;
+}
+
+- (void) setUsedSpace: (NSString*)UsedSpaceS {
+    usedSpace = UsedSpaceS;
 }
 
 @end
