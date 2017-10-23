@@ -73,24 +73,26 @@
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
     NSInteger row = [notification.object selectedRow];
     
-    if (row >= 0) {
-        if ([devices[row] getDeviceType] == YES) {
-            if ([devices[row] getWasItEjected] == NO) {
-                [_EjectDeviceButton setEnabled:true];
-                [_moreInfoButton setEnabled:true];
+    if (ejecting == NO) {
+        if (row >= 0) {
+            if ([devices[row] getDeviceType] == YES) {
+                if ([devices[row] getWasItEjected] == NO) {
+                    [_EjectDeviceButton setEnabled:true];
+                    [_moreInfoButton setEnabled:true];
+                } else {
+                    [_EjectDeviceButton setEnabled:false];
+                    [_moreInfoButton setEnabled:false];
+                }
             } else {
                 [_EjectDeviceButton setEnabled:false];
                 [_moreInfoButton setEnabled:false];
             }
-        } else {
+        }
+        
+        if (row < 0) {
             [_EjectDeviceButton setEnabled:false];
             [_moreInfoButton setEnabled:false];
         }
-    }
-    
-    if (row < 0) {
-        [_EjectDeviceButton setEnabled:false];
-        [_moreInfoButton setEnabled:false];
     }
     
 }
@@ -103,52 +105,7 @@
     NSInteger row = [_tableView selectedRow];
     if (row >= 0 && ejecting == NO) {
         ejecting = YES;
-        /*
-        NSMutableString *command = [[NSMutableString alloc] init];
-        
-        [command setString:@"diskutil unmountDisk "];
-        [command insertString: [devices[row] getDeviceEjectPath] atIndex: [command length]];
-        
-        NSMutableString *output = [[NSMutableString alloc] init];
-        
-        FILE *fp;
-        char path[1035];
-        
-        // Команда для чтения
-        fp = popen([command cStringUsingEncoding: NSASCIIStringEncoding], "r");
-        if (fp == NULL) {
-            printf("Failed to run command\n" );
-            exit(1);
-        }
-        
-        // Читаем вывод команды
-        while (fgets(path, sizeof(path)-1, fp) != NULL) {
-            output = [NSMutableString stringWithUTF8String:path];
-        }
-        
-        // Закрываем файл
-        pclose(fp);
-        
-        //system([command cStringUsingEncoding: NSASCIIStringEncoding]);
-        
-        if ([output containsString:@"successful"]) {
-            [devices[row] setEjectStatus: @"√"];
-            [devices[row] setWasItEjected:YES];
-            
-            // Get row at specified index
-            NSTableCellView *selectedRow = [_tableView viewAtColumn:3 row:row makeIfNecessary: YES];
-            
-            // Get row's text field
-            NSTextField *selectedRowTextField = [selectedRow textField];
-            [selectedRowTextField setStringValue: @"√"];
-            
-            [_EjectDeviceButton setEnabled: false];
-            [_moreInfoButton setEnabled: false];
-        }
-         */
-        
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            
             dispatch_async(dispatch_get_main_queue(), ^{
                 [_EjectDeviceButton setEnabled: false];
                 [_moreInfoButton setEnabled: false];
@@ -182,25 +139,51 @@
             //system([command cStringUsingEncoding: NSASCIIStringEncoding]);
             
             if ([output containsString:@"successful"]) {
-                [devices[row] setEjectStatus: @"√"];
-                [devices[row] setWasItEjected:YES];
-                
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    // Get row at specified index
-                    NSTableCellView *selectedRow = [_tableView viewAtColumn:3 row:row makeIfNecessary: YES];
+                    NSAlert *alert = [self createAlert:@"Готово!" :@"Устройство было успешно извлечено."];
                     
-                    // Get row's text field
-                    NSTextField *selectedRowTextField = [selectedRow textField];
-                    [selectedRowTextField setStringValue: @"√"];
+                    if ([alert runModal] == NSAlertFirstButtonReturn) {
+                        [devices[row] setEjectStatus: @"√"];
+                        [devices[row] setWasItEjected:YES];
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            // Get row at specified index
+                            NSTableCellView *selectedRow = [_tableView viewAtColumn:3 row:row makeIfNecessary: YES];
+                            
+                            // Get row's text field
+                            NSTextField *selectedRowTextField = [selectedRow textField];
+                            [selectedRowTextField setStringValue: @"√"];
+                            
+                            [_EjectDeviceButton setEnabled: false];
+                            [_moreInfoButton setEnabled: false];
+                        });
+                    }
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSAlert *alert = [self createAlert:@"Ошибка!" :@"Устройство в данный момент занято. Попробуйте позже."];
                     
-                    [_EjectDeviceButton setEnabled: false];
-                    [_moreInfoButton setEnabled: false];
+                    if ([alert runModal] == NSAlertFirstButtonReturn) {
+                        [_EjectDeviceButton setEnabled: true];
+                        [_moreInfoButton setEnabled: true];
+                    }
                 });
             }
+            
             ejecting = NO;
         });
-        
     }
+}
+
+- (NSAlert*)createAlert:(NSString*)message : (NSString*)moreInfo {
+    NSAlert *alert = [[NSAlert alloc] init];
+    
+    [alert addButtonWithTitle:@"OK"];
+    [alert setMessageText:message];
+    [alert setInformativeText:moreInfo];
+    [alert setAlertStyle:NSWarningAlertStyle];
+    
+    return alert;
 }
 
 - (void)updateData:(NSTimer*)theTimer {
