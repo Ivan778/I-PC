@@ -250,6 +250,13 @@
         [devicesInfo addObject:device];
     }
     
+    for (int i = 0; i < [devicesInfo count]; i++) {
+        if ([[devicesInfo[i] getDeviceSerialNumber] compare:@"000000000820"] == NSOrderedSame) {
+            [devicesInfo removeObjectAtIndex:i];
+            i--;
+        }
+    }
+    
     return devicesInfo;
 }
 

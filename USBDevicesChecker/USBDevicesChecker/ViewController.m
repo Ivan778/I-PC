@@ -106,19 +106,43 @@
         [command setString:@"diskutil unmountDisk "];
         [command insertString: [devices[row] getDeviceEjectPath] atIndex: [command length]];
         
-        system([command cStringUsingEncoding: NSASCIIStringEncoding]);
+        NSMutableString *output = [[NSMutableString alloc] init];
         
-        [devices[row] setEjectStatus: @"√"];
-        [devices[row] setWasItEjected:YES];
+        FILE *fp;
+        char path[1035];
         
-        // Get row at specified index
-        NSTableCellView *selectedRow = [_tableView viewAtColumn:3 row:row makeIfNecessary: YES];
+        // Команда для чтения
+        fp = popen([command cStringUsingEncoding: NSASCIIStringEncoding], "r");
+        if (fp == NULL) {
+            printf("Failed to run command\n" );
+            exit(1);
+        }
         
-        // Get row's text field
-        NSTextField *selectedRowTextField = [selectedRow textField];
-        [selectedRowTextField setStringValue: @"√"];
+        // Читаем вывод команды
+        while (fgets(path, sizeof(path)-1, fp) != NULL) {
+            output = [NSMutableString stringWithUTF8String:path];
+        }
         
-        [_EjectDeviceButton setEnabled: false];
+        // Закрываем файл
+        pclose(fp);
+        
+        //system([command cStringUsingEncoding: NSASCIIStringEncoding]);
+        
+        if ([output containsString:@"successful"]) {
+            [devices[row] setEjectStatus: @"√"];
+            [devices[row] setWasItEjected:YES];
+            
+            // Get row at specified index
+            NSTableCellView *selectedRow = [_tableView viewAtColumn:3 row:row makeIfNecessary: YES];
+            
+            // Get row's text field
+            NSTextField *selectedRowTextField = [selectedRow textField];
+            [selectedRowTextField setStringValue: @"√"];
+            
+            [_EjectDeviceButton setEnabled: false];
+            [_moreInfoButton setEnabled: false];
+        }
+        
     }
 }
 
