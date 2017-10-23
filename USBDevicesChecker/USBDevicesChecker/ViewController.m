@@ -16,6 +16,7 @@
 {
     USBDevicesModel *model;
     NSMutableArray *devices;
+    BOOL ejecting;
     
 }
 
@@ -100,7 +101,9 @@
 
 - (IBAction)clickedEjectButton:(id)sender {
     NSInteger row = [_tableView selectedRow];
-    if (row >= 0) {
+    if (row >= 0 && ejecting == NO) {
+        ejecting = YES;
+        /*
         NSMutableString *command = [[NSMutableString alloc] init];
         
         [command setString:@"diskutil unmountDisk "];
@@ -142,6 +145,60 @@
             [_EjectDeviceButton setEnabled: false];
             [_moreInfoButton setEnabled: false];
         }
+         */
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_EjectDeviceButton setEnabled: false];
+                [_moreInfoButton setEnabled: false];
+            });
+            
+            NSMutableString *command = [[NSMutableString alloc] init];
+            
+            [command setString:@"diskutil unmountDisk "];
+            [command insertString: [devices[row] getDeviceEjectPath] atIndex: [command length]];
+            
+            NSMutableString *output = [[NSMutableString alloc] init];
+            
+            FILE *fp;
+            char path[1035];
+            
+            // Команда для чтения
+            fp = popen([command cStringUsingEncoding: NSASCIIStringEncoding], "r");
+            if (fp == NULL) {
+                printf("Failed to run command\n" );
+                exit(1);
+            }
+            
+            // Читаем вывод команды
+            while (fgets(path, sizeof(path)-1, fp) != NULL) {
+                output = [NSMutableString stringWithUTF8String:path];
+            }
+            
+            // Закрываем файл
+            pclose(fp);
+            
+            //system([command cStringUsingEncoding: NSASCIIStringEncoding]);
+            
+            if ([output containsString:@"successful"]) {
+                [devices[row] setEjectStatus: @"√"];
+                [devices[row] setWasItEjected:YES];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // Get row at specified index
+                    NSTableCellView *selectedRow = [_tableView viewAtColumn:3 row:row makeIfNecessary: YES];
+                    
+                    // Get row's text field
+                    NSTextField *selectedRowTextField = [selectedRow textField];
+                    [selectedRowTextField setStringValue: @"√"];
+                    
+                    [_EjectDeviceButton setEnabled: false];
+                    [_moreInfoButton setEnabled: false];
+                });
+            }
+            ejecting = NO;
+        });
         
     }
 }
@@ -215,6 +272,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    ejecting = NO;
     
     model = [[USBDevicesModel alloc] init];
     devices = [model getDevicesInfo];
