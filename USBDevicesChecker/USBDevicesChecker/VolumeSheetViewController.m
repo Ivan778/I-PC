@@ -57,7 +57,6 @@
     NSMutableString *temp = [[NSMutableString alloc] initWithString:[str substringWithRange:NSMakeRange(beg, fin - beg)]];
     
     for (int i = 0; i < [temp length]; i++) {
-        //NSLog(@"%hu", [temp characterAtIndex:i]);
         if ([temp characterAtIndex:i] == 160) {
             [temp deleteCharactersInRange:NSMakeRange(i, 1)];
             i--;
@@ -82,6 +81,12 @@
     
     NSMutableString *result = [[NSMutableString alloc] init];
     [result appendString:[NSString stringWithFormat:@"%@ GB (%@ bytes)", [formatter stringFromNumber:[NSNumber numberWithDouble:usGB]], [formatter stringFromNumber:[NSNumber numberWithInteger:usB]]]];
+    
+    if ([result length] > 0) {
+        if ([result characterAtIndex:0] == ',') {
+            [result insertString:@"0" atIndex:0];
+        }
+    }
     
     return result;
 }

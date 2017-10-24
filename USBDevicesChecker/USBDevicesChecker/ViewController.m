@@ -16,8 +16,9 @@
 {
     USBDevicesModel *model;
     NSMutableArray *devices;
-    BOOL ejecting;
     
+    BOOL ejecting;
+    NSTimer *updates;
 }
 
 /*:(NSTimer*)theTimer*/
@@ -69,7 +70,7 @@
     return cellView;
 }
 
-// Отслеживает выбранные строки в таблице
+// Отслеживает выбранные строки в таблице и активирует/деактивирует кнопки в соответствие с параметрами выбранного устройства
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
     NSInteger row = [notification.object selectedRow];
     
@@ -248,8 +249,6 @@
         
     }
     
-    //devices = d;
-    
     [_tableView reloadData];
 }
 
@@ -265,15 +264,17 @@
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     
-    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(updateData:) userInfo:nil repeats:YES];
+    updates = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateData:) userInfo:nil repeats:YES];
     
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self selector: @selector(volumesChanged:) name: NSWorkspaceDidMountNotification object: nil];
 }
 
 - (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] compare:@"DiskVolumeInfo"] == NSOrderedSame) {
-        VolumeSheetViewController *vc = [segue destinationController];
-        vc.volumes = [devices[[_tableView selectedRow]] getVolumeInfo];
+    if ([_tableView selectedRow] >= 0) {
+        if ([[segue identifier] compare:@"DiskVolumeInfo"] == NSOrderedSame) {
+            VolumeSheetViewController *vc = [segue destinationController];
+            vc.volumes = [devices[[_tableView selectedRow]] getVolumeInfo];
+        }
     }
 }
 

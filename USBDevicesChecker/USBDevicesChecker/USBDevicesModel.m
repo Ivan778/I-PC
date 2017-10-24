@@ -32,26 +32,39 @@
     FILE *fp;
     char path[1035];
     
-    // Команда для чтения
-    fp = popen("system_profiler SPUSBDataType", "r");
-    if (fp == NULL) {
-        printf("Failed to run command\n" );
-        exit(1);
-    }
+    int attempt = 5;
     
     NSMutableArray *devices = [[NSMutableArray alloc] init];
     NSMutableString *device = [[NSMutableString alloc] init];
     
-    // Читаем вывод команды
-    while (fgets(path, sizeof(path)-1, fp) != NULL) {
-        device = [NSMutableString stringWithUTF8String:path];
-        device = [self removeSpacesInTheBeginning:device];
+    while (attempt > 0) {
+        // Команда для чтения
+        fp = popen("system_profiler SPUSBDataType -detailLevel full", "r");
+        if (fp == NULL) {
+            printf("Failed to run command\n" );
+            exit(1);
+        }
         
-        [devices addObject:device];
+        // Читаем вывод команды
+        while (fgets(path, sizeof(path)-1, fp) != NULL) {
+            device = [NSMutableString stringWithUTF8String:path];
+            device = [self removeSpacesInTheBeginning:device];
+            
+            [devices addObject:device];
+        }
+        
+        // Закрываем файл
+        pclose(fp);
+        
+        if ([devices count] == 0) {
+            attempt--;
+        } else {
+            attempt = -1;
+        }
     }
     
-    // Закрываем файл
-    pclose(fp);
+    
+    //NSLog(@"Got it)");
     
     return devices;
 }
@@ -121,20 +134,25 @@
     
     [name insertString:@":" atIndex:[name length] - 1];
     
+    BOOL foundDevice = NO;
+    
     int i;
     for (i = 0; i < [array count]; i++) {
         if ([name compare:array[i]] == NSOrderedSame) {
+            foundDevice = YES;
             break;
         }
     }
     
-    i += 2;
-    
-    for (; [array count]; i++) {
-        if ([array[i] compare:@"\n"] == NSOrderedSame) {
-            break;
+    if (foundDevice == YES) {
+        i += 2;
+        
+        for (; i < [array count]; i++) {
+            if ([array[i] compare:@"\n"] == NSOrderedSame) {
+                break;
+            }
+            [description addObject:array[i]];
         }
-        [description addObject:array[i]];
     }
     
     return description;
@@ -251,7 +269,7 @@
     }
     
     for (int i = 0; i < [devicesInfo count]; i++) {
-        if ([[devicesInfo[i] getDeviceSerialNumber] compare:@"000000000820"] == NSOrderedSame) {
+        if ([[devicesInfo[i] getDeviceSerialNumber] compare:@"000000000820\n"] == NSOrderedSame) {
             [devicesInfo removeObjectAtIndex:i];
             i--;
         }
