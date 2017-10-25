@@ -226,6 +226,38 @@
         }
         
         [_tableView reloadData];
+    } else {
+        
+        for (int i = 0; i < [d count]; i++) {
+            if ([[devices[i] getDeviceSerialNumber] compare:[d[i] getDeviceSerialNumber]] == NSOrderedSame) {
+                
+                if ([devices[i] getDeviceType] == NO && [d[i] getDeviceType] == YES) {
+                    devices[i] = d[i];
+                    [_tableView reloadData];
+                } else if ([devices[i] getDeviceType] == YES && [d[i] getDeviceType] == YES) {
+                    
+                    NSMutableArray *cD = [devices[i] getVolumeInfo];
+                    NSMutableArray *tD = [d[i] getVolumeInfo];
+                    
+                    BOOL volumeChanges = NO;
+                    
+                    for (int j = 0; j < [cD count]; j++) {
+                        if ([[cD[j] getName] compare:[tD[j] getName]] == NSOrderedSame) {
+                            if ([[cD[j] getFreeSpace] compare:[tD[j] getFreeSpace]] != NSOrderedSame) {
+                                volumeChanges = YES;
+                            }
+                        }
+                    }
+                    
+                    if (volumeChanges == YES) {
+                        [devices[i] setVolumeInfo:[d[i] getVolumeInfo]];
+                    }
+                    
+                }
+                
+            }
+        }
+        
     }
 }
 
