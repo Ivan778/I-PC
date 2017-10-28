@@ -242,9 +242,11 @@
                     BOOL volumeChanges = NO;
                     
                     for (int j = 0; j < [cD count]; j++) {
-                        if ([[cD[j] getName] compare:[tD[j] getName]] == NSOrderedSame) {
-                            if ([[cD[j] getFreeSpace] compare:[tD[j] getFreeSpace]] != NSOrderedSame) {
-                                volumeChanges = YES;
+                        if (j < [tD count]) {// Добавил
+                            if ([[cD[j] getName] compare:[tD[j] getName]] == NSOrderedSame) {
+                                if ([[cD[j] getFreeSpace] compare:[tD[j] getFreeSpace]] != NSOrderedSame) {
+                                    volumeChanges = YES;
+                                }
                             }
                         }
                     }
