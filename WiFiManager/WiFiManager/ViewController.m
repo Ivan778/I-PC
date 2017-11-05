@@ -127,13 +127,14 @@
             }
         });
         
-        
-        NSLog(@"%@", [self currentConnection]);
-        
         CWInterface *tempWif = wfc.interface;
         
         NSError *err;
         NSSet *tempScanset = [tempWif scanForNetworksWithSSID:Nil error:&err];
+        
+        if (err != nil) {
+            NSLog(@"%@", err);
+        }
         
         if ([scanset count] == [tempScanset count]) {
             NSMutableArray *arr1 = [NSMutableArray arrayWithArray:[scanset allObjects]];
