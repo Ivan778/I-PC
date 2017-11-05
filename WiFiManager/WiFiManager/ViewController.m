@@ -15,6 +15,8 @@
     CWWiFiClient *wfc;
     CWInterface *wif;
     NSSet *scanset;
+    
+    CWNetwork *networkToConnect;
 }
 
 - (NSString*)getSecurity:(CWNetwork*)network {
@@ -209,23 +211,40 @@
     return [scanset count];
 }
 
+// Отслеживает выбранные строки в таблице и активирует/деактивирует кнопки в соответствие с параметрами выбранного устройства
+- (void)tableViewSelectionDidChange:(NSNotification *)notification {
+    NSInteger row = [notification.object selectedRow];
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[scanset allObjects]];
+    
+    networkToConnect = arr[row];
+    
+}
+
+- (IBAction)clickedConnectButton:(id)sender {
+    NSLog(@"Hello");
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    networkToConnect = [[CWNetwork alloc] init];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         wfc = [CWWiFiClient sharedWiFiClient];
         wif = wfc.interface;
         
         NSError *err;
         scanset = [wif scanForNetworksWithSSID:Nil error:&err];
-    //});
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_tableView reloadData];
+        });
+    });
     
     [_tableView setDelegate:self];
     [self.tableView setDataSource:self];
     
-    
     [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(scanCacheUpdatedForWiFiInterfaceWithName:) userInfo:nil repeats:YES];
-    
 }
 
 @end

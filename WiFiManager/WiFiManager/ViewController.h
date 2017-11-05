@@ -14,5 +14,10 @@
 @property (weak) IBOutlet NSTableView *tableView;
 @property (weak) IBOutlet NSTextField *currentConnectionLabel;
 
+@property (weak) IBOutlet NSTextField *nameTextField;
+@property (weak) IBOutlet NSTextField *MACAdressTextField;
+@property (weak) IBOutlet NSSecureTextField *passwordTextField;
+@property (weak) IBOutlet NSButton *connectButton;
+
 @end
 

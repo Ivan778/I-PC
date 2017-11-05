@@ -665,7 +665,7 @@
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="900" height="600"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
@@ -922,6 +922,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="clickedConnectButton:" target="XfG-lQ-9wD" id="hxZ-lI-03n"/>
+                                </connections>
                             </button>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SE1-FX-bPi">
                                 <rect key="frame" x="234" y="20" width="193" height="22"/>
@@ -944,7 +947,11 @@
                         </subviews>
                     </view>
                     <connections>
+                        <outlet property="MACAdressTextField" destination="SE1-FX-bPi" id="gYp-fc-tTi"/>
+                        <outlet property="connectButton" destination="EU3-O8-wmG" id="S6Z-oL-Bel"/>
                         <outlet property="currentConnectionLabel" destination="ADh-Q6-f6M" id="NqV-AA-MJl"/>
+                        <outlet property="nameTextField" destination="Aa3-JD-CRK" id="zSQ-Gk-CrE"/>
+                        <outlet property="passwordTextField" destination="4eo-3S-fVo" id="Y3z-Uq-1F8"/>
                         <outlet property="tableView" destination="Ujy-k1-jJl" id="4ot-Bi-85Y"/>
                     </connections>
                 </viewController>
