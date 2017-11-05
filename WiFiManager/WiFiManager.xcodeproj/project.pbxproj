@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C4F2BF41FAF5814006FE2E8 /* SecurityParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4F2BF31FAF5814006FE2E8 /* SecurityParser.m */; };
+		2C4F2BF71FAF60EB006FE2E8 /* ConsoleOutputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4F2BF61FAF60EB006FE2E8 /* ConsoleOutputViewController.m */; };
 		2CD04E961FADFF8800847E65 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD04E951FADFF8800847E65 /* AppDelegate.m */; };
 		2CD04E991FADFF8800847E65 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD04E981FADFF8800847E65 /* main.m */; };
 		2CD04E9C1FADFF8800847E65 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD04E9B1FADFF8800847E65 /* ViewController.m */; };
@@ -15,6 +17,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C4F2BF21FAF5814006FE2E8 /* SecurityParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecurityParser.h; sourceTree = "<group>"; };
+		2C4F2BF31FAF5814006FE2E8 /* SecurityParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecurityParser.m; sourceTree = "<group>"; };
+		2C4F2BF51FAF60EB006FE2E8 /* ConsoleOutputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsoleOutputViewController.h; sourceTree = "<group>"; };
+		2C4F2BF61FAF60EB006FE2E8 /* ConsoleOutputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsoleOutputViewController.m; sourceTree = "<group>"; };
 		2CD04E911FADFF8800847E65 /* WiFiManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WiFiManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CD04E941FADFF8800847E65 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2CD04E951FADFF8800847E65 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -38,6 +44,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C4F2BF11FAF5721006FE2E8 /* SecurityParser */ = {
+			isa = PBXGroup;
+			children = (
+				2C4F2BF21FAF5814006FE2E8 /* SecurityParser.h */,
+				2C4F2BF31FAF5814006FE2E8 /* SecurityParser.m */,
+			);
+			name = SecurityParser;
+			sourceTree = "<group>";
+		};
+		2C4F2BF81FAF60F4006FE2E8 /* ConsoleOutputViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2C4F2BF51FAF60EB006FE2E8 /* ConsoleOutputViewController.h */,
+				2C4F2BF61FAF60EB006FE2E8 /* ConsoleOutputViewController.m */,
+			);
+			name = ConsoleOutputViewController;
+			sourceTree = "<group>";
+		};
 		2CD04E881FADFF8800847E65 = {
 			isa = PBXGroup;
 			children = (
@@ -57,6 +81,8 @@
 		2CD04E931FADFF8800847E65 /* WiFiManager */ = {
 			isa = PBXGroup;
 			children = (
+				2C4F2BF81FAF60F4006FE2E8 /* ConsoleOutputViewController */,
+				2C4F2BF11FAF5721006FE2E8 /* SecurityParser */,
 				61DA00EB1FAF0C790029564E /* ViewController */,
 				61DA00EA1FAF0C6E0029564E /* AppDelegate */,
 				61DA00E91FAE4E8A0029564E /* WiFiManager.entitlements */,
@@ -170,6 +196,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C4F2BF71FAF60EB006FE2E8 /* ConsoleOutputViewController.m in Sources */,
+				2C4F2BF41FAF5814006FE2E8 /* SecurityParser.m in Sources */,
 				2CD04E9C1FADFF8800847E65 /* ViewController.m in Sources */,
 				2CD04E991FADFF8800847E65 /* main.m in Sources */,
 				2CD04E961FADFF8800847E65 /* AppDelegate.m in Sources */,

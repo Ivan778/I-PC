@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <CoreWLAN/CoreWLAN.h>
+#import "ConsoleOutputViewController.h"
 
 @interface ViewController : NSViewController<NSTableViewDelegate, NSTableViewDataSource>
 
@@ -18,6 +19,8 @@
 @property (weak) IBOutlet NSTextField *MACAdressTextField;
 @property (weak) IBOutlet NSSecureTextField *passwordTextField;
 @property (weak) IBOutlet NSButton *connectButton;
+
+@property (weak) IBOutlet NSTextField *addressTextField;
 
 @end
 
