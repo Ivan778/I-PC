@@ -12,6 +12,7 @@
 @interface ViewController : NSViewController<NSTableViewDelegate, NSTableViewDataSource>
 
 @property (weak) IBOutlet NSTableView *tableView;
+@property (weak) IBOutlet NSTextField *currentConnectionLabel;
 
 @end
 

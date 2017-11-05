@@ -111,8 +111,25 @@
     return result;
 }
 
+- (NSString*)currentConnection {
+    CWInterface *cur = [CWInterface interface];
+    return [cur ssid];
+}
+
 - (void)scanCacheUpdatedForWiFiInterfaceWithName:(NSTimer*)theTimer {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *network = [self currentConnection];
+            if (network != nil) {
+                [_currentConnectionLabel setStringValue: network];
+            } else {
+                [_currentConnectionLabel setStringValue: @"-//-"];
+            }
+        });
+        
+        
+        NSLog(@"%@", [self currentConnection]);
+        
         CWInterface *tempWif = wfc.interface;
         
         NSError *err;
@@ -148,17 +165,34 @@
     if ([tableColumn.identifier isEqualToString:@"WiFiName"]) {
         
         cellView = [tableView makeViewWithIdentifier:@"str" owner:self];
-        [[cellView textField] setStringValue:[arr[row] ssid]];
+        NSString *str = [arr[row] ssid];
+        if (str != nil) {
+            [[cellView textField] setStringValue:str];
+        } else {
+            [[cellView textField] setStringValue:@"-"];
+        }
+        
         
     } else if ([tableColumn.identifier isEqualToString:@"MAC"]) {
         
         cellView = [tableView makeViewWithIdentifier:@"str" owner:self];
-        [[cellView textField] setStringValue:[arr[row] bssid]];
+        NSString *str = [arr[row] bssid];
+        if (str != nil) {
+            [[cellView textField] setStringValue:str];
+        } else {
+            [[cellView textField] setStringValue:@"-"];
+        }
         
     } else if ([tableColumn.identifier isEqualToString:@"SignalPower"]) {
         
         cellView = [tableView makeViewWithIdentifier:@"str" owner:self];
-        [[cellView textField] setStringValue:[[NSString alloc] initWithFormat:@"%ld", (long)[arr[row] rssiValue]]];
+        NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"%ld", (long)[arr[row] rssiValue]];
+        if (str != nil) {
+            [str appendString:@" dBm"];
+            [[cellView textField] setStringValue:str];
+        } else {
+            [[cellView textField] setStringValue:@"-"];
+        }
         
     } else if ([tableColumn.identifier isEqualToString:@"Security"]) {
         
