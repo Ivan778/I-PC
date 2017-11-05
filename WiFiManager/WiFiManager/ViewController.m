@@ -112,44 +112,33 @@
 }
 
 - (void)scanCacheUpdatedForWiFiInterfaceWithName:(NSTimer*)theTimer {
-    CWInterface *tempWif = wfc.interface;
-    
-    NSError *err;
-    NSSet *tempScanset = [tempWif scanForNetworksWithSSID:Nil error:&err];
-    
-    if ([scanset count] == [tempScanset count]) {
-        NSMutableArray *arr1 = [NSMutableArray arrayWithArray:[scanset allObjects]];
-        NSMutableArray *arr2 = [NSMutableArray arrayWithArray:[tempScanset allObjects]];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        CWInterface *tempWif = wfc.interface;
         
-        [arr2 removeObjectsInArray:arr1];
+        NSError *err;
+        NSSet *tempScanset = [tempWif scanForNetworksWithSSID:Nil error:&err];
         
-        if ([arr2 count] > 0) {
-            scanset = tempScanset;
-            /*
-            for (CWNetwork *nw in tempScanset) {
-                NSLog(@"%@", [nw ssid]);
-                NSLog(@"%@", [nw bssid]);
-                NSLog(@"%ld", (long)[nw rssiValue]);
-                NSLog(@"%@\n\n", [self getSecurity:nw]);
+        if ([scanset count] == [tempScanset count]) {
+            NSMutableArray *arr1 = [NSMutableArray arrayWithArray:[scanset allObjects]];
+            NSMutableArray *arr2 = [NSMutableArray arrayWithArray:[tempScanset allObjects]];
+            
+            [arr2 removeObjectsInArray:arr1];
+            
+            if ([arr2 count] > 0) {
+                scanset = tempScanset;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [_tableView reloadData];
+                });
+                
             }
-             */
-            [_tableView reloadData];
+            
+        } else {
+            scanset = tempScanset;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_tableView reloadData];
+            });
         }
-        
-    } else {
-        scanset = tempScanset;
-        /*
-        for (CWNetwork *nw in tempScanset) {
-            NSLog(@"%@", [nw ssid]);
-            NSLog(@"%@", [nw bssid]);
-            NSLog(@"%ld", (long)[nw rssiValue]);
-            NSLog(@"%@\n\n", [self getSecurity:nw]);
-        }
-         */
-        [_tableView reloadData];
-    }
-    
-    
+    });
 }
 
 - (NSView*)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
@@ -188,23 +177,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    wfc = [CWWiFiClient sharedWiFiClient];
-    wif = wfc.interface;
-    
-    NSError *err;
-    scanset = [wif scanForNetworksWithSSID:Nil error:&err];
-    
-    for (CWNetwork *nw in scanset) {
-        NSLog(@"%@", [nw ssid]);
-        NSLog(@"%@", [nw bssid]);
-        NSLog(@"%ld", (long)[nw rssiValue]);
-        NSLog(@"%@\n\n", [self getSecurity:nw]);
-    }
+    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        wfc = [CWWiFiClient sharedWiFiClient];
+        wif = wfc.interface;
+        
+        NSError *err;
+        scanset = [wif scanForNetworksWithSSID:Nil error:&err];
+    //});
     
     [_tableView setDelegate:self];
     [self.tableView setDataSource:self];
     
-    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(scanCacheUpdatedForWiFiInterfaceWithName:) userInfo:nil repeats:YES];
+    
+    [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(scanCacheUpdatedForWiFiInterfaceWithName:) userInfo:nil repeats:YES];
     
 }
 
