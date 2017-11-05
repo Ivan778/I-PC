@@ -239,12 +239,16 @@
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[scanset allObjects]];
     BOOL foundNetwork = NO;
     
+    [_connectButton setEnabled:NO];
+    
     // Если на сети стоит какая-либо защита и нет введённого в поле пароля
     if ([networkToConnect supportsSecurity:0] == NO && [[_passwordTextField stringValue] length] < 8) {
         // Выводим пользователю соответствующее сообщение
         dispatch_async(dispatch_get_main_queue(), ^{
             NSAlert *alert = [self createAlert:@"Введите пароль" :@"Для данной сети требуется пароль."];
             [alert runModal];
+            
+            [_connectButton setEnabled:YES];
         });
     }
     
@@ -265,11 +269,15 @@
                     dispatch_async(dispatch_get_main_queue(), ^{
                         NSAlert *alert = [self createAlert:@"Фиаско" :@"Во время подключения к сети пошло что-то не так."];
                         [alert runModal];
+                        
+                        [_connectButton setEnabled:YES];
                     });
                 } else {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        NSAlert *alert = [self createAlert:@"Успех" :@"Подключение к сети было успешным."];
+                        NSAlert *alert = [self createAlert:@"Успех" :@"Аутентификация прошла успешно."];
                         [alert runModal];
+                        
+                        [_connectButton setEnabled:YES];
                     });
                 }
             });
@@ -292,11 +300,15 @@
                     dispatch_async(dispatch_get_main_queue(), ^{
                         NSAlert *alert = [self createAlert:@"Фиаско" :@"Во время подключения к сети пошло что-то не так."];
                         [alert runModal];
+                        
+                        [_connectButton setEnabled:YES];
                     });
                 } else {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         NSAlert *alert = [self createAlert:@"Успех" :@"Аутентификация прошла успешно."];
                         [alert runModal];
+                        
+                        [_connectButton setEnabled:YES];
                     });
                 }
             });
