@@ -16,6 +16,7 @@
     CWWiFiClient *wfc;
     CWInterface *wif;
     NSSet *scanset;
+    NSArray *items;
     
     CWNetwork *networkToConnect;
 }
@@ -243,6 +244,11 @@
     [_tableView setDelegate:self];
     [self.tableView setDataSource:self];
     
+    items = @[@"5", @"10", @"15"];
+    
+    [_amountComboBox addItemsWithObjectValues:items];
+    [_amountComboBox selectItemAtIndex:0];
+    
     [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(scanCacheUpdatedForWiFiInterfaceWithName:) userInfo:nil repeats:YES];
 }
 
@@ -250,6 +256,7 @@
     if ([[segue identifier] compare:@"ConsoleOutput"] == NSOrderedSame) {
         ConsoleOutputViewController *vc = [segue destinationController];
         vc.address = [_addressTextField stringValue];
+        vc.amount = items[[_amountComboBox indexOfSelectedItem]];
     }
 }
 

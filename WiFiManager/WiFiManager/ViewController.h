@@ -21,6 +21,7 @@
 @property (weak) IBOutlet NSButton *connectButton;
 
 @property (weak) IBOutlet NSTextField *addressTextField;
+@property (weak) IBOutlet NSComboBox *amountComboBox;
 
 @end
 

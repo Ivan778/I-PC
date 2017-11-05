@@ -19,8 +19,12 @@
     
     [_textView setEditable:NO];
     NSMutableString *str = [[NSMutableString alloc] init];
-    [str appendString:@"ping -c 5 "];
+    [str appendString:@"ping -c "];
+    [str appendString:[[NSString alloc] initWithFormat:@"%@ ", [self amount]]];
     [str appendString:[self address]];
+    
+    NSLog(@"%@", str);
+    
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         FILE *fp;

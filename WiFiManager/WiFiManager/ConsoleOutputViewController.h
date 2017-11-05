@@ -11,6 +11,8 @@
 @interface ConsoleOutputViewController : NSViewController
 
 @property (nonatomic, assign) NSString *address;
+@property (nonatomic, assign) NSString *amount;
+
 @property (unsafe_unretained) IBOutlet NSTextView *textView;
 
 @end
