@@ -216,12 +216,38 @@
     NSInteger row = [notification.object selectedRow];
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[scanset allObjects]];
     
-    networkToConnect = arr[row];
+    if (row >= 0) {
+        networkToConnect = arr[row];
+        [_nameTextField setStringValue:[networkToConnect ssid]];
+        [_MACAdressTextField setStringValue:[networkToConnect bssid]];
+    }
+}
+
+// Создаёт Alert
+- (NSAlert*)createAlert:(NSString*)message : (NSString*)moreInfo {
+    NSAlert *alert = [[NSAlert alloc] init];
     
+    [alert addButtonWithTitle:@"OK"];
+    [alert setMessageText:message];
+    [alert setInformativeText:moreInfo];
+    [alert setAlertStyle:NSWarningAlertStyle];
+    
+    return alert;
 }
 
 - (IBAction)clickedConnectButton:(id)sender {
-    NSLog(@"Hello");
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[scanset allObjects]];
+    
+    if ([networkToConnect supportsSecurity:0] == NO && [[_passwordTextField stringValue] length] < 8) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSAlert *alert = [self createAlert:@"Не-а" :@"Для данной сети требуется пароль."];
+            [alert runModal];
+        });
+    }
+    
+    for (CWNetwork *net in arr) {
+        
+    }
 }
 
 
