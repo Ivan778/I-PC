@@ -57,11 +57,9 @@
 		2CD04E931FADFF8800847E65 /* WiFiManager */ = {
 			isa = PBXGroup;
 			children = (
+				61DA00EB1FAF0C790029564E /* ViewController */,
+				61DA00EA1FAF0C6E0029564E /* AppDelegate */,
 				61DA00E91FAE4E8A0029564E /* WiFiManager.entitlements */,
-				2CD04E941FADFF8800847E65 /* AppDelegate.h */,
-				2CD04E951FADFF8800847E65 /* AppDelegate.m */,
-				2CD04E9A1FADFF8800847E65 /* ViewController.h */,
-				2CD04E9B1FADFF8800847E65 /* ViewController.m */,
 				2CD04E9D1FADFF8800847E65 /* Assets.xcassets */,
 				2CD04E9F1FADFF8800847E65 /* Main.storyboard */,
 				2CD04EA21FADFF8800847E65 /* Info.plist */,
@@ -76,6 +74,24 @@
 				2CD04E981FADFF8800847E65 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		61DA00EA1FAF0C6E0029564E /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				2CD04E941FADFF8800847E65 /* AppDelegate.h */,
+				2CD04E951FADFF8800847E65 /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		61DA00EB1FAF0C790029564E /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2CD04E9A1FADFF8800847E65 /* ViewController.h */,
+				2CD04E9B1FADFF8800847E65 /* ViewController.m */,
+			);
+			name = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

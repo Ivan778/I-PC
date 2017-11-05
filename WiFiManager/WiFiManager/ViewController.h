@@ -9,9 +9,9 @@
 #import <Cocoa/Cocoa.h>
 #import <CoreWLAN/CoreWLAN.h>
 
-@interface ViewController : NSViewController<CWEventDelegate>
+@interface ViewController : NSViewController<NSTableViewDelegate, NSTableViewDataSource>
 
-- (void)scanCacheUpdatedForWiFiInterfaceWithName:(NSString *)interfaceName;
+@property (weak) IBOutlet NSTableView *tableView;
 
 @end
 

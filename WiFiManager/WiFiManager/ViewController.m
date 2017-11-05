@@ -125,25 +125,64 @@
         
         if ([arr2 count] > 0) {
             scanset = tempScanset;
+            /*
             for (CWNetwork *nw in tempScanset) {
                 NSLog(@"%@", [nw ssid]);
                 NSLog(@"%@", [nw bssid]);
                 NSLog(@"%ld", (long)[nw rssiValue]);
                 NSLog(@"%@\n\n", [self getSecurity:nw]);
             }
+             */
+            [_tableView reloadData];
         }
         
     } else {
         scanset = tempScanset;
+        /*
         for (CWNetwork *nw in tempScanset) {
             NSLog(@"%@", [nw ssid]);
             NSLog(@"%@", [nw bssid]);
             NSLog(@"%ld", (long)[nw rssiValue]);
             NSLog(@"%@\n\n", [self getSecurity:nw]);
         }
+         */
+        [_tableView reloadData];
     }
     
     
+}
+
+- (NSView*)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    NSTableCellView *cellView = [tableView makeViewWithIdentifier:@"WiFiName" owner:self];
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[scanset allObjects]];
+    
+    if ([tableColumn.identifier isEqualToString:@"WiFiName"]) {
+        
+        cellView = [tableView makeViewWithIdentifier:@"str" owner:self];
+        [[cellView textField] setStringValue:[arr[row] ssid]];
+        
+    } else if ([tableColumn.identifier isEqualToString:@"MAC"]) {
+        
+        cellView = [tableView makeViewWithIdentifier:@"str" owner:self];
+        [[cellView textField] setStringValue:[arr[row] bssid]];
+        
+    } else if ([tableColumn.identifier isEqualToString:@"SignalPower"]) {
+        
+        cellView = [tableView makeViewWithIdentifier:@"str" owner:self];
+        [[cellView textField] setStringValue:[[NSString alloc] initWithFormat:@"%ld", (long)[arr[row] rssiValue]]];
+        
+    } else if ([tableColumn.identifier isEqualToString:@"Security"]) {
+        
+        cellView = [tableView makeViewWithIdentifier:@"str" owner:self];
+        [[cellView textField] setStringValue:[self getSecurity:arr[row]]];
+        
+    }
+    
+    return cellView;
+}
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    return [scanset count];
 }
 
 - (void)viewDidLoad {
@@ -162,16 +201,11 @@
         NSLog(@"%@\n\n", [self getSecurity:nw]);
     }
     
+    [_tableView setDelegate:self];
+    [self.tableView setDataSource:self];
+    
     [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(scanCacheUpdatedForWiFiInterfaceWithName:) userInfo:nil repeats:YES];
     
 }
-
-
-- (void)setRepresentedObject:(id)representedObject {
-    [super setRepresentedObject:representedObject];
-
-    // Update the view, if already loaded.
-}
-
 
 @end
