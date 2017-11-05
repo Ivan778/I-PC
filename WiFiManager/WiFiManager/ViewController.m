@@ -237,17 +237,68 @@
 
 - (IBAction)clickedConnectButton:(id)sender {
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[scanset allObjects]];
+    BOOL foundNetwork = NO;
     
+    // Если на сети стоит какая-либо защита и нет введённого в поле пароля
     if ([networkToConnect supportsSecurity:0] == NO && [[_passwordTextField stringValue] length] < 8) {
+        // Выводим пользователю соответствующее сообщение
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSAlert *alert = [self createAlert:@"Не-а" :@"Для данной сети требуется пароль."];
+            NSAlert *alert = [self createAlert:@"Введите пароль" :@"Для данной сети требуется пароль."];
             [alert runModal];
         });
     }
     
-    for (CWNetwork *net in arr) {
+    // Если на сети нет защиты
+    if ([networkToConnect supportsSecurity:0] == YES) {
+        for (CWNetwork *net in arr) {
+            if ([net.bssid isEqualToString:[networkToConnect bssid]]) {
+                foundNetwork = YES;
+                break;
+            }
+        }
         
+        if (foundNetwork == YES) {
+            NSError *err;
+            [wif associateToNetwork:networkToConnect password:@"" error:&err];
+            if (err != nil) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSAlert *alert = [self createAlert:@"Фиаско" :@"Во время подключения к сети пошло что-то не так."];
+                    [alert runModal];
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSAlert *alert = [self createAlert:@"Успех" :@"Подключение к сети было успешным."];
+                    [alert runModal];
+                });
+            }
+        }
     }
+    
+    if ([networkToConnect supportsSecurity:0] == NO && [[_passwordTextField stringValue] length] >= 8) {
+        for (CWNetwork *net in arr) {
+            if ([net.bssid isEqualToString:[networkToConnect bssid]]) {
+                foundNetwork = YES;
+                break;
+            }
+        }
+        
+        if (foundNetwork == YES) {
+            NSError *err;
+            [wif associateToNetwork:networkToConnect password:[_passwordTextField stringValue] error:&err];
+            if (err != nil) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSAlert *alert = [self createAlert:@"Фиаско" :@"Во время подключения к сети пошло что-то не так."];
+                    [alert runModal];
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSAlert *alert = [self createAlert:@"Успех" :@"Подключение к сети было успешным."];
+                    [alert runModal];
+                });
+            }
+        }
+    }
+    
 }
 
 
