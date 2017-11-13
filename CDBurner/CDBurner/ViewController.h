@@ -9,9 +9,11 @@
 #import <Cocoa/Cocoa.h>
 #import <DiscRecording/DiscRecording.h>
 #import <DiscRecordingUI/DiscRecordingUI.h>
+#import "FilePicker.h"
 
 @interface ViewController : NSViewController
 
+@property (weak) IBOutlet NSTableView *tableView;
 
 @end
 
