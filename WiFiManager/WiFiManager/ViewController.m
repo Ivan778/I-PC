@@ -150,7 +150,7 @@
     [_connectButton setEnabled:NO];
     
     // Если на сети стоит какая-либо защита и нет введённого в поле пароля
-    if ([networkToConnect supportsSecurity:0] == NO && [[_passwordTextField stringValue] length] < 8) {
+    if ([networkToConnect supportsSecurity:0] == NO && [[_passwordTextField stringValue] length] <= 7) {
         // Выводим пользователю соответствующее сообщение
         dispatch_async(dispatch_get_main_queue(), ^{
             NSAlert *alert = [self createAlert:@"Введите пароль" :@"Для данной сети требуется пароль."];
@@ -224,6 +224,11 @@
     }
     
 }
+
+- (IBAction)disconnectFromNet:(id)sender {
+    [wif disassociate];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
