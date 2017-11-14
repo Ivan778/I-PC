@@ -10,6 +10,7 @@
 #import <DiscRecording/DiscRecording.h>
 #import <DiscRecordingUI/DiscRecordingUI.h>
 #import "FilePicker.h"
+#import "FilePathManager.h"
 
 @interface ViewController : NSViewController
 

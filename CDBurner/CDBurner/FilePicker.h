@@ -10,6 +10,7 @@
 
 @interface FilePicker : NSObject
 
-+ (NSMutableDictionary*)addFiles: (NSArray<NSURL*>*)array;
++(NSMutableArray*)getFilesPath: (NSArray<NSURL*>*)array;
++(NSMutableArray*)getFilesName: (NSArray<NSURL*>*)array;
 
 @end

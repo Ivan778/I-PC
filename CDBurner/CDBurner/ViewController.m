@@ -8,13 +8,14 @@
 
 #import "ViewController.h"
 
-@interface ViewController () <NSWindowDelegate, NSOpenSavePanelDelegate, NSUserNotificationCenterDelegate, NSDraggingDestination>
+@interface ViewController () <NSWindowDelegate, NSOpenSavePanelDelegate, NSUserNotificationCenterDelegate, NSTableViewDelegate, NSTableViewDataSource>
 @end
 
 @implementation ViewController
 
 {
     BOOL inProgress;
+    NSMutableArray *filesName, * filesPath;
 }
 
 - (void)callNotification:(NSString*)title : (NSString*)text {
@@ -39,43 +40,52 @@
     return YES;
 }
 
+// Добавляет файлы в словарь файлов
 - (void)filePicker {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     [panel setCanChooseFiles: YES];
     [panel setCanChooseDirectories: NO];
     [panel setAllowsMultipleSelection: YES];
     
-    
-    NSInteger clicked = [panel runModal];
-    
-    if (clicked == NSFileHandlingPanelOKButton) {
-        NSMutableDictionary *dict = [FilePicker addFiles:[panel URLs]];
+    if ([panel runModal] == NSFileHandlingPanelOKButton) {
+        // Добавили новые файлы в список
+        [filesName addObjectsFromArray:[FilePicker getFilesName:[panel URLs]]];
+        [filesPath addObjectsFromArray:[FilePicker getFilesPath:[panel URLs]]];
         
-        for (id key in dict) {
-            NSLog(@"%@", [dict objectForKey:key]);
-        }
+        [_tableView reloadData];
     }
     
+}
+
+- (NSView*)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    NSTableCellView *cellView = [tableView makeViewWithIdentifier:@"NameCell" owner:self];
+    
+    if ([tableColumn.identifier isEqualToString:@"NameCell"]) {
+        cellView = [tableView makeViewWithIdentifier:@"Name" owner:self];
+        [[cellView textField] setStringValue:filesName[row]];
+    }
+    
+    return cellView;
+}
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    return [filesName count];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    filesName = [[NSMutableArray alloc] init];
+    filesPath = [[NSMutableArray alloc] init];
+    
     NSUserNotificationCenter *userNotificationCenter = [NSUserNotificationCenter defaultUserNotificationCenter];
     userNotificationCenter.delegate = self;
     
-    [self filePicker];
-    
-    /*
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error;
-    //[fileManager copyItemAtPath:@"/users/ivan/Desktop/08\ If\ You\ Want\ Blood.wav" toPath:@"/users/ivan/Documents/08\ If\ You\ Want\ Blood.wav" error:&error];
-    
-    [fileManager copyItemAtPath:@"/users/ivan/Documents/Музыка/Градусы - Голая.mp3" toPath:@"/users/ivan/Desktop/Градусы - Голая.mp3" error:&error];
-    if (error) NSLog(@"%@", error);
-    */
+    [_tableView setDelegate:self];
+    [_tableView setDataSource:self];
     
 }
+
 - (IBAction)eraseClick:(id)sender {
     DREraseSetupPanel *setupPanel = [DREraseSetupPanel setupPanel];
     [setupPanel setDelegate:self];
@@ -87,6 +97,11 @@
         [progressPanel beginProgressPanelForErase:[setupPanel eraseObject]];
     }
 }
+
+- (IBAction)addFilesClick:(id)sender {
+    [self filePicker];
+}
+
 
 - (IBAction)writeDiscClick:(id)sender {
     
