@@ -94,6 +94,7 @@
 }
 
 - (IBAction)eraseClick:(id)sender {
+    /*
     DREraseSetupPanel *setupPanel = [DREraseSetupPanel setupPanel];
     [setupPanel setDelegate:self];
     
@@ -103,7 +104,34 @@
         
         [progressPanel beginProgressPanelForErase:[setupPanel eraseObject]];
     }
+     */
+    
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSError *error;
+    
+    [manager removeItemAtPath:[FilePathManager pathToFolder] error:&error];
+    if (error) NSLog(@"%@", error);
 }
+
+- (IBAction)deleteFileFromTable:(id)sender {
+    int row = (int)[_tableView selectedRow];
+    
+    if (row >= 0) {
+        if ([filesName count] > row) {
+            [filesName removeObjectAtIndex:row];
+        }
+        
+        if ([filesPath count] > row) {
+            [filesPath removeObjectAtIndex:row];
+        }
+        
+        NSLog(@"%@", filesName);
+        NSLog(@"%@", filesPath);
+        
+        [_tableView reloadData];
+    }
+}
+
 
 - (IBAction)addFilesClick:(id)sender {
     [self filePicker];
@@ -111,7 +139,21 @@
 
 
 - (IBAction)writeDiscClick:(id)sender {
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSError *error;
     
+    [manager createDirectoryAtPath:[FilePathManager pathToFolder] withIntermediateDirectories:NO attributes:nil error:&error];
+    if (error) NSLog(@"%@", error);
+    
+    if ([filesName count] > 0) {
+        for (int i = 0; i < [filesName count]; i++) {
+            [manager copyItemAtPath:filesPath[i] toPath:[FilePathManager pathToCDImage:filesName[i]] error:&error];
+            
+            if (error) {
+                NSLog(@"%@", error);
+            }
+        }
+    }
 }
 
 - (void)eraseProgressPanelWillBegin:(NSNotification *)aNotification {

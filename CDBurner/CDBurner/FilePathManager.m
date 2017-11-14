@@ -14,4 +14,8 @@
     return [NSString stringWithFormat:@"/%@/%@/%@", [[[NSFileManager alloc] init] currentDirectoryPath], @"to_burn",fileName];
 }
 
++(NSString*)pathToFolder {
+    return [NSString stringWithFormat:@"/%@/%@", [[[NSFileManager alloc] init] currentDirectoryPath], @"to_burn"];
+}
+
 @end
