@@ -160,4 +160,32 @@
     }
 }
 
+- (void)burnProgressPanelWillBegin:(NSNotification*)aNotification {
+    inProgress = YES;
+}
+
+
+- (void)burnProgressPanelDidFinish:(NSNotification*)aNotification {
+    inProgress = NO;
+}
+
+- (BOOL)burnProgressPanel:(DRBurnProgressPanel*)theBurnPanel burnDidFinish:(DRBurn*)burn {
+    NSDictionary *burnStatus = [burn status];
+    NSString *state = [burnStatus objectForKey:DRStatusStateKey];
+    
+    if ([state isEqualToString:DRStatusStateFailed]) {
+        NSDictionary *errorStatus = [burnStatus objectForKey:DRErrorStatusKey];
+        NSString *errorString = [errorStatus objectForKey:DRErrorStatusErrorStringKey];
+        
+        NSLog(@"The burn failed (%@)!", errorString);
+        [self callNotification:@"Failure" :@"The burn failed!"];
+    }
+    else {
+        NSLog(@"The burn finished correctly.");
+        [self callNotification:@"Success" :@"The burn finished correctly."];
+    }
+    
+    return YES;
+}
+
 @end
