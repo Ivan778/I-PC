@@ -147,7 +147,9 @@
 }
 
 - (void)burnSetup {
-    DRFolder *track = [DRFolder folderWithPath:[FilePathManager pathToFolder]];
+    DRFolder *rootFolder = [DRFolder folderWithPath:[FilePathManager pathToFolder]];
+    DRTrack *track = [DRTrack trackForRootFolder:rootFolder];
+    
     if (track) {
         DRBurnSetupPanel *setupPanel = [DRBurnSetupPanel setupPanel];
         [setupPanel setDelegate:self];
@@ -179,10 +181,14 @@
         
         NSLog(@"The burn failed (%@)!", errorString);
         [self callNotification:@"Failure" :@"The burn failed!"];
+        
+        [CDFolderManager eraseBurnFolder];
     }
     else {
         NSLog(@"The burn finished correctly.");
         [self callNotification:@"Success" :@"The burn finished correctly."];
+        
+        [CDFolderManager eraseBurnFolder];
     }
     
     return YES;
