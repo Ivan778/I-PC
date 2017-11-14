@@ -707,7 +707,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="writeDiscClick:" target="XfG-lQ-9wD" id="iUp-EY-pBh"/>
+                                    <action selector="burnDiscClick:" target="XfG-lQ-9wD" id="AD3-D8-qFu"/>
                                 </connections>
                             </button>
                             <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gi-6a-TmT">

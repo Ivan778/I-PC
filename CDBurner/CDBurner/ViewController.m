@@ -18,12 +18,18 @@
     NSMutableArray *filesName, * filesPath;
 }
 
-- (void)callNotification:(NSString*)title : (NSString*)text {
-    NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.title = title;
-    notification.informativeText = text;
-    notification.soundName = NSUserNotificationDefaultSoundName;
-    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    filesName = [[NSMutableArray alloc] init];
+    filesPath = [[NSMutableArray alloc] init];
+    
+    NSUserNotificationCenter *userNotificationCenter = [NSUserNotificationCenter defaultUserNotificationCenter];
+    userNotificationCenter.delegate = self;
+    
+    [_tableView setDelegate:self];
+    [_tableView setDataSource:self];
+    
 }
 
 // Чтобы не закрыться во время выполнения записи/стирания
@@ -36,8 +42,80 @@
     }
 }
 
+#pragma mark Notifications
+
 - (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification {
     return YES;
+}
+
+- (void)callNotification:(NSString*)title : (NSString*)text {
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    notification.title = title;
+    notification.informativeText = text;
+    notification.soundName = NSUserNotificationDefaultSoundName;
+    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+}
+
+#pragma mark Table view
+
+- (NSView*)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    NSTableCellView *cellView = [tableView makeViewWithIdentifier:@"NameCell" owner:self];
+    
+    if ([tableColumn.identifier isEqualToString:@"NameCell"]) {
+        cellView = [tableView makeViewWithIdentifier:@"Name" owner:self];
+        [[cellView textField] setStringValue:filesName[row]];
+    }
+    
+    return cellView;
+}
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    return [filesName count];
+}
+
+- (IBAction)deleteFileFromTable:(id)sender {
+    int row = (int)[_tableView selectedRow];
+    
+    if (row >= 0) {
+        if ([filesName count] > row) {
+            [filesName removeObjectAtIndex:row];
+        }
+        
+        if ([filesPath count] > row) {
+            [filesPath removeObjectAtIndex:row];
+        }
+        
+        [_tableView reloadData];
+    }
+}
+
+#pragma mark Erase methods
+
+- (IBAction)eraseClick:(id)sender {
+    DREraseSetupPanel *setupPanel = [DREraseSetupPanel setupPanel];
+    [setupPanel setDelegate:self];
+    
+    if ([setupPanel runSetupPanel] == NSModalResponseOK) {
+        DREraseProgressPanel *progressPanel = [DREraseProgressPanel progressPanel];
+        [progressPanel setDelegate:self];
+        
+        [progressPanel beginProgressPanelForErase:[setupPanel eraseObject]];
+    }
+}
+
+- (void)eraseProgressPanelWillBegin:(NSNotification *)aNotification {
+    inProgress = YES;
+}
+
+- (void)eraseProgressPanelDidFinish:(NSNotification *)aNotification {
+    [self callNotification:@"Success" :@"Disc was erased successfully."];
+    inProgress = NO;
+}
+
+#pragma mark File picker
+
+- (IBAction)addFilesClick:(id)sender {
+    [self filePicker];
 }
 
 // Добавляет файлы в словарь файлов
@@ -58,111 +136,28 @@
     
 }
 
-- (NSView*)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    NSTableCellView *cellView = [tableView makeViewWithIdentifier:@"NameCell" owner:self];
-    
-    if ([tableColumn.identifier isEqualToString:@"NameCell"]) {
-        cellView = [tableView makeViewWithIdentifier:@"Name" owner:self];
-        [[cellView textField] setStringValue:filesName[row]];
-    }
-    
-    return cellView;
-}
+#pragma mark Burn methods
 
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    return [filesName count];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    filesName = [[NSMutableArray alloc] init];
-    filesPath = [[NSMutableArray alloc] init];
-    
-    NSUserNotificationCenter *userNotificationCenter = [NSUserNotificationCenter defaultUserNotificationCenter];
-    userNotificationCenter.delegate = self;
-    
-    [_tableView setDelegate:self];
-    [_tableView setDataSource:self];
-    
-    /*
-    NSFileManager *manager = [NSFileManager defaultManager];
-    NSError *error;
-    [manager copyItemAtPath:@"/users/ivan/Documents/Музыка/Градусы - Голая.mp3" toPath:@"/users/ivan/Desktop/Градусы - Голая.mp3" error:&error];
-    if (error) NSLog(@"%@", error);
-    */
-}
-
-- (IBAction)eraseClick:(id)sender {
-    /*
-    DREraseSetupPanel *setupPanel = [DREraseSetupPanel setupPanel];
-    [setupPanel setDelegate:self];
-    
-    if ([setupPanel runSetupPanel] == NSModalResponseOK) {
-        DREraseProgressPanel *progressPanel = [DREraseProgressPanel progressPanel];
-        [progressPanel setDelegate:self];
-        
-        [progressPanel beginProgressPanelForErase:[setupPanel eraseObject]];
-    }
-     */
-    
-    NSFileManager *manager = [NSFileManager defaultManager];
-    NSError *error;
-    
-    [manager removeItemAtPath:[FilePathManager pathToFolder] error:&error];
-    if (error) NSLog(@"%@", error);
-}
-
-- (IBAction)deleteFileFromTable:(id)sender {
-    int row = (int)[_tableView selectedRow];
-    
-    if (row >= 0) {
-        if ([filesName count] > row) {
-            [filesName removeObjectAtIndex:row];
-        }
-        
-        if ([filesPath count] > row) {
-            [filesPath removeObjectAtIndex:row];
-        }
-        
-        NSLog(@"%@", filesName);
-        NSLog(@"%@", filesPath);
-        
-        [_tableView reloadData];
-    }
-}
-
-
-- (IBAction)addFilesClick:(id)sender {
-    [self filePicker];
-}
-
-
-- (IBAction)writeDiscClick:(id)sender {
-    NSFileManager *manager = [NSFileManager defaultManager];
-    NSError *error;
-    
-    [manager createDirectoryAtPath:[FilePathManager pathToFolder] withIntermediateDirectories:NO attributes:nil error:&error];
-    if (error) NSLog(@"%@", error);
-    
+- (IBAction)burnDiscClick:(id)sender {
     if ([filesName count] > 0) {
-        for (int i = 0; i < [filesName count]; i++) {
-            [manager copyItemAtPath:filesPath[i] toPath:[FilePathManager pathToCDImage:filesName[i]] error:&error];
-            
-            if (error) {
-                NSLog(@"%@", error);
-            }
-        }
+        [CDFolderManager createFolderToBurn:filesName :filesPath];
+        
+        [self burnSetup];
     }
 }
 
-- (void)eraseProgressPanelWillBegin:(NSNotification *)aNotification {
-    inProgress = YES;
-}
-
-- (void)eraseProgressPanelDidFinish:(NSNotification *)aNotification {
-    [self callNotification:@"Success" :@"Disc was erased successfully."];
-    inProgress = NO;
+- (void)burnSetup {
+    DRFolder *track = [DRFolder folderWithPath:[FilePathManager pathToFolder]];
+    if (track) {
+        DRBurnSetupPanel *setupPanel = [DRBurnSetupPanel setupPanel];
+        [setupPanel setDelegate:self];
+        if ([setupPanel runSetupPanel] == NSModalResponseOK) {
+            DRBurnProgressPanel *progressPanel = [DRBurnProgressPanel progressPanel];
+            
+            [progressPanel setDelegate:self];
+            [progressPanel beginProgressPanelForBurn:[setupPanel burnObject] layout:track];
+        }
+    }
 }
 
 @end

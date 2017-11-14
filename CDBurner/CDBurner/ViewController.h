@@ -9,9 +9,11 @@
 #import <Cocoa/Cocoa.h>
 #import <DiscRecording/DiscRecording.h>
 #import <DiscRecordingUI/DiscRecordingUI.h>
+
 #import "FilePicker.h"
 #import "FilePathManager.h"
 #import "FileNamesManager.h"
+#import "CDFolderManager.h"
 
 @interface ViewController : NSViewController
 
