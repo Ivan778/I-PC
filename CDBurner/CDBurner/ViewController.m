@@ -49,7 +49,8 @@
     
     if ([panel runModal] == NSFileHandlingPanelOKButton) {
         // Добавили новые файлы в список
-        [filesName addObjectsFromArray:[FilePicker getFilesName:[panel URLs]]];
+        filesName = [FileNamesManager addFileNames:filesName :[FilePicker getFilesName:[panel URLs]]];
+        //[filesName addObjectsFromArray:[FilePicker getFilesName:[panel URLs]]];
         [filesPath addObjectsFromArray:[FilePicker getFilesPath:[panel URLs]]];
         
         [_tableView reloadData];
@@ -84,6 +85,12 @@
     [_tableView setDelegate:self];
     [_tableView setDataSource:self];
     
+    /*
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSError *error;
+    [manager copyItemAtPath:@"/users/ivan/Documents/Музыка/Градусы - Голая.mp3" toPath:@"/users/ivan/Desktop/Градусы - Голая.mp3" error:&error];
+    if (error) NSLog(@"%@", error);
+    */
 }
 
 - (IBAction)eraseClick:(id)sender {

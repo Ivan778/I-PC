@@ -11,6 +11,7 @@
 #import <DiscRecordingUI/DiscRecordingUI.h>
 #import "FilePicker.h"
 #import "FilePathManager.h"
+#import "FileNamesManager.h"
 
 @interface ViewController : NSViewController
 
