@@ -26,13 +26,42 @@ namespace DeviceManager
 
             try
             {
+                int i = 0;
                 foreach (var item in searcher.Get())
                 {
                     var name = item["Name"];
+                    var deviceId = item["DeviceID"];
+                    var guid = item["ClassGuid"];
+
                     if (name != null)
                     {
-                        listBox1.Items.Add(name.ToString());
+                        listBox1.Items.Add($"{i}) " + name.ToString());
                     }
+                    else
+                    {
+                        listBox1.Items.Add($"{i}) " + "");
+                    }
+
+
+                    if (deviceId != null)
+                    {
+                        listBox2.Items.Add($"{i}) " + deviceId.ToString());
+                    }
+                    else
+                    {
+                        listBox2.Items.Add($"{i}) " + "");
+                    }
+
+                    if (guid != null)
+                    {
+                        listBox3.Items.Add($"{i}) " + guid.ToString());
+                    }
+                    else
+                    {
+                        listBox3.Items.Add($"{i}) " + "");
+                    }
+
+                    i++;
                 }
             }
             catch (ManagementException ex)
