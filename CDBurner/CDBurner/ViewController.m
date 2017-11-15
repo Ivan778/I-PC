@@ -29,8 +29,19 @@
     
     [_tableView setDelegate:self];
     [_tableView setDataSource:self];
-    
 }
+
+- (NSAlert*)createAlert:(NSString*)message : (NSString*)moreInfo {
+    NSAlert *alert = [[NSAlert alloc] init];
+    
+    [alert addButtonWithTitle:@"OK"];
+    [alert setMessageText:message];
+    [alert setInformativeText:moreInfo];
+    [alert setAlertStyle:NSWarningAlertStyle];
+    
+    return alert;
+}
+
 
 // Чтобы не закрыться во время выполнения записи/стирания
 - (BOOL) validateMenuItem:(id)sender {
@@ -89,6 +100,14 @@
     }
 }
 
+- (IBAction)deleteAllFilesFromTable:(id)sender {
+    [filesName removeAllObjects];
+    [filesPath removeAllObjects];
+    
+    [_tableView reloadData];
+}
+
+
 #pragma mark Erase methods
 
 - (IBAction)eraseClick:(id)sender {
@@ -133,17 +152,67 @@
         
         [_tableView reloadData];
     }
-    
 }
 
 #pragma mark Burn methods
 
+- (void)buttonsEnabled: (BOOL)param {
+    [_writeToDiscButton setEnabled:param];
+    [_eraseDiscButton setEnabled:param];
+    [_addFilesButton setEnabled:param];
+    [_deleteButton setEnabled:param];
+}
+
 - (IBAction)burnDiscClick:(id)sender {
-    if ([filesName count] > 0) {
-        [CDFolderManager createFolderToBurn:filesName :filesPath];
-        
-        [self burnSetup];
-    }
+    [self buttonsEnabled:NO];
+    [_progressIndicator setHidden:NO];
+    [_progressIndicator startAnimation:self];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        if ([InsertedDiscManager getAmountOfBlocks] != -1) {
+            if ([filesName count] > 0) {
+                [CDFolderManager createFolderToBurn:filesName :filesPath];
+                
+                if ([InsertedDiscManager getAmountOfBlocks] >= [InsertedDiscManager getFileBlocksAmount]) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self burnSetup];
+                        [self buttonsEnabled:YES];
+                        
+                        [_progressIndicator setHidden:YES];
+                        [_progressIndicator stopAnimation:self];
+                    });
+                } else {
+                    [CDFolderManager eraseBurnFolder];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSAlert *alert = [self createAlert:@"Error!" :@"There is not enough space on disk. Create new list of files to write."];
+                        [alert runModal];
+                        [self buttonsEnabled:YES];
+                        
+                        [_progressIndicator setHidden:YES];
+                        [_progressIndicator stopAnimation:self];
+                    });
+                }
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSAlert *alert = [self createAlert:@"Error!" :@"No folder to write."];
+                    [alert runModal];
+                    [self buttonsEnabled:YES];
+                    
+                    [_progressIndicator setHidden:YES];
+                    [_progressIndicator stopAnimation:self];
+                });
+            }
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSAlert *alert = [self createAlert:@"Error!" :@"Need blank CD."];
+                [alert runModal];
+                [self buttonsEnabled:YES];
+                
+                [_progressIndicator setHidden:YES];
+                [_progressIndicator stopAnimation:self];
+            });
+        }
+    });
 }
 
 - (void)burnSetup {
@@ -158,6 +227,8 @@
             
             [progressPanel setDelegate:self];
             [progressPanel beginProgressPanelForBurn:[setupPanel burnObject] layout:track];
+        } else {
+            [CDFolderManager eraseBurnFolder];
         }
     }
 }

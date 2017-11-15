@@ -1,5 +1,5 @@
 //
-//  FileNamesManager.h
+//  InsertedDiscManager.h
 //  CDBurner
 //
 //  Created by Иван on 14.11.17.
@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FileNamesManager : NSObject
+@interface InsertedDiscManager : NSObject
 
-+ (NSMutableArray*)addFileNames: (NSMutableArray*)finalArray : (NSArray*)newFilesArray;
++ (int)getAmountOfBlocks;
++ (int)getFileBlocksAmount;
 
 @end

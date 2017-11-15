@@ -11,7 +11,7 @@
 
 @interface CDFolderManager : NSObject
 
-+(void)eraseBurnFolder;
-+(void)createFolderToBurn: (NSMutableArray*)filesName : (NSMutableArray*)filesPath;
++ (void)eraseBurnFolder;
++ (void)createFolderToBurn: (NSMutableArray*)filesName : (NSMutableArray*)filesPath;
 
 @end

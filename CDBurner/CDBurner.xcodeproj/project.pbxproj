@@ -11,6 +11,7 @@
 		2C2088E61FBA573800E81ACB /* FilePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2088E51FBA573800E81ACB /* FilePicker.m */; };
 		2C4DAD451FBAE7CD0088526D /* FileNamesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4DAD441FBAE7CD0088526D /* FileNamesManager.m */; };
 		2CAB2FD41FBB00B4009EDEC7 /* CDFolderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB2FD31FBB00B4009EDEC7 /* CDFolderManager.m */; };
+		2CAB2FD81FBB5C7D009EDEC7 /* InsertedDiscManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB2FD71FBB5C7D009EDEC7 /* InsertedDiscManager.m */; };
 		2CF68ED31FBAC90D001272E4 /* FilePathManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF68ED21FBAC90D001272E4 /* FilePathManager.m */; };
 		2CF9E0651FB06B3600D07BDC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF9E0641FB06B3600D07BDC /* AppDelegate.m */; };
 		2CF9E0681FB06B3600D07BDC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF9E0671FB06B3600D07BDC /* main.m */; };
@@ -28,6 +29,8 @@
 		2C4DAD441FBAE7CD0088526D /* FileNamesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileNamesManager.m; sourceTree = "<group>"; };
 		2CAB2FD21FBB00B4009EDEC7 /* CDFolderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDFolderManager.h; sourceTree = "<group>"; };
 		2CAB2FD31FBB00B4009EDEC7 /* CDFolderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDFolderManager.m; sourceTree = "<group>"; };
+		2CAB2FD61FBB5C7D009EDEC7 /* InsertedDiscManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InsertedDiscManager.h; sourceTree = "<group>"; };
+		2CAB2FD71FBB5C7D009EDEC7 /* InsertedDiscManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InsertedDiscManager.m; sourceTree = "<group>"; };
 		2CF68ED11FBAC90D001272E4 /* FilePathManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilePathManager.h; sourceTree = "<group>"; };
 		2CF68ED21FBAC90D001272E4 /* FilePathManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilePathManager.m; sourceTree = "<group>"; };
 		2CF9E0601FB06B3600D07BDC /* CDBurner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CDBurner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +103,15 @@
 			name = CDFolderManager;
 			sourceTree = "<group>";
 		};
+		2CAB2FD51FBB5BD7009EDEC7 /* InsertedDiscManager */ = {
+			isa = PBXGroup;
+			children = (
+				2CAB2FD61FBB5C7D009EDEC7 /* InsertedDiscManager.h */,
+				2CAB2FD71FBB5C7D009EDEC7 /* InsertedDiscManager.m */,
+			);
+			name = InsertedDiscManager;
+			sourceTree = "<group>";
+		};
 		2CF68ED01FBAC8F1001272E4 /* FilePathManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +141,7 @@
 		2CF9E0621FB06B3600D07BDC /* CDBurner */ = {
 			isa = PBXGroup;
 			children = (
+				2CAB2FD51FBB5BD7009EDEC7 /* InsertedDiscManager */,
 				2CAB2FD11FBB003B009EDEC7 /* CDFolderManager */,
 				2C4DAD421FBAE7AF0088526D /* FileNamesManager */,
 				2CF68ED01FBAC8F1001272E4 /* FilePathManager */,
@@ -235,6 +248,7 @@
 				2CF9E06B1FB06B3600D07BDC /* ViewController.m in Sources */,
 				2C4DAD451FBAE7CD0088526D /* FileNamesManager.m in Sources */,
 				2C2088E61FBA573800E81ACB /* FilePicker.m in Sources */,
+				2CAB2FD81FBB5C7D009EDEC7 /* InsertedDiscManager.m in Sources */,
 				2CF9E0681FB06B3600D07BDC /* main.m in Sources */,
 				2CAB2FD41FBB00B4009EDEC7 /* CDFolderManager.m in Sources */,
 				2CF9E0651FB06B3600D07BDC /* AppDelegate.m in Sources */,

@@ -10,7 +10,7 @@
 
 @implementation FileNamesManager
 
-+(NSMutableArray*)addFileNames: (NSMutableArray*)final : (NSArray*)newFiles {
++ (NSMutableArray*)addFileNames: (NSMutableArray*)final : (NSArray*)newFiles {
     for (NSString *str in newFiles) {
         if ([final containsObject:str] == NO) {
             [final addObject:str];

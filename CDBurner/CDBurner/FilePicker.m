@@ -10,7 +10,7 @@
 
 @implementation FilePicker
 
-+(NSMutableArray*)getFilesPath: (NSArray<NSURL*>*)array {
++ (NSMutableArray*)getFilesPath: (NSArray<NSURL*>*)array {
     NSMutableArray *elems = [[NSMutableArray alloc] init];
     
     for (NSURL *url in array) {
@@ -31,7 +31,7 @@
     return elems;
 }
 
-+(NSMutableArray*)getFilesName: (NSArray<NSURL*>*)array {
++ (NSMutableArray*)getFilesName: (NSArray<NSURL*>*)array {
     NSMutableArray *elems = [[NSMutableArray alloc] init];
     
     for (NSURL *url in array) {

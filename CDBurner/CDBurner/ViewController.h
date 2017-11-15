@@ -14,10 +14,17 @@
 #import "FilePathManager.h"
 #import "FileNamesManager.h"
 #import "CDFolderManager.h"
+#import "InsertedDiscManager.h"
 
 @interface ViewController : NSViewController
 
 @property (weak) IBOutlet NSTableView *tableView;
+@property (weak) IBOutlet NSProgressIndicator *progressIndicator;
+
+@property (weak) IBOutlet NSButton *writeToDiscButton;
+@property (weak) IBOutlet NSButton *addFilesButton;
+@property (weak) IBOutlet NSButton *eraseDiscButton;
+@property (weak) IBOutlet NSButton *deleteButton;
 
 @end
 

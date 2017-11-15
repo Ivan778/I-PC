@@ -10,7 +10,7 @@
 
 @interface FilePathManager : NSObject
 
-+(NSString*)pathToCDImage: (NSString*)fileName;
-+(NSString*)pathToFolder;
++ (NSString*)pathToCDImage: (NSString*)fileName;
++ (NSString*)pathToFolder;
 
 @end

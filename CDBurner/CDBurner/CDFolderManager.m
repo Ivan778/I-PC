@@ -10,7 +10,7 @@
 
 @implementation CDFolderManager
 
-+(void)eraseBurnFolder {
++ (void)eraseBurnFolder {
     NSFileManager *manager = [NSFileManager defaultManager];
     NSError *error;
     
@@ -18,7 +18,7 @@
     if (error) NSLog(@"%@", error);
 }
 
-+(void)createFolderToBurn: (NSMutableArray*)filesName : (NSMutableArray*)filesPath {
++ (void)createFolderToBurn: (NSMutableArray*)filesName : (NSMutableArray*)filesPath {
     NSFileManager *manager = [NSFileManager defaultManager];
     NSError *error;
     

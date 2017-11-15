@@ -10,15 +10,15 @@
 
 @implementation FilePathManager
 
-+(NSString*)pathToDesktop {
++ (NSString*)pathToDesktop {
     return [NSSearchPathForDirectoriesInDomains(NSDesktopDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 }
 
-+(NSString*)pathToCDImage: (NSString*)fileName {
++ (NSString*)pathToCDImage: (NSString*)fileName {
     return [NSString stringWithFormat:@"/%@/%@/%@", [self pathToDesktop], @"to_burn", fileName];
 }
 
-+(NSString*)pathToFolder {
++ (NSString*)pathToFolder {
     return [NSString stringWithFormat:@"/%@/%@", [self pathToDesktop], @"to_burn"];
 }
 
