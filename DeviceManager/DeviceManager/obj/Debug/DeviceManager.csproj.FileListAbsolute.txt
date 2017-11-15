@@ -1,0 +1,10 @@
+F:\L5_IIPU\DeviceManager\DeviceManager\bin\Debug\DeviceManager.exe.config
+F:\L5_IIPU\DeviceManager\DeviceManager\bin\Debug\DeviceManager.exe
+F:\L5_IIPU\DeviceManager\DeviceManager\bin\Debug\DeviceManager.pdb
+F:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.csprojResolveAssemblyReference.cache
+F:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.Form1.resources
+F:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.Properties.Resources.resources
+F:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.csproj.GenerateResource.Cache
+F:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.csproj.CoreCompileInputs.cache
+F:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.exe
+F:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.pdb
