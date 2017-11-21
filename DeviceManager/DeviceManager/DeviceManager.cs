@@ -1,22 +1,38 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace DeviceManager
 {
     public partial class DeviceManager : Form
     {
+        private List<DeviceInfo> _devices;
+
         public DeviceManager()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void LoadingTheView(object sender, EventArgs e)
         {
-            foreach (var item in WmiManager.Devices)
+            FillTheTableWithContent();
+        }
+
+        private void FillTheTableWithContent()
+        {
+            ContentTable.Items.Clear();
+            _devices = GetAllDevicesInfo.Devices;
+
+            foreach (var device in _devices)
             {
-                var cdf = item["Name"];
-                listBox1.Items.Add(cdf != null ? $"{listBox1.Items.Count}) {cdf}" : $"{listBox1.Items.Count}) ");
-                listBox1.Items.ins
+                var deviceInfo = new ListViewItem(device.GetName());
+                deviceInfo.SubItems.AddRange(new[]
+                {
+                    device.GetHardware(), device.GetGuid(), device.GetManufacturer(),
+                    device.GetDriverDescription(), device.GetDriverPath(),
+                    device.GetStatus() ? "Disabled" : "Enabled"
+                });
+                ContentTable.Items.Add(deviceInfo);
             }
         }
     }

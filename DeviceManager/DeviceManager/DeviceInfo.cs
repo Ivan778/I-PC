@@ -29,7 +29,7 @@ namespace DeviceManager
         {
             if (Device["HardwareID"] is string[] hardware)
             {
-                return hardware.Where(temp => temp != "(null)").Aggregate(string.Empty, (current, temp) => current + (temp + "\t"));
+                return hardware.Where(temp => temp != "(null)").Aggregate(string.Empty, (current, temp) => current + (temp + "    "));
             }
             return "";
         }

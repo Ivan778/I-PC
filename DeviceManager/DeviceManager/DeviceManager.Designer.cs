@@ -99,7 +99,7 @@
             this.Controls.Add(this.ContentTable);
             this.Name = "DeviceManager";
             this.Text = "Device Manager";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.LoadingTheView);
             this.ResumeLayout(false);
 
         }
