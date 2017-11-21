@@ -6,52 +6,127 @@ namespace DeviceManager
 {
     public class DeviceInfo
     {
-        private ManagementObject Device { get; }
-        private ManagementObject Driver { get; }
+        private ManagementObject _device;
+        private ManagementObject _driver;
 
         public DeviceInfo(ManagementObject device, ManagementObject driver)
         {
-            Device = device;
-            Driver = driver;
+            _device = device;
+            _driver = driver;
         }
 
         public string GetName()
         {
-            return Device["Name"]?.ToString() ?? "";
-        }
-
-        public string GetGuid()
-        {
-            return Device["ClassGuid"]?.ToString() ?? "";
-        }
-
-        public string GetHardware()
-        {
-            if (Device["HardwareID"] is string[] hardware)
+            if (_device["Name"] != null)
             {
-                return hardware.Where(temp => temp != "(null)").Aggregate(string.Empty, (current, temp) => current + (temp + "    "));
+                return _device["Name"].ToString();
             }
             return "";
         }
 
+        public string GetGuid()
+        {
+            if (_device["ClassGuid"] != null)
+            {
+                return _device["ClassGuid"].ToString();
+            }
+            return "";
+        }
+
+        public string GetHardware()
+        {
+            var hardware = _device["HardwareID"] as string[];
+            string result = string.Empty;
+            foreach (var temp in hardware)
+            {
+                if (temp != "(null)")
+                {
+                    result += temp + "    ";
+                }
+            }
+            return result;
+        }
+
         public string GetManufacturer()
         {
-            return Device["Manufacturer"]?.ToString() ?? "";
+            if (_device["Manufacturer"] != null)
+            {
+                return _device["Manufacturer"].ToString();
+            }
+            return "";
+        }
+
+        public string GetDeviceID()
+        {
+            if (_device["DeviceID"] != null)
+            {
+                return _device["DeviceID"].ToString();
+            }
+            return "";
         }
 
         public string GetDriverDescription()
         {
-            return Driver?["Description"]?.ToString() ?? "";
+            if (_driver != null)
+            {
+                if (_driver["Description"] != null)
+                {
+                    return _driver["Description"].ToString();
+                }
+            }
+            return "";
         }
 
         public string GetDriverPath()
         {
-            return Driver?["PathName"]?.ToString() ?? "";
+            if (_driver != null)
+            {
+                if (_driver["PathName"] != null)
+                {
+                    return _driver["PathName"].ToString();
+                }
+            }
+            return "";
         }
 
         public bool GetStatus()
         {
-            return Convert.ToInt32(Device["ConfigManagerErrorCode"]) == 22;
+            var code = _device["ConfigManagerErrorCode"];
+            return Convert.ToInt32(code) == 22;
+        }
+
+        public bool DisableDevice()
+        {
+            try
+            {
+                _device.InvokeMethod("Disable", null);
+            }
+            catch (ManagementException)
+            {
+                return false;
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(e);
+            }
+            return true;
+        }
+
+        public bool EnableDevice()
+        {
+            try
+            {
+                _device.InvokeMethod("Enable", null);
+            }
+            catch (ManagementException)
+            {
+                return false;
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(e);
+            }
+            return true;
         }
     }
 }

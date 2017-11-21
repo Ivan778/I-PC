@@ -39,6 +39,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.DrPath = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.DevPath = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,7 +50,7 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(146, 41);
+            this.label1.Size = new System.Drawing.Size(146, 59);
             this.label1.TabIndex = 0;
             this.label1.Text = "Hardware";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -59,7 +61,7 @@
             this.Hardware.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Hardware.Location = new System.Drawing.Point(155, 0);
             this.Hardware.Name = "Hardware";
-            this.Hardware.Size = new System.Drawing.Size(856, 41);
+            this.Hardware.Size = new System.Drawing.Size(856, 59);
             this.Hardware.TabIndex = 1;
             this.Hardware.Text = "label2";
             this.Hardware.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -68,9 +70,9 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(3, 41);
+            this.label3.Location = new System.Drawing.Point(3, 59);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(146, 41);
+            this.label3.Size = new System.Drawing.Size(146, 59);
             this.label3.TabIndex = 2;
             this.label3.Text = "GUID";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -79,9 +81,9 @@
             // 
             this.Guid.AutoSize = true;
             this.Guid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Guid.Location = new System.Drawing.Point(155, 41);
+            this.Guid.Location = new System.Drawing.Point(155, 59);
             this.Guid.Name = "Guid";
-            this.Guid.Size = new System.Drawing.Size(856, 41);
+            this.Guid.Size = new System.Drawing.Size(856, 59);
             this.Guid.TabIndex = 3;
             this.Guid.Text = "label4";
             this.Guid.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -90,9 +92,9 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Location = new System.Drawing.Point(3, 82);
+            this.label5.Location = new System.Drawing.Point(3, 118);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(146, 41);
+            this.label5.Size = new System.Drawing.Size(146, 59);
             this.label5.TabIndex = 4;
             this.label5.Text = "Manufacturer";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -101,9 +103,9 @@
             // 
             this.Manufacturer.AutoSize = true;
             this.Manufacturer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Manufacturer.Location = new System.Drawing.Point(155, 82);
+            this.Manufacturer.Location = new System.Drawing.Point(155, 118);
             this.Manufacturer.Name = "Manufacturer";
-            this.Manufacturer.Size = new System.Drawing.Size(856, 41);
+            this.Manufacturer.Size = new System.Drawing.Size(856, 59);
             this.Manufacturer.TabIndex = 5;
             this.Manufacturer.Text = "label6";
             this.Manufacturer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -112,9 +114,9 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Location = new System.Drawing.Point(3, 123);
+            this.label7.Location = new System.Drawing.Point(3, 177);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(146, 41);
+            this.label7.Size = new System.Drawing.Size(146, 59);
             this.label7.TabIndex = 6;
             this.label7.Text = "Driver Description";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -123,9 +125,9 @@
             // 
             this.DrDescription.AutoSize = true;
             this.DrDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DrDescription.Location = new System.Drawing.Point(155, 123);
+            this.DrDescription.Location = new System.Drawing.Point(155, 177);
             this.DrDescription.Name = "DrDescription";
-            this.DrDescription.Size = new System.Drawing.Size(856, 41);
+            this.DrDescription.Size = new System.Drawing.Size(856, 59);
             this.DrDescription.TabIndex = 7;
             this.DrDescription.Text = "label8";
             this.DrDescription.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -134,9 +136,9 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label9.Location = new System.Drawing.Point(3, 164);
+            this.label9.Location = new System.Drawing.Point(3, 236);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(146, 43);
+            this.label9.Size = new System.Drawing.Size(146, 59);
             this.label9.TabIndex = 8;
             this.label9.Text = "Driver Path";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -145,9 +147,9 @@
             // 
             this.DrPath.AutoSize = true;
             this.DrPath.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DrPath.Location = new System.Drawing.Point(155, 164);
+            this.DrPath.Location = new System.Drawing.Point(155, 236);
             this.DrPath.Name = "DrPath";
-            this.DrPath.Size = new System.Drawing.Size(856, 43);
+            this.DrPath.Size = new System.Drawing.Size(856, 59);
             this.DrPath.TabIndex = 9;
             this.DrPath.Text = "label10";
             this.DrPath.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -157,6 +159,8 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 85F));
+            this.tableLayoutPanel1.Controls.Add(this.DevPath, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.DrPath, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.label9, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.DrDescription, 1, 3);
@@ -170,20 +174,43 @@
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowCount = 6;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1014, 207);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1014, 355);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Location = new System.Drawing.Point(3, 295);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(146, 60);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Device Path";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // DevPath
+            // 
+            this.DevPath.AutoSize = true;
+            this.DevPath.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DevPath.Location = new System.Drawing.Point(155, 295);
+            this.DevPath.Name = "DevPath";
+            this.DevPath.Size = new System.Drawing.Size(856, 60);
+            this.DevPath.TabIndex = 11;
+            this.DevPath.Text = "Driver Path";
+            this.DevPath.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DetailedDeviceInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1014, 207);
+            this.ClientSize = new System.Drawing.Size(1014, 355);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "DetailedDeviceInfo";
             this.Text = "DetailedDeviceInfo";
@@ -206,5 +233,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label DrPath;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label DevPath;
+        private System.Windows.Forms.Label label2;
     }
 }

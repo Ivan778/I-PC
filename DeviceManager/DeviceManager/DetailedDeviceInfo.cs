@@ -21,6 +21,7 @@ namespace DeviceManager
             Manufacturer.Text = device.GetManufacturer();
             DrDescription.Text = device.GetDriverDescription();
             DrPath.Text = device.GetDriverPath();
+            DevPath.Text = device.GetDeviceID();
 
             Text = device.GetName();
         }

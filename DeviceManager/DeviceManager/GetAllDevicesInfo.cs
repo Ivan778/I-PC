@@ -22,6 +22,7 @@ namespace DeviceManager
                     var device = (ManagementObject) o;
                     var driver = device.GetRelated("Win32_SystemDriver");
 
+
                     if (driver.Count != 0)
                     {
                         devs.Add(new DeviceInfo(device, driver.OfType<ManagementObject>().FirstOrDefault()));

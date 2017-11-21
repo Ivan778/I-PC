@@ -9,3 +9,11 @@ F:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.exe
 F:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.pdb
 F:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.DeviceManager.resources
 F:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.DetailedDeviceInfo.resources
+E:\L5_IIPU\DeviceManager\DeviceManager\bin\Debug\DeviceManager.exe.config
+E:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.exe
+E:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.pdb
+E:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.csprojResolveAssemblyReference.cache
+E:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.DetailedDeviceInfo.resources
+E:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.DeviceManager.resources
+E:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.Properties.Resources.resources
+E:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.csproj.GenerateResource.Cache

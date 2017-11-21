@@ -32,7 +32,7 @@
             this.ContentTable = new System.Windows.Forms.ListView();
             this.DeviceName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Status = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.button1 = new System.Windows.Forms.Button();
+            this.Toggle = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -41,7 +41,7 @@
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.ContentTable, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.Toggle, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -75,15 +75,16 @@
             this.Status.Text = "Status";
             this.Status.Width = 241;
             // 
-            // button1
+            // Toggle
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(3, 436);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(736, 53);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.Toggle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Toggle.Location = new System.Drawing.Point(3, 436);
+            this.Toggle.Name = "Toggle";
+            this.Toggle.Size = new System.Drawing.Size(736, 53);
+            this.Toggle.TabIndex = 2;
+            this.Toggle.Text = "Disable/Enable";
+            this.Toggle.UseVisualStyleBackColor = true;
+            this.Toggle.Click += new System.EventHandler(this.Toogle_Click);
             // 
             // DeviceManager
             // 
@@ -105,7 +106,7 @@
         private System.Windows.Forms.ListView ContentTable;
         private System.Windows.Forms.ColumnHeader DeviceName;
         private System.Windows.Forms.ColumnHeader Status;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Toggle;
     }
 }
 
