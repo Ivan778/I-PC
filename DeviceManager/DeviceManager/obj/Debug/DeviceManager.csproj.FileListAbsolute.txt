@@ -8,3 +8,4 @@ F:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.csproj.CoreCompil
 F:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.exe
 F:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.pdb
 F:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.DeviceManager.resources
+F:\L5_IIPU\DeviceManager\DeviceManager\obj\Debug\DeviceManager.DetailedDeviceInfo.resources

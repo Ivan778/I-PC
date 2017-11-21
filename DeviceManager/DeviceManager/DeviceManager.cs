@@ -26,14 +26,17 @@ namespace DeviceManager
             foreach (var device in _devices)
             {
                 var deviceInfo = new ListViewItem(device.GetName());
-                deviceInfo.SubItems.AddRange(new[]
-                {
-                    device.GetHardware(), device.GetGuid(), device.GetManufacturer(),
-                    device.GetDriverDescription(), device.GetDriverPath(),
-                    device.GetStatus() ? "Disabled" : "Enabled"
-                });
+                deviceInfo.SubItems.Add(device.GetStatus() ? "Disabled" : "Enabled");
+
                 ContentTable.Items.Add(deviceInfo);
             }
+        }
+
+        private void ContentTable_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var device = _devices[ContentTable.HitTest(e.Location).Item.Index];
+            var infoForm = new DetailedDeviceInfo(device);
+            infoForm.Show();
         }
     }
 }
