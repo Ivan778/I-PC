@@ -12,8 +12,11 @@
 @implementation ViewController
 
 {
-    bool flag;
-    int fl;
+    
+    BOOL flag;
+    BOOL anyKeyPressed;
+    
+    NSMutableArray *combination;
 }
 
 CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *refcon) {
@@ -22,37 +25,71 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
     //NSPoint mouseLoc = [NSEvent mouseLocation]; //get current mouse position
     //NSLog(@"Mouse location: %f %f", mouseLoc.x, mouseLoc.y);
     
+    [(__bridge ViewController*)refcon invertAnyKeyPressed];
     
-    
-    NSLog(@"%lld", CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode));//kCGKeyboardEventKeycode
-    if (CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode) == 0x0B) {
-        //CGEventSetIntegerValueField(event, kCGKeyboardEventKeycode, 0x09);
-        [(__bridge ViewController*)refcon reset];
+    if ([(__bridge ViewController*)refcon getAnyKeyPressed] == YES) {
+        
+        
+        NSLog(@"%lld", CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode));//kCGKeyboardEventKeycode
+        if (CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode) == 0x0B) {
+            //[(__bridge ViewController*)refcon reset];
+        }
+        
+        if (CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode) == 55) {
+            [(__bridge ViewController*)refcon freeSet];
+        }
+        
+        [(__bridge ViewController*)refcon addToSet:(int)CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode)];
+        
+        if (CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode) == 15) {
+            if ([(__bridge ViewController*)refcon checkCombination] == YES) {
+                
+                [(__bridge ViewController*)refcon reset];
+            }
+        }
     }
     
     return event;
 }
 
+- (void)invertAnyKeyPressed {
+    anyKeyPressed = !anyKeyPressed;
+}
+
+- (BOOL)checkCombination {
+    return [combination isEqualToArray:@[@55, @4, @31, @31, @40, @14, @15]];
+}
+
+- (BOOL)getAnyKeyPressed {
+    return anyKeyPressed;
+}
+
+- (void)addToSet: (int)keyCode {
+    [combination addObject:[NSNumber numberWithInt:keyCode]];
+}
+
+- (void)freeSet {
+    [combination removeAllObjects];
+}
+
 - (void)reset {
-    fl++;
-    if (fl % 2 == 0) {
-        flag = !flag;
-        
-        ProcessSerialNumber psn = { 0, kCurrentProcess };
-        
-        if (flag == true) {
-            TransformProcessType(&psn, kProcessTransformToForegroundApplication);
-        } else {
-            TransformProcessType(&psn, kProcessTransformToUIElementApplication);
-        }
+    flag = !flag;
+    ProcessSerialNumber psn = { 0, kCurrentProcess };
+    
+    if (flag == true) {
+        TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+    } else {
+        TransformProcessType(&psn, kProcessTransformToUIElementApplication);
     }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    flag = true;
-    fl = 0;
+    flag = YES;
+    anyKeyPressed = NO;
+    
+    combination = [NSMutableArray array];
     
     // Code benefitting from a local autorelease pool.
     CFRunLoopSourceRef runLoopSource;
