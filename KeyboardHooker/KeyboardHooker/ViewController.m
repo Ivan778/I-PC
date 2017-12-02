@@ -28,7 +28,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
     [_mouse setMouseNotifications];
     
     //[EmailSender sendEmailWithMail:@"i.suprynovic@gmail.com" withSubject:@"Hello" Attachments:nil];
-    [FileWriter createFile:@""];
+    //[FileWriter createFile:@""];
 }
 
 @end
