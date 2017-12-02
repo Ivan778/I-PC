@@ -11,5 +11,7 @@
 @interface FileWriter : NSObject
 
 + (void)createFile: (NSString*)name;
++ (void)writeToFile: (NSString*)name file:(NSString*)stringToWrite;
++ (void)clearFile: (NSString*)name;
 
 @end

