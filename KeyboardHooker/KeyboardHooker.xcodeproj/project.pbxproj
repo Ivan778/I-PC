@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C3522641FD1A09C006481ED /* EmailSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3522631FD1A09C006481ED /* EmailSender.m */; };
+		2C3522681FD1A17D006481ED /* FileWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3522671FD1A17D006481ED /* FileWriter.m */; };
+		2C887F981FC833FF009462E3 /* KeyHooker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C887F971FC833FF009462E3 /* KeyHooker.m */; };
+		2C887F9F1FC83EE3009462E3 /* Time.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C887F9E1FC83EE3009462E3 /* Time.m */; };
+		2C887FA31FC840F4009462E3 /* KeyRunLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C887FA21FC840F4009462E3 /* KeyRunLoop.m */; };
+		2C887FA71FC84383009462E3 /* MouseHooker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C887FA61FC84383009462E3 /* MouseHooker.m */; };
 		2C91C55D1FC41ED1002FE30F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C91C55C1FC41ED1002FE30F /* AppDelegate.m */; };
 		2C91C5601FC41ED1002FE30F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C91C55F1FC41ED1002FE30F /* main.m */; };
 		2C91C5631FC41ED1002FE30F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C91C5621FC41ED1002FE30F /* ViewController.m */; };
@@ -15,6 +21,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C3522621FD1A09C006481ED /* EmailSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailSender.h; sourceTree = "<group>"; };
+		2C3522631FD1A09C006481ED /* EmailSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailSender.m; sourceTree = "<group>"; };
+		2C3522661FD1A17D006481ED /* FileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileWriter.h; sourceTree = "<group>"; };
+		2C3522671FD1A17D006481ED /* FileWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileWriter.m; sourceTree = "<group>"; };
+		2C887F961FC833FF009462E3 /* KeyHooker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyHooker.h; sourceTree = "<group>"; };
+		2C887F971FC833FF009462E3 /* KeyHooker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyHooker.m; sourceTree = "<group>"; };
+		2C887F9D1FC83EE3009462E3 /* Time.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Time.h; sourceTree = "<group>"; };
+		2C887F9E1FC83EE3009462E3 /* Time.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Time.m; sourceTree = "<group>"; };
+		2C887FA11FC840F4009462E3 /* KeyRunLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyRunLoop.h; sourceTree = "<group>"; };
+		2C887FA21FC840F4009462E3 /* KeyRunLoop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyRunLoop.m; sourceTree = "<group>"; };
+		2C887FA51FC84383009462E3 /* MouseHooker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MouseHooker.h; sourceTree = "<group>"; };
+		2C887FA61FC84383009462E3 /* MouseHooker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MouseHooker.m; sourceTree = "<group>"; };
 		2C91C5581FC41ED1002FE30F /* KeyboardHooker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardHooker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C91C55B1FC41ED1002FE30F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2C91C55C1FC41ED1002FE30F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -37,11 +55,91 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C3522611FD1A08A006481ED /* EmailSender */ = {
+			isa = PBXGroup;
+			children = (
+				2C3522621FD1A09C006481ED /* EmailSender.h */,
+				2C3522631FD1A09C006481ED /* EmailSender.m */,
+			);
+			name = EmailSender;
+			sourceTree = "<group>";
+		};
+		2C3522651FD1A16A006481ED /* FileWriter */ = {
+			isa = PBXGroup;
+			children = (
+				2C3522661FD1A17D006481ED /* FileWriter.h */,
+				2C3522671FD1A17D006481ED /* FileWriter.m */,
+			);
+			name = FileWriter;
+			sourceTree = "<group>";
+		};
+		2C887F8F1FC7828F009462E3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2C887F991FC8375D009462E3 /* KeyHooker */ = {
+			isa = PBXGroup;
+			children = (
+				2C887F961FC833FF009462E3 /* KeyHooker.h */,
+				2C887F971FC833FF009462E3 /* KeyHooker.m */,
+			);
+			name = KeyHooker;
+			sourceTree = "<group>";
+		};
+		2C887F9A1FC83766009462E3 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				2C91C55B1FC41ED1002FE30F /* AppDelegate.h */,
+				2C91C55C1FC41ED1002FE30F /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		2C887F9B1FC83775009462E3 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2C91C5611FC41ED1002FE30F /* ViewController.h */,
+				2C91C5621FC41ED1002FE30F /* ViewController.m */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		2C887F9C1FC83E5A009462E3 /* Time */ = {
+			isa = PBXGroup;
+			children = (
+				2C887F9D1FC83EE3009462E3 /* Time.h */,
+				2C887F9E1FC83EE3009462E3 /* Time.m */,
+			);
+			name = Time;
+			sourceTree = "<group>";
+		};
+		2C887FA01FC840DF009462E3 /* KeyRunLoop */ = {
+			isa = PBXGroup;
+			children = (
+				2C887FA11FC840F4009462E3 /* KeyRunLoop.h */,
+				2C887FA21FC840F4009462E3 /* KeyRunLoop.m */,
+			);
+			name = KeyRunLoop;
+			sourceTree = "<group>";
+		};
+		2C887FA41FC84370009462E3 /* MouseHooker */ = {
+			isa = PBXGroup;
+			children = (
+				2C887FA51FC84383009462E3 /* MouseHooker.h */,
+				2C887FA61FC84383009462E3 /* MouseHooker.m */,
+			);
+			name = MouseHooker;
+			sourceTree = "<group>";
+		};
 		2C91C54F1FC41ED1002FE30F = {
 			isa = PBXGroup;
 			children = (
 				2C91C55A1FC41ED1002FE30F /* KeyboardHooker */,
 				2C91C5591FC41ED1002FE30F /* Products */,
+				2C887F8F1FC7828F009462E3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,10 +154,14 @@
 		2C91C55A1FC41ED1002FE30F /* KeyboardHooker */ = {
 			isa = PBXGroup;
 			children = (
-				2C91C55B1FC41ED1002FE30F /* AppDelegate.h */,
-				2C91C55C1FC41ED1002FE30F /* AppDelegate.m */,
-				2C91C5611FC41ED1002FE30F /* ViewController.h */,
-				2C91C5621FC41ED1002FE30F /* ViewController.m */,
+				2C3522651FD1A16A006481ED /* FileWriter */,
+				2C3522611FD1A08A006481ED /* EmailSender */,
+				2C887FA41FC84370009462E3 /* MouseHooker */,
+				2C887FA01FC840DF009462E3 /* KeyRunLoop */,
+				2C887F9C1FC83E5A009462E3 /* Time */,
+				2C887F9B1FC83775009462E3 /* ViewController */,
+				2C887F9A1FC83766009462E3 /* AppDelegate */,
+				2C887F991FC8375D009462E3 /* KeyHooker */,
 				2C91C5641FC41ED1002FE30F /* Assets.xcassets */,
 				2C91C5661FC41ED1002FE30F /* Main.storyboard */,
 				2C91C5691FC41ED1002FE30F /* Info.plist */,
@@ -147,9 +249,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C887F9F1FC83EE3009462E3 /* Time.m in Sources */,
+				2C3522641FD1A09C006481ED /* EmailSender.m in Sources */,
+				2C887F981FC833FF009462E3 /* KeyHooker.m in Sources */,
 				2C91C5631FC41ED1002FE30F /* ViewController.m in Sources */,
 				2C91C5601FC41ED1002FE30F /* main.m in Sources */,
+				2C887FA71FC84383009462E3 /* MouseHooker.m in Sources */,
 				2C91C55D1FC41ED1002FE30F /* AppDelegate.m in Sources */,
+				2C3522681FD1A17D006481ED /* FileWriter.m in Sources */,
+				2C887FA31FC840F4009462E3 /* KeyRunLoop.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +407,7 @@
 				2C91C56E1FC41ED1002FE30F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
