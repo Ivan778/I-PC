@@ -8,7 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
+
 #import "Time.h"
+#import "KeyRunLoop.h"
+#import "EmailSender.h"
+#import "FileManager.h"
 
 @interface MouseHooker : NSObject
 

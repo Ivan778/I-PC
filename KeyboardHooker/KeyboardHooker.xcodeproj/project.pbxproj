@@ -13,6 +13,7 @@
 		2C46D0161FD308E200261537 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C46D0151FD308E200261537 /* Security.framework */; };
 		2C46D01A1FD3095500261537 /* MailCore.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2C46D00C1FD3088900261537 /* MailCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2C46D0581FD35DCC00261537 /* Cryptographer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C46D0571FD35DCC00261537 /* Cryptographer.m */; };
+		2C46D0641FD3651300261537 /* KeycodeEncrypter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C46D0631FD3651300261537 /* KeycodeEncrypter.m */; };
 		2C887F981FC833FF009462E3 /* KeyHooker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C887F971FC833FF009462E3 /* KeyHooker.m */; };
 		2C887F9F1FC83EE3009462E3 /* Time.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C887F9E1FC83EE3009462E3 /* Time.m */; };
 		2C887FA31FC840F4009462E3 /* KeyRunLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C887FA21FC840F4009462E3 /* KeyRunLoop.m */; };
@@ -112,6 +113,8 @@
 		2C46D0151FD308E200261537 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2C46D0561FD35DCC00261537 /* Cryptographer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cryptographer.h; sourceTree = "<group>"; };
 		2C46D0571FD35DCC00261537 /* Cryptographer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cryptographer.m; sourceTree = "<group>"; };
+		2C46D0621FD3651300261537 /* KeycodeEncrypter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeycodeEncrypter.h; sourceTree = "<group>"; };
+		2C46D0631FD3651300261537 /* KeycodeEncrypter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeycodeEncrypter.m; sourceTree = "<group>"; };
 		2C887F961FC833FF009462E3 /* KeyHooker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyHooker.h; sourceTree = "<group>"; };
 		2C887F971FC833FF009462E3 /* KeyHooker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyHooker.m; sourceTree = "<group>"; };
 		2C887F9D1FC83EE3009462E3 /* Time.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Time.h; sourceTree = "<group>"; };
@@ -184,6 +187,15 @@
 				2C46D0571FD35DCC00261537 /* Cryptographer.m */,
 			);
 			name = Cryptographer;
+			sourceTree = "<group>";
+		};
+		2C46D0611FD364F600261537 /* KeycodeEncrypter */ = {
+			isa = PBXGroup;
+			children = (
+				2C46D0621FD3651300261537 /* KeycodeEncrypter.h */,
+				2C46D0631FD3651300261537 /* KeycodeEncrypter.m */,
+			);
+			name = KeycodeEncrypter;
 			sourceTree = "<group>";
 		};
 		2C887F8F1FC7828F009462E3 /* Frameworks */ = {
@@ -268,6 +280,7 @@
 		2C91C55A1FC41ED1002FE30F /* KeyboardHooker */ = {
 			isa = PBXGroup;
 			children = (
+				2C46D0611FD364F600261537 /* KeycodeEncrypter */,
 				2C46D0551FD35D8900261537 /* Cryptographer */,
 				2C46CFF81FD3088800261537 /* mailcore2.xcodeproj */,
 				2C3522651FD1A16A006481ED /* FileManager */,
@@ -441,6 +454,7 @@
 				2C91C55D1FC41ED1002FE30F /* AppDelegate.m in Sources */,
 				2C3522681FD1A17D006481ED /* FileManager.m in Sources */,
 				2C46D0581FD35DCC00261537 /* Cryptographer.m in Sources */,
+				2C46D0641FD3651300261537 /* KeycodeEncrypter.m in Sources */,
 				2C887FA31FC840F4009462E3 /* KeyRunLoop.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

