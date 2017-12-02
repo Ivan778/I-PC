@@ -1,5 +1,5 @@
 //
-//  FileWriter.h
+//  FileManager.h
 //  KeyboardHooker
 //
 //  Created by Иван on 01.12.17.
@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FileWriter : NSObject
+@interface FileManager : NSObject
 
 + (void)createFile: (NSString*)name;
 + (void)writeToFile: (NSString*)name file:(NSString*)stringToWrite;
 + (void)clearFile: (NSString*)name;
++ (unsigned long long)getFileSize: (NSString*)name;
 
 @end

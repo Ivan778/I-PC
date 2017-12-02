@@ -1,14 +1,14 @@
 //
-//  FileWriter.m
+//  FileManager.m
 //  KeyboardHooker
 //
 //  Created by Иван on 01.12.17.
 //  Copyright © 2017 IvanCode. All rights reserved.
 //
 
-#import "FileWriter.h"
+#import "FileManager.h"
 
-@implementation FileWriter
+@implementation FileManager
 
 + (NSString*)pathToDesktop {
     return [NSSearchPathForDirectoriesInDomains(NSDesktopDirectory, NSUserDomainMask, YES) objectAtIndex:0];
@@ -34,6 +34,11 @@
 + (void)clearFile: (NSString*)name {
     NSString *path = [NSString stringWithFormat:@"%@%@", [self pathToFile], name];
     [@"" writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
+}
+
++ (unsigned long long)getFileSize: (NSString*)name {
+    NSString *path = [NSString stringWithFormat:@"%@%@", [self pathToFile], name];
+    return [[[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil] fileSize];
 }
 
 @end

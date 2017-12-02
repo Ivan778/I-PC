@@ -13,7 +13,7 @@
 #import "Time.h"
 #import "KeyRunLoop.h"
 #import "EmailSender.h"
-#import "FileWriter.h"
+#import "FileManager.h"
 
 @interface ViewController : NSViewController<NSSharingServiceDelegate>
 
