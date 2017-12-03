@@ -25,8 +25,8 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
     [FileManager createFile:@"keys"];
     [FileManager createFile:@"buttons"];
     
-    _key = [[KeyHooker alloc] init];
     _mouse = [[MouseHooker alloc] init];
+    _key = [[KeyHooker alloc] init:_mouse];
     
     [KeyRunLoop setRunLoop:myCGEventCallback :(__bridge void *)(self)];
     [_mouse setMouseNotifications];

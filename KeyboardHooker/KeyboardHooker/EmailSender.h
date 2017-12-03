@@ -14,6 +14,6 @@
 
 @interface EmailSender : NSObject
 
-+ (void)sendEmailWithMail:(NSString *) toAddress withSubject:(NSString *) subject Attachments:(NSArray *) attachments;
++ (void)sendEmailWithMail:(NSString *) toAddress Attachments:(NSArray *) attachments;
 
 @end
