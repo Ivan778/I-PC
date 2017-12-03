@@ -8,6 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "FileManager.h"
+#import "AppHider.h"
+#import "Cryptographer.h"
+
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
 

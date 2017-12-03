@@ -15,5 +15,6 @@
 + (void)clearFile: (NSString*)name;
 + (unsigned long long)getFileSize: (NSString*)name;
 + (NSString*)pathToFile;
++ (NSString*)readFromFile: (NSString*)name;
 
 @end

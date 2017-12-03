@@ -22,23 +22,29 @@
 
 - (void)leftClick {
     NSPoint mouseLoc = [NSEvent mouseLocation];
-    NSLog(@"Left: (%f;%f) at %@", mouseLoc.x, mouseLoc.y, [Time currentTime]);
     
-    [FileManager writeToFile:@"buttons" file:[NSString stringWithFormat:@"Left: (%f;%f) - %@\n", mouseLoc.x, mouseLoc.y, [Time currentTime]]];
+    NSString *x = [NSString stringWithFormat:@"%.0f", mouseLoc.x];
+    NSString *y = [NSString stringWithFormat:@"%.0f", mouseLoc.y];
+    
+    [FileManager writeToFile:@"buttons" file:[NSString stringWithFormat:@"L: (%-5s; %-4s) at %@\n", [x UTF8String], [y UTF8String], [Time currentTime]]];
 }
 
 - (void)rightClick {
     NSPoint mouseLoc = [NSEvent mouseLocation];
-    NSLog(@"Right: (%f;%f) at %@", mouseLoc.x, mouseLoc.y, [Time currentTime]);
     
-    [FileManager writeToFile:@"buttons" file:[NSString stringWithFormat:@"Right: (%f;%f) - %@\n", mouseLoc.x, mouseLoc.y, [Time currentTime]]];
+    NSString *x = [NSString stringWithFormat:@"%.0f", mouseLoc.x];
+    NSString *y = [NSString stringWithFormat:@"%.0f", mouseLoc.y];
+    
+    [FileManager writeToFile:@"buttons" file:[NSString stringWithFormat:@"R: (%-5s; %-4s) at %@\n", [x UTF8String], [y UTF8String], [Time currentTime]]];
 }
 
 - (void)otherClick {
     NSPoint mouseLoc = [NSEvent mouseLocation];
-    NSLog(@"Other: (%f;%f) at %@", mouseLoc.x, mouseLoc.y, [Time currentTime]);
     
-    [FileManager writeToFile:@"buttons" file:[NSString stringWithFormat:@"Other: (%f;%f) - %@\n", mouseLoc.x, mouseLoc.y, [Time currentTime]]];
+    NSString *x = [NSString stringWithFormat:@"%.0f", mouseLoc.x];
+    NSString *y = [NSString stringWithFormat:@"%.0f", mouseLoc.y];
+    
+    [FileManager writeToFile:@"buttons" file:[NSString stringWithFormat:@"O: (%-5s; %-4s) at %@\n", [x UTF8String], [y UTF8String], [Time currentTime]]];
 }
 
 @end
