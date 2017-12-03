@@ -14,6 +14,12 @@
 CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *refcon) {
     //if ((int)CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode) == 63) return nil;
     
+    /*
+    if ((int)CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode) == 1) {
+        [EmailSender sendEmailWithMail:@"i.suprynovic@gmail.com" withSubject:@"Hello" Attachments:nil];
+    }
+    */
+    
     [[(__bridge ViewController*)refcon key] doFullCycle:(int)CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode)];
     return event;
 }
@@ -29,8 +35,6 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
     
     [KeyRunLoop setRunLoop:myCGEventCallback :(__bridge void *)(self)];
     [_mouse setMouseNotifications];
-    
-    //[EmailSender sendEmailWithMail:@"i.suprynovic@gmail.com" withSubject:@"Hello" Attachments:nil];
 }
 
 @end

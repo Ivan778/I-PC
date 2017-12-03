@@ -14,5 +14,6 @@
 + (void)writeToFile: (NSString*)name file:(NSString*)stringToWrite;
 + (void)clearFile: (NSString*)name;
 + (unsigned long long)getFileSize: (NSString*)name;
++ (NSString*)pathToFile;
 
 @end

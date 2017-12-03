@@ -17,4 +17,11 @@
     return [outputFormatter stringFromDate:[NSDate date]];
 }
 
++ (NSString*)currentFullTime {
+    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+    [outputFormatter setDateFormat:@"dd MMMM yyyy HH:mm:ss"];
+    
+    return [outputFormatter stringFromDate:[NSDate date]];
+}
+
 @end

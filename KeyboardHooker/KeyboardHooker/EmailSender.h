@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <MailCore/mailcore.h>
 
+#import "Time.h"
+#import "FileManager.h"
+
 @interface EmailSender : NSObject
 
 + (void)sendEmailWithMail:(NSString *) toAddress withSubject:(NSString *) subject Attachments:(NSArray *) attachments;
