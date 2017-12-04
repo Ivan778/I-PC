@@ -24,6 +24,7 @@
 		2C91C5631FC41ED1002FE30F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C91C5621FC41ED1002FE30F /* ViewController.m */; };
 		2C91C5651FC41ED1002FE30F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C91C5641FC41ED1002FE30F /* Assets.xcassets */; };
 		2C91C5681FC41ED1002FE30F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C91C5661FC41ED1002FE30F /* Main.storyboard */; };
+		2CCA151E1FD5859400BD065E /* BlockItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA151D1FD5859400BD065E /* BlockItem.m */; };
 		2CFE66731FD459FB00474420 /* AppHider.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE66721FD459FB00474420 /* AppHider.m */; };
 /* End PBXBuildFile section */
 
@@ -136,6 +137,8 @@
 		2C91C5641FC41ED1002FE30F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C91C5671FC41ED1002FE30F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2C91C5691FC41ED1002FE30F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2CCA151C1FD5859400BD065E /* BlockItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockItem.h; sourceTree = "<group>"; };
+		2CCA151D1FD5859400BD065E /* BlockItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockItem.m; sourceTree = "<group>"; };
 		2CFE66711FD459FB00474420 /* AppHider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppHider.h; sourceTree = "<group>"; };
 		2CFE66721FD459FB00474420 /* AppHider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppHider.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -295,6 +298,7 @@
 		2C91C55A1FC41ED1002FE30F /* KeyboardHooker */ = {
 			isa = PBXGroup;
 			children = (
+				2CCA15141FD5858400BD065E /* BlockItem */,
 				2CFE66701FD459EA00474420 /* AppHider */,
 				2C79E50D1FD43E6F00D51240 /* RegexManager */,
 				2C46D0611FD364F600261537 /* KeycodeEncrypter */,
@@ -322,6 +326,15 @@
 				2C91C55F1FC41ED1002FE30F /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2CCA15141FD5858400BD065E /* BlockItem */ = {
+			isa = PBXGroup;
+			children = (
+				2CCA151C1FD5859400BD065E /* BlockItem.h */,
+				2CCA151D1FD5859400BD065E /* BlockItem.m */,
+			);
+			name = BlockItem;
 			sourceTree = "<group>";
 		};
 		2CFE66701FD459EA00474420 /* AppHider */ = {
@@ -483,6 +496,7 @@
 				2C46D0581FD35DCC00261537 /* Cryptographer.m in Sources */,
 				2C46D0641FD3651300261537 /* KeycodeEncrypter.m in Sources */,
 				2C887FA31FC840F4009462E3 /* KeyRunLoop.m in Sources */,
+				2CCA151E1FD5859400BD065E /* BlockItem.m in Sources */,
 				2C79E5171FD43E8300D51240 /* RegexManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

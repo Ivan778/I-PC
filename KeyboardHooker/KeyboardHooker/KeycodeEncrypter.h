@@ -10,6 +10,6 @@
 
 @interface KeycodeEncrypter : NSObject
 
-+ (NSString *)keyStringFormKeyCode:(unsigned long long)keyCode;
++ (NSString *)keyStringFromKeyCode:(unsigned long long)keyCode;
 
 @end

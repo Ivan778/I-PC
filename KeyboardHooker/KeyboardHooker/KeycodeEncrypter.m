@@ -10,7 +10,7 @@
 
 @implementation KeycodeEncrypter
 
-+ (NSString *)keyStringFormKeyCode:(unsigned long long)key {
++ (NSString *)keyStringFromKeyCode:(unsigned long long)key {
     // Proper key detection seems to want a switch statement, unfortunately
     switch (key) {
         case 0: return @"a";

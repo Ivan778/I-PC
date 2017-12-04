@@ -24,4 +24,9 @@
     return [outputFormatter stringFromDate:[NSDate date]];
 }
 
++ (NSInteger)currentTimeSince1970InMilliseconds {
+    NSTimeInterval milisecondedDate = ([[NSDate date] timeIntervalSince1970] * 1000);
+    return round(milisecondedDate);
+}
+
 @end

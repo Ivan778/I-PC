@@ -12,5 +12,6 @@
 
 + (NSString*)currentTime;
 + (NSString*)currentFullTime;
++ (NSInteger)currentTimeSince1970InMilliseconds;
 
 @end
