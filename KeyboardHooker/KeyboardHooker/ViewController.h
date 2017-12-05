@@ -33,13 +33,7 @@
 @property MouseHooker *mouse;
 @property BlockKeyManager *keyBlocker;
 
-@property BOOL pressAddFlag;
 @property NSMutableArray<BlockItem*> *buttonsBlockArray;
-
-@property NSInteger start;
-@property NSInteger index;
-@property NSInteger delay;
-@property NSString *toBlock;
 
 @property (weak) IBOutlet NSTextField *emailTextField;
 @property (weak) IBOutlet NSTextField *fileSize;

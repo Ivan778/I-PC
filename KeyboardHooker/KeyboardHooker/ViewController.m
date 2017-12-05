@@ -11,71 +11,34 @@
 
 @implementation ViewController
 
+// MARK: - 
 CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *refcon) {
     int key = (int)CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode);
-    
-    /*
-    if ([Time currentTimeSince1970InMilliseconds] - ((__bridge ViewController*)refcon).start <= ((__bridge ViewController*)refcon).delay) {
-        NSString *keyString = [KeycodeEncrypter keyStringFromKeyCode:key];
-        if ([((__bridge ViewController*)refcon).toBlock containsString:keyString]) {
-            return nil;
-        }
-    }
-     */
-    
-    //((__bridge ViewController*)refcon).index = [(__bridge ViewController*)refcon check:key];
-     /*
-    if (((__bridge ViewController*)refcon).index != -1) {
-        ((__bridge ViewController*)refcon).start = [Time currentTimeSince1970InMilliseconds];
-        ((__bridge ViewController*)refcon).delay = ((__bridge ViewController*)refcon).buttonsBlockArray[((__bridge ViewController*)refcon).index].delay;
-        ((__bridge ViewController*)refcon).toBlock = ((__bridge ViewController*)refcon).buttonsBlockArray[((__bridge ViewController*)refcon).index].blockKeys;
-    }
-    */
     
     if ([((__bridge ViewController*)refcon).keyBlocker blockCycle:key]) {
         return nil;
     }
-     
-    /*
-    if ([(__bridge ViewController*)refcon pressAddFlag] == YES) {
-        if (((__bridge ViewController*)refcon).index == -1) {
-            BlockItem *item = [[BlockItem alloc] init:key :0 :[Time currentTimeSince1970InMilliseconds]];
-            [[(__bridge ViewController*)refcon buttonsBlockArray] addObject:item];
-            [((__bridge ViewController*)refcon).tableView reloadData];
-        }
-        ((__bridge ViewController*)refcon).pressAddFlag = NO;
-        [((__bridge ViewController*)refcon).addBlockButton setEnabled:YES];
-    }
-     */
     
     [[(__bridge ViewController*)refcon key] doFullCycle:key];
     return event;
 }
 
-- (int)check: (NSInteger)key {
-    int i = 0;
-    for (BlockItem *item in _buttonsBlockArray) {
-        if (item.key == key) {
-            return i;
-        }
-        i++;
-    }
-    return -1;
-}
-
+// MARK: - viewDidLoad
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Array for showing blocked keys
     _buttonsBlockArray = [[NSMutableArray alloc] init];
-    _pressAddFlag = false;
     
     [_emailTextField setDelegate:self];
     [_fileSize setDelegate:self];
     
+    // Setting tableView
     [_tableView setDelegate:self];
     [_tableView setDataSource:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(editingDidEnd:) name:NSControlTextDidEndEditingNotification object:nil];
     
+    // Creating files for log
     [FileManager createFile:@"keys"];
     [FileManager createFile:@"buttons"];
     
@@ -87,6 +50,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
     [_mouse setMouseNotifications];
 }
 
+// MARK: - Controlling e-mail and file size NSTextField input
 - (void)controlTextDidChange: (NSNotification*)notification {
     NSTextField *textField = [notification object];
     
@@ -120,6 +84,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
     }
 }
 
+// MARK: - User clicked "Save changes" button
 - (IBAction)clickedSaveButton:(id)sender {
     [FileManager createFile:@"config"];
     
@@ -149,7 +114,8 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
     
     if ([tableColumn.identifier isEqualToString:@"Button"]) {
         cellView = [tableView makeViewWithIdentifier:@"b" owner:self];
-        NSString *str = [NSString stringWithFormat:@"%ld (%@)", (long)_buttonsBlockArray[row].key, [KeycodeEncrypter keyStringFromKeyCode:(long long)_buttonsBlockArray[row].key]];
+        NSString *str = [NSString stringWithFormat:@"%ld (%@)", (long)_buttonsBlockArray[row].key,
+                         [KeycodeEncrypter keyStringFromKeyCode:(long long)_buttonsBlockArray[row].key]];
         if (str != nil) {
             [[cellView textField] setStringValue:str];
         } else {
@@ -199,7 +165,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
         }
     } else if ([[notification object] tag] == 1001) {
         NSString *key = [KeycodeEncrypter keyStringFromKeyCode:_buttonsBlockArray[selectedRow].key];
-        if (/*[RegexManager validateLowCaseOnly:text] && */[text containsString:key] == NO) {
+        if ([text containsString:key] == NO) {
             _buttonsBlockArray[selectedRow].blockKeys = [NSMutableString stringWithFormat:@"%@", text];
             [_tableView reloadData];
         } else {
@@ -209,7 +175,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
     }
 }
 
-// MARK: - button clicks
+// MARK: - Block key buttonsb
 - (IBAction)clickedDeleteButton:(id)sender {
     NSInteger currentRow = [_tableView selectedRow];
     if (currentRow >=0) {
@@ -220,7 +186,6 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
 
 - (IBAction)addKey:(id)sender {
     [[self keyBlocker] setPressAddFlag:YES];
-    //_pressAddFlag = YES;
     [sender setEnabled:false];
 }
 

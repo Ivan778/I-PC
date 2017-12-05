@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <SystemConfiguration/SystemConfiguration.h>
 
 @interface KeyRunLoop : NSObject
 

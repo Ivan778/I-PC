@@ -15,6 +15,7 @@
     
     buttonsBlockArray = array;
     delegate = deleg;
+    pressAddFlag = false;
     
     return self;
 }
