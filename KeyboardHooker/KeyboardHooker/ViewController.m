@@ -14,20 +14,23 @@
 CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *refcon) {
     int key = (int)CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode);
     
-    if ([Time currentTimeSince1970InMilliseconds] - ((__bridge ViewController*)refcon).start <= 200) return nil;
+    if ([Time currentTimeSince1970InMilliseconds] - ((__bridge ViewController*)refcon).start <= ((__bridge ViewController*)refcon).delay) return nil;
     
     ((__bridge ViewController*)refcon).index = [(__bridge ViewController*)refcon check:key];
     if (((__bridge ViewController*)refcon).index != -1) {
         ((__bridge ViewController*)refcon).start = [Time currentTimeSince1970InMilliseconds];
+        ((__bridge ViewController*)refcon).delay = ((__bridge ViewController*)refcon).buttonsBlockArray[((__bridge ViewController*)refcon).index].delay;
     }
     
     if ([(__bridge ViewController*)refcon pressAddFlag] == YES) {
-        BlockItem *item = [[BlockItem alloc] init:key :1000 :[Time currentTimeSince1970InMilliseconds]];
-        [[(__bridge ViewController*)refcon buttonsBlockArray] addObject:item];
+        if (((__bridge ViewController*)refcon).index == -1) {
+            BlockItem *item = [[BlockItem alloc] init:key :0 :[Time currentTimeSince1970InMilliseconds]];
+            [[(__bridge ViewController*)refcon buttonsBlockArray] addObject:item];
+            
+            [((__bridge ViewController*)refcon).tableView reloadData];
+        }
         ((__bridge ViewController*)refcon).pressAddFlag = NO;
         [((__bridge ViewController*)refcon).addBlockButton setEnabled:YES];
-        
-        [((__bridge ViewController*)refcon).tableView reloadData];
     }
     
     [[(__bridge ViewController*)refcon key] doFullCycle:key];
@@ -64,6 +67,19 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
     
     [KeyRunLoop setRunLoop:myCGEventCallback :(__bridge void *)(self)];
     [_mouse setMouseNotifications];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(editingDidEnd:) name:NSControlTextDidEndEditingNotification object:nil];
+}
+
+- (void)editingDidEnd: (NSNotification*)notification {
+    NSString *text = [[notification object] stringValue];
+    
+    if ([RegexManager validateSize:text]) {
+        _buttonsBlockArray[selectedRow].delay = [text integerValue];
+        [_tableView reloadData];
+    } else {
+        [[notification object] setStringValue:@"0"];
+    }
 }
 
 - (void)controlTextDidChange: (NSNotification*)notification {
@@ -112,6 +128,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
      */
 }
 
+// MARK: - TableView delegate methods
 - (NSView*)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     NSTableCellView *cellView = [tableView makeViewWithIdentifier:@"Button" owner:self];
     
@@ -143,6 +160,22 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     return [_buttonsBlockArray count];
+}
+
+- (void)tableViewSelectionDidChange:(NSNotification *)notification {
+    NSInteger row = [notification.object selectedRow];
+    if (row >= 0) {
+        selectedRow = row;
+    }
+}
+
+// MARK: - button clicks
+- (IBAction)clickedDeleteButton:(id)sender {
+    NSInteger currentRow = [_tableView selectedRow];
+    if (currentRow >=0) {
+        [_buttonsBlockArray removeObjectAtIndex:currentRow];
+        [_tableView reloadData];
+    }
 }
 
 - (IBAction)addKey:(id)sender {

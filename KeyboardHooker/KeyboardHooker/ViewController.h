@@ -24,6 +24,8 @@
 {
     BOOL emailFlag;
     BOOL sizeFlag;
+    
+    NSInteger selectedRow;
 }
 
 @property KeyHooker *key;
@@ -33,9 +35,11 @@
 @property NSMutableArray<BlockItem*> *buttonsBlockArray;
 @property NSInteger start;
 @property NSInteger index;
+@property NSInteger delay;
 
 @property (weak) IBOutlet NSTextField *emailTextField;
 @property (weak) IBOutlet NSTextField *fileSize;
+
 @property (weak) IBOutlet NSButton *hiddenModeSwitch;
 @property (weak) IBOutlet NSButton *saveButton;
 @property (weak) IBOutlet NSButton *addBlockButton;
