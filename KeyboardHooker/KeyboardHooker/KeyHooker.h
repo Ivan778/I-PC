@@ -16,6 +16,7 @@
 #import "KeycodeEncrypter.h"
 #import "AppHider.h"
 #import "Cryptographer.h"
+#import "RegexManager.h"
 
 @protocol ShouldSendDelegate <NSObject>
 @optional
@@ -32,6 +33,7 @@
     NSMutableArray *combination;
     NSInteger fileSize;
     NSString *email;
+    BOOL trueEmail;
     
     id <ShouldSendDelegate> delegate;
 }

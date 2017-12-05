@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C3228201FD734230062EAC2 /* BlockKeyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C32281F1FD734230062EAC2 /* BlockKeyManager.m */; };
 		2C3522641FD1A09C006481ED /* EmailSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3522631FD1A09C006481ED /* EmailSender.m */; };
 		2C3522681FD1A17D006481ED /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3522671FD1A17D006481ED /* FileManager.m */; };
 		2C46D0141FD308DC00261537 /* MailCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C46D00C1FD3088900261537 /* MailCore.framework */; };
@@ -108,6 +109,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2C32281E1FD734230062EAC2 /* BlockKeyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockKeyManager.h; sourceTree = "<group>"; };
+		2C32281F1FD734230062EAC2 /* BlockKeyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockKeyManager.m; sourceTree = "<group>"; };
 		2C3522621FD1A09C006481ED /* EmailSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailSender.h; sourceTree = "<group>"; };
 		2C3522631FD1A09C006481ED /* EmailSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailSender.m; sourceTree = "<group>"; };
 		2C3522661FD1A17D006481ED /* FileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileManager.h; sourceTree = "<group>"; };
@@ -156,6 +159,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C3228161FD734030062EAC2 /* BlockKeyManager */ = {
+			isa = PBXGroup;
+			children = (
+				2C32281E1FD734230062EAC2 /* BlockKeyManager.h */,
+				2C32281F1FD734230062EAC2 /* BlockKeyManager.m */,
+			);
+			name = BlockKeyManager;
+			sourceTree = "<group>";
+		};
 		2C3522611FD1A08A006481ED /* EmailSender */ = {
 			isa = PBXGroup;
 			children = (
@@ -298,6 +310,7 @@
 		2C91C55A1FC41ED1002FE30F /* KeyboardHooker */ = {
 			isa = PBXGroup;
 			children = (
+				2C3228161FD734030062EAC2 /* BlockKeyManager */,
 				2CCA15141FD5858400BD065E /* BlockItem */,
 				2CFE66701FD459EA00474420 /* AppHider */,
 				2C79E50D1FD43E6F00D51240 /* RegexManager */,
@@ -485,6 +498,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C887F9F1FC83EE3009462E3 /* Time.m in Sources */,
+				2C3228201FD734230062EAC2 /* BlockKeyManager.m in Sources */,
 				2C3522641FD1A09C006481ED /* EmailSender.m in Sources */,
 				2C887F981FC833FF009462E3 /* KeyHooker.m in Sources */,
 				2C91C5631FC41ED1002FE30F /* ViewController.m in Sources */,

@@ -16,6 +16,7 @@
     self.key = k;
     self.delay = d;
     self.start = s;
+    self.blockKeys = [NSMutableString stringWithFormat:@""];
     
     return self;
 }

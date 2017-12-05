@@ -14,6 +14,7 @@
 @property NSInteger key;
 @property NSInteger delay;
 @property NSInteger start;
+@property NSMutableString *blockKeys;
 
 - (id)init: (NSInteger)k : (NSInteger)d: (NSInteger)s;
 

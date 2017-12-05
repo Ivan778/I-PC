@@ -11,6 +11,7 @@
 @interface RegexManager : NSObject
 
 + (BOOL)validateEmail: (NSString *)candidate;
-+ (BOOL)validateSize: (NSString *)candidate;
++ (BOOL)validateDigitsOnly: (NSString *)candidate;
++ (BOOL)validateLowCaseOnly: (NSString*)candidate;
 
 @end

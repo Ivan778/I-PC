@@ -23,6 +23,7 @@
     NSInteger fileSize;
     BOOL shouldSend;
     NSString *email;
+    BOOL trueEmail;
 }
 
 - (id)init;

@@ -143,8 +143,7 @@
     }
 }
 
-+ (CGKeyCode)keyCodeFormKeyString:(NSString *)keyString
-{
++ (CGKeyCode)keyCodeFormKeyString:(NSString *)keyString {
     if ([keyString isEqualToString:@"a"]) return 0;
     if ([keyString isEqualToString:@"s"]) return 1;
     if ([keyString isEqualToString:@"d"]) return 2;

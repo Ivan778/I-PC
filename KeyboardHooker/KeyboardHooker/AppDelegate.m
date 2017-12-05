@@ -19,12 +19,10 @@
     NSString *config = [FileManager readFromFile:@"config"];
     if ([config isNotEqualTo: @"error"]) {
         NSArray *components = [config componentsSeparatedByString:@"\n"];
-        NSLog(@"%@", [Cryptographer doIt:components[0]]);
-        NSLog(@"%@", [Cryptographer doIt:components[1]]);
-        NSLog(@"%@", [Cryptographer doIt:components[2]]);
-        
-        if ([[Cryptographer doIt:components[2]] isEqualToString:@"1"]) {
-            [NSApp setActivationPolicy:NSApplicationActivationPolicyAccessory];
+        if ([components count] == 3) {
+            if ([[Cryptographer doIt:components[2]] isEqualToString:@"1"]) {
+                [NSApp setActivationPolicy:NSApplicationActivationPolicyAccessory];
+            }
         }
     }
 }

@@ -18,8 +18,9 @@
 #import "Cryptographer.h"
 #import "BlockItem.h"
 #import "KeycodeEncrypter.h"
+#import "BlockKeyManager.h"
 
-@interface ViewController : NSViewController<NSTextFieldDelegate, NSTableViewDelegate, NSTableViewDataSource>
+@interface ViewController : NSViewController<NSTextFieldDelegate, NSTableViewDelegate, NSTableViewDataSource, BlockKeyManagerDelegate>
 
 {
     BOOL emailFlag;
@@ -30,12 +31,15 @@
 
 @property KeyHooker *key;
 @property MouseHooker *mouse;
+@property BlockKeyManager *keyBlocker;
 
 @property BOOL pressAddFlag;
 @property NSMutableArray<BlockItem*> *buttonsBlockArray;
+
 @property NSInteger start;
 @property NSInteger index;
 @property NSInteger delay;
+@property NSString *toBlock;
 
 @property (weak) IBOutlet NSTextField *emailTextField;
 @property (weak) IBOutlet NSTextField *fileSize;
