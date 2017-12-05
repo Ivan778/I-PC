@@ -19,6 +19,7 @@
 #import "BlockItem.h"
 #import "KeycodeEncrypter.h"
 #import "BlockKeyManager.h"
+#import "ConfigManager.h"
 
 @interface ViewController : NSViewController<NSTextFieldDelegate, NSTableViewDelegate, NSTableViewDataSource, BlockKeyManagerDelegate>
 
@@ -32,6 +33,7 @@
 @property KeyHooker *key;
 @property MouseHooker *mouse;
 @property BlockKeyManager *keyBlocker;
+@property KeyRunLoop *runloop;
 
 @property NSMutableArray<BlockItem*> *buttonsBlockArray;
 

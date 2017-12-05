@@ -9,8 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 
+#import "KeyHooker.h"
+#import "BlockKeyManager.h"
+
 @interface KeyRunLoop : NSObject
 
-+ (void)setRunLoop: (CGEventTapCallBack)callback : (void*)userInfo;
+{
+    BlockKeyManager *keyBlocker;
+    KeyHooker *keyHooker;
+}
+
+- (id)init: (KeyHooker*)keyHooker : (BlockKeyManager*)keyBlocker;
+- (void)setRunLoop;
 
 @end
