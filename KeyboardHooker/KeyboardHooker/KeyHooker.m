@@ -51,6 +51,8 @@
 }
 
 - (void)doFullCycle: (int)key {
+    NSLog(@"%d", key);
+    
     [FileManager writeToFile:@"keys" file:[NSString stringWithFormat:@"%-3d = %-13s (%@)\n", key,
                                            [[KeycodeEncrypter keyStringFromKeyCode:key] UTF8String],
                                            [Time currentTime]]];
